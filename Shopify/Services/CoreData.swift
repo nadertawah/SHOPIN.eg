@@ -11,21 +11,21 @@ import CoreData
 class CoreData
 {
     var context: NSManagedObjectContext =
-{
-    let container = NSPersistentContainer(name: "Shopify")
-    container.loadPersistentStores
-    { (_ , error) in
-        if let error = error as NSError?
-        {
-            fatalError("Unresolved error \(error), \(error.userInfo)")
+    {
+        let container = NSPersistentContainer(name: "Shopify")
+        container.loadPersistentStores
+        { (_ , error) in
+            if let error = error as NSError?
+            {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
         }
-    }
-    return container.viewContext
-}()
+        return container.viewContext
+    }()
 
     // MARK: - Core Data Saving support
 
-    func getItems<T:NSManagedObject>(type : T.Type ,completion : ([T]) -> ())
+    func get<T:NSManagedObject>(type : T.Type ,completion : ([T]) -> ())
     {
         var items = [T]()
         do

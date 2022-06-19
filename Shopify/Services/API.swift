@@ -6,20 +6,11 @@
 //
 
 import Foundation
-import CoreData
 import Alamofire
 
-class API
+class API : DataProviderProtocol
 {
-    static let shared = API()
-    static var isConnectedToInternet:Bool
-    {
-        return Connectivity.sharedInstance.isReachable
-    }
-    private init(){}
-    
-    
-    func httpGet<T:Decodable>(urlStr: String,type: T.Type, completion: @escaping (T?) -> ())
+    func get<T:Decodable>(urlStr: String,type: T.Type, completion: @escaping (T?) -> ())
     {
         AF.request(urlStr)
         
@@ -39,15 +30,3 @@ class API
         }
     }
 }
-
-struct Connectivity
-{
-    static let sharedInstance = NetworkReachabilityManager()!
-    static var isConnectedToInternet:Bool
-    {
-        return self.sharedInstance.isReachable
-    }
-    private init(){}
-}
-
-

@@ -10,6 +10,7 @@
 		01D7CD6E16131C0CB2A0C17B /* Pods_ShopifyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A6E91121D8E3B2A96B8B05 /* Pods_ShopifyTests.framework */; };
 		4AD674E6A03304039008B50A /* Pods_Shopify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF5DDE9B5B769EC0DF4C27E /* Pods_Shopify.framework */; };
 		75165920285FE1C200132444 /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7516591F285FE1C200132444 /* HomeVM.swift */; };
+		75165924285FEBA000132444 /* DataProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75165923285FEBA000132444 /* DataProviderProtocol.swift */; };
 		7524F769285FDE4B00BFBE51 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7524F768285FDE4B00BFBE51 /* Helper.swift */; };
 		7524F76C285FDE6600BFBE51 /* SplashScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7524F76A285FDE6600BFBE51 /* SplashScreenVC.swift */; };
 		7524F76D285FDE6600BFBE51 /* SplashScreenVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7524F76B285FDE6600BFBE51 /* SplashScreenVC.xib */; };
@@ -49,6 +50,7 @@
 		58FFC02BFBC947E06CBA94DA /* Pods-Shopify-ShopifyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shopify-ShopifyUITests.release.xcconfig"; path = "Target Support Files/Pods-Shopify-ShopifyUITests/Pods-Shopify-ShopifyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		5BF5DDE9B5B769EC0DF4C27E /* Pods_Shopify.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shopify.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7516591F285FE1C200132444 /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
+		75165923285FEBA000132444 /* DataProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderProtocol.swift; sourceTree = "<group>"; };
 		7524F768285FDE4B00BFBE51 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		7524F76A285FDE6600BFBE51 /* SplashScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenVC.swift; sourceTree = "<group>"; };
 		7524F76B285FDE6600BFBE51 /* SplashScreenVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashScreenVC.xib; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				755C468C285E39A4005C4208 /* API.swift */,
+				75165923285FEBA000132444 /* DataProviderProtocol.swift */,
 				755C468B285E39A4005C4208 /* CoreData.swift */,
 			);
 			path = Services;
@@ -496,6 +499,7 @@
 				755C4653285E38F0005C4208 /* AppDelegate.swift in Sources */,
 				755C465D285E38F0005C4208 /* Shopify.xcdatamodeld in Sources */,
 				7524F76C285FDE6600BFBE51 /* SplashScreenVC.swift in Sources */,
+				75165924285FEBA000132444 /* DataProviderProtocol.swift in Sources */,
 				755C4691285E4706005C4208 /* BaseTabBar.swift in Sources */,
 				755C4655285E38F0005C4208 /* SceneDelegate.swift in Sources */,
 				755C468E285E39A4005C4208 /* API.swift in Sources */,
