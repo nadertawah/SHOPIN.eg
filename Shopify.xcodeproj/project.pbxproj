@@ -14,6 +14,8 @@
 		7524F769285FDE4B00BFBE51 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7524F768285FDE4B00BFBE51 /* Helper.swift */; };
 		7524F76C285FDE6600BFBE51 /* SplashScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7524F76A285FDE6600BFBE51 /* SplashScreenVC.swift */; };
 		7524F76D285FDE6600BFBE51 /* SplashScreenVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7524F76B285FDE6600BFBE51 /* SplashScreenVC.xib */; };
+		752796292860E68600381C89 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752796272860E68600381C89 /* HomeVC.swift */; };
+		7527962A2860E68600381C89 /* HomeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 752796282860E68600381C89 /* HomeVC.xib */; };
 		75378E56285E4F16004DAD3D /* BaseNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75378E55285E4F16004DAD3D /* BaseNavBar.swift */; };
 		755C4653285E38F0005C4208 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C4652285E38F0005C4208 /* AppDelegate.swift */; };
 		755C4655285E38F0005C4208 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C4654285E38F0005C4208 /* SceneDelegate.swift */; };
@@ -54,6 +56,8 @@
 		7524F768285FDE4B00BFBE51 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		7524F76A285FDE6600BFBE51 /* SplashScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenVC.swift; sourceTree = "<group>"; };
 		7524F76B285FDE6600BFBE51 /* SplashScreenVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashScreenVC.xib; sourceTree = "<group>"; };
+		752796272860E68600381C89 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		752796282860E68600381C89 /* HomeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeVC.xib; sourceTree = "<group>"; };
 		75378E55285E4F16004DAD3D /* BaseNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavBar.swift; sourceTree = "<group>"; };
 		755C464F285E38F0005C4208 /* Shopify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shopify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		755C4652285E38F0005C4208 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +129,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		752796262860E64900381C89 /* HomeVC */ = {
+			isa = PBXGroup;
+			children = (
+				752796272860E68600381C89 /* HomeVC.swift */,
+				752796282860E68600381C89 /* HomeVC.xib */,
+			);
+			path = HomeVC;
+			sourceTree = "<group>";
+		};
 		755C4646285E38F0005C4208 = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +204,7 @@
 		755C4687285E3935005C4208 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				752796262860E64900381C89 /* HomeVC */,
 				755C4660285E38F2005C4208 /* LaunchScreen.storyboard */,
 				755C4692285E472D005C4208 /* SplashScreen */,
 				755C468F285E46F9005C4208 /* Base */,
@@ -365,6 +379,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				755C4662285E38F2005C4208 /* LaunchScreen.storyboard in Resources */,
+				7527962A2860E68600381C89 /* HomeVC.xib in Resources */,
 				755C465F285E38F2005C4208 /* Assets.xcassets in Resources */,
 				7524F76D285FDE6600BFBE51 /* SplashScreenVC.xib in Resources */,
 			);
@@ -503,6 +518,7 @@
 				755C4691285E4706005C4208 /* BaseTabBar.swift in Sources */,
 				755C4655285E38F0005C4208 /* SceneDelegate.swift in Sources */,
 				755C468E285E39A4005C4208 /* API.swift in Sources */,
+				752796292860E68600381C89 /* HomeVC.swift in Sources */,
 				755C468D285E39A4005C4208 /* CoreData.swift in Sources */,
 				7524F769285FDE4B00BFBE51 /* Helper.swift in Sources */,
 			);
