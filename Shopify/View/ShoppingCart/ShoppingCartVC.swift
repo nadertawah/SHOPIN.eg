@@ -9,6 +9,7 @@ import UIKit
 
 class ShoppingCartVC: UIViewController {
 
+    //OutLets
     @IBOutlet weak var cartTableView: UITableView!
     @IBOutlet weak var subTotalLabel: UILabel!
     @IBOutlet weak var proccedToChechoutBtn: UIButton!
@@ -18,9 +19,11 @@ class ShoppingCartVC: UIViewController {
         cartTableView.delegate = self
         cartTableView.dataSource = self
         
+        //Registration of Cart Cell
         cartTableView.register(UINib(nibName: "ShoppingCartCell", bundle: nil), forCellReuseIdentifier: "cartCell")
         
-        proccedToChechoutBtn.setBtn(tilte: "PROCCED TO CHECHOUT")
+        //CheckOut Btn Configrations
+        proccedToChechoutBtn.setBtn(tilte: "PROCCED TO CHECKOUT")
     }
 
 
@@ -29,6 +32,8 @@ class ShoppingCartVC: UIViewController {
     }
 }
 
+
+// MARK: - ShoppingCartVC DataSource & Delegate Methods
 extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
