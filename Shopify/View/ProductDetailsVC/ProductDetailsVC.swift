@@ -106,6 +106,10 @@ extension ProductDetailsVC : UICollectionViewDelegate , UICollectionViewDataSour
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
+    {
+        imgPageControl.currentPage = indexPath.row
+    }
     
 }
 

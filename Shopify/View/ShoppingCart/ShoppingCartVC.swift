@@ -7,8 +7,8 @@
 
 import UIKit
 
-class ShoppingCartVC: UIViewController {
-
+class ShoppingCartVC: UIViewController
+{
     //OutLets
     @IBOutlet weak var cartTableView: UITableView!
     @IBOutlet weak var subTotalLabel: UILabel!
@@ -23,12 +23,11 @@ class ShoppingCartVC: UIViewController {
         cartTableView.register(UINib(nibName: "ShoppingCartCell", bundle: nil), forCellReuseIdentifier: "cartCell")
         
         //CheckOut Btn Configrations
-        proccedToChechoutBtn.setBtn(tilte: "PROCCED TO CHECKOUT")
+        proccedToChechoutBtn.shopifyBtn(title: "PROCCED TO CHECKOUT")
     }
 
-
-
-    @IBAction func proccedToChechoutBtnPressed(_ sender: Any) {
+    @IBAction func proccedToChechoutBtnPressed(_ sender: Any)
+    {
         
     }
 }

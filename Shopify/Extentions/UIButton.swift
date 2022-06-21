@@ -8,16 +8,13 @@
 import Foundation
 import UIKit
 
-extension UIButton {
-    func setBtn (tilte : String) {
-        self.setTitle(tilte, for: .normal)
+extension UIButton
+{
+    func shopifyBtn (title : String)
+    {
         self.layer.cornerRadius = 15
         self.backgroundColor = .black
         self.tintColor = .white
-        self.configuration?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
-                        var outgoing = incoming
-                        outgoing.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-                        return outgoing
-                    }
+        self.setAttributedTitle(NSAttributedString(string: title,attributes:[NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 18)]), for: .normal)
     }
 }
