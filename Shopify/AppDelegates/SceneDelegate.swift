@@ -20,18 +20,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
-        let vc = ProductDetailsVC.init(nibName: "ProductDetailsVC", bundle: nil)
-        //let vc = ShoppingCartVC.init(nibName: "ShoppingCartVC", bundle: nil)
-        
-        window.rootViewController = vc
+        let navVC = BaseNavBar()
+    
+        window.rootViewController = navVC
         self.window = window
         window.makeKeyAndVisible()
         
         
-        
-        
-        
-
         
     }
 
