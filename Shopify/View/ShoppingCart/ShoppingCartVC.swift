@@ -37,8 +37,14 @@ extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = cartTableView.dequeueReusableCell(withIdentifier: "cartCell", for: indexPath) as! ShoppingCartCell
         
+        cell.productImageView.image = UIImage(named: "test")
+        cell.titleLabel.text = "BLUTECH Canvas Red Waterproof,Laptop College School Bag for Boys with Combo of Watch"
+        cell.priceLabel.text = "100 L.E"
+        
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
+    }
 }
