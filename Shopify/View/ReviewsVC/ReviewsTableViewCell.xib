@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="185" id="KGk-i7-Jjw" customClass="ReviewsTableViewCell" customModule="Shopify" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="436" height="185"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="436" height="185"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="reviewerName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEG-xN-5Sm">
+                        <rect key="frame" x="10" y="10" width="110" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NG9-9m-CQA" customClass="HCSStarRatingView">
+                        <rect key="frame" x="140" y="10" width="131" height="21"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tr2-lg-515">
+                        <rect key="frame" x="390" y="10" width="36" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hna-c4-VZj">
+                        <rect key="frame" x="10" y="61" width="416" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="Tr2-lg-515" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NG9-9m-CQA" secondAttribute="trailing" constant="10" id="30J-NX-tf7"/>
+                    <constraint firstItem="hna-c4-VZj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="AbL-Yb-Dsp"/>
+                    <constraint firstItem="Tr2-lg-515" firstAttribute="bottom" secondItem="GEG-xN-5Sm" secondAttribute="bottom" id="Dag-S2-LSP"/>
+                    <constraint firstItem="NG9-9m-CQA" firstAttribute="bottom" secondItem="GEG-xN-5Sm" secondAttribute="bottom" id="FH5-x4-MfC"/>
+                    <constraint firstItem="NG9-9m-CQA" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.3" id="Pv8-dU-Prb"/>
+                    <constraint firstItem="NG9-9m-CQA" firstAttribute="height" secondItem="GEG-xN-5Sm" secondAttribute="height" id="RfH-CB-Iqs"/>
+                    <constraint firstItem="hna-c4-VZj" firstAttribute="top" secondItem="GEG-xN-5Sm" secondAttribute="bottom" constant="30" id="cLa-18-7sT"/>
+                    <constraint firstAttribute="trailing" secondItem="Tr2-lg-515" secondAttribute="trailing" constant="10" id="ffl-SR-mmR"/>
+                    <constraint firstItem="NG9-9m-CQA" firstAttribute="leading" secondItem="GEG-xN-5Sm" secondAttribute="trailing" constant="20" id="gwK-Xh-Urf"/>
+                    <constraint firstAttribute="trailing" secondItem="hna-c4-VZj" secondAttribute="trailing" constant="10" id="nwX-fM-Hgd"/>
+                    <constraint firstItem="GEG-xN-5Sm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="vxn-Do-MID"/>
+                    <constraint firstItem="GEG-xN-5Sm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="zO0-Ja-tKf"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="dateLabel" destination="Tr2-lg-515" id="2WR-aq-C8G"/>
+                <outlet property="rateView" destination="NG9-9m-CQA" id="zUl-Jq-iRa"/>
+                <outlet property="reviewBodyLabel" destination="hna-c4-VZj" id="VTz-es-cyt"/>
+                <outlet property="reviewerNameLabel" destination="GEG-xN-5Sm" id="Jpw-42-lhD"/>
+            </connections>
+            <point key="canvasLocation" x="214.49275362318843" y="173.10267857142856"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

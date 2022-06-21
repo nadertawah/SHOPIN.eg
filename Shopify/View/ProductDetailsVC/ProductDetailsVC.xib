@@ -13,6 +13,7 @@
                 <outlet property="addToShoppingCartBtn" destination="voD-2S-Zdv" id="pd6-dk-u8r"/>
                 <outlet property="descriptionLabel" destination="eQ1-wZ-Woo" id="2cg-ZF-qRh"/>
                 <outlet property="imgPageControl" destination="unn-LK-TV0" id="XWm-qJ-kLJ"/>
+                <outlet property="moreReviewsBtn" destination="hrJ-P1-Wjp" id="Uiw-c1-adQ"/>
                 <outlet property="priceLabel" destination="JdS-FA-Xdr" id="Q0c-ay-HA8"/>
                 <outlet property="productImgCollectionView" destination="ICB-Vs-A7q" id="ctT-cj-Fz1"/>
                 <outlet property="productNameLabel" destination="RZh-qJ-DiI" id="lDa-ha-47h"/>
@@ -66,22 +67,35 @@
                                                 <segment title="XL"/>
                                             </segments>
                                         </segmentedControl>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hrJ-P1-Wjp">
+                                            <rect key="frame" x="294" y="95" width="110" height="31"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="filled" title="More reviews">
+                                                <color key="baseBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </buttonConfiguration>
+                                            <connections>
+                                                <action selector="moreReviewsBtnPressed:" destination="-1" eventType="touchUpInside" id="9sP-aN-rec"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="JdS-FA-Xdr" firstAttribute="leading" secondItem="STf-kY-Ywh" secondAttribute="leading" constant="10" id="7wL-Nq-DcS"/>
                                         <constraint firstItem="JdS-FA-Xdr" firstAttribute="top" secondItem="RZh-qJ-DiI" secondAttribute="bottom" constant="20" id="D8B-F4-JQm"/>
                                         <constraint firstAttribute="trailing" secondItem="RZh-qJ-DiI" secondAttribute="trailing" constant="10" id="FAL-S9-n76"/>
+                                        <constraint firstAttribute="bottom" secondItem="hrJ-P1-Wjp" secondAttribute="bottom" constant="10" id="FAu-z1-nrf"/>
                                         <constraint firstItem="RZh-qJ-DiI" firstAttribute="leading" secondItem="STf-kY-Ywh" secondAttribute="leading" constant="10" id="FX8-WV-8lM"/>
                                         <constraint firstAttribute="trailing" secondItem="ipL-z2-uJ6" secondAttribute="trailing" constant="10" id="M4d-ZA-g2I"/>
                                         <constraint firstItem="ipL-z2-uJ6" firstAttribute="bottom" secondItem="JdS-FA-Xdr" secondAttribute="bottom" id="OKi-Xo-EjV"/>
                                         <constraint firstItem="ipL-z2-uJ6" firstAttribute="width" secondItem="STf-kY-Ywh" secondAttribute="width" multiplier="0.5" id="Qfb-QH-qe1"/>
+                                        <constraint firstItem="hrJ-P1-Wjp" firstAttribute="top" secondItem="ipL-z2-uJ6" secondAttribute="bottom" constant="20" id="Qsn-wa-6f5"/>
                                         <constraint firstItem="Aul-Rg-Jw8" firstAttribute="leading" secondItem="STf-kY-Ywh" secondAttribute="leading" constant="10" id="cZ7-hv-nOJ"/>
                                         <constraint firstItem="RZh-qJ-DiI" firstAttribute="top" secondItem="STf-kY-Ywh" secondAttribute="top" constant="10" id="e9C-kj-L9y"/>
                                         <constraint firstItem="Aul-Rg-Jw8" firstAttribute="top" secondItem="JdS-FA-Xdr" secondAttribute="bottom" constant="20" id="ikf-JL-yiv"/>
                                         <constraint firstAttribute="bottom" secondItem="Aul-Rg-Jw8" secondAttribute="bottom" constant="10" id="qkP-Bh-eZD"/>
                                         <constraint firstItem="ipL-z2-uJ6" firstAttribute="leading" secondItem="JdS-FA-Xdr" secondAttribute="trailing" constant="5" id="tVe-nl-gHw"/>
                                         <constraint firstItem="ipL-z2-uJ6" firstAttribute="top" secondItem="RZh-qJ-DiI" secondAttribute="bottom" id="yfW-KO-Key"/>
+                                        <constraint firstAttribute="trailing" secondItem="hrJ-P1-Wjp" secondAttribute="trailing" constant="10" id="yz6-cO-LUd"/>
                                     </constraints>
                                 </view>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ICB-Vs-A7q">

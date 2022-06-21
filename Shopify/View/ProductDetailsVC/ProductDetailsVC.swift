@@ -42,6 +42,13 @@ class ProductDetailsVC: UIViewController
         }
     }
     
+    @IBOutlet weak var moreReviewsBtn: UIButton!
+    {
+        didSet
+        {
+            moreReviewsBtn.shopifyBtn(title: "MORE REVIEWS")
+        }
+    }
     //MARK: - IBAction(s)
     @IBAction func toggleWishListBtn(_ sender: Any)
     {
@@ -52,6 +59,11 @@ class ProductDetailsVC: UIViewController
     {
         
     }
+    @IBAction func moreReviewsBtnPressed(_ sender: Any)
+    {
+        let reviewsVC = ReviewsVC.init(nibName: "ReviewsVC", bundle: nil)
+        self.navigationController?.pushViewController(reviewsVC, animated: true)
+    }
     
     //MARK: - Var(s)
     private let productsCellReuseIdentifier = "ImageCollectionViewCell"
@@ -60,6 +72,9 @@ class ProductDetailsVC: UIViewController
     //MARK: - Helper Funcs
     func setUI()
     {
+        //Set title
+        title = "Product Details"
+        
         //set review stars value
         setRatingView()
         

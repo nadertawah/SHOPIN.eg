@@ -36,6 +36,10 @@
 		7593F00428623A8C000BF315 /* MeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7593F00228623A8C000BF315 /* MeVC.xib */; };
 		7593F0082862503D000BF315 /* LabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7593F0062862503D000BF315 /* LabelTableViewCell.swift */; };
 		7593F0092862503D000BF315 /* LabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7593F0072862503D000BF315 /* LabelTableViewCell.xib */; };
+		759B531428627E1B0061474E /* ReviewsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B531228627E1B0061474E /* ReviewsVC.swift */; };
+		759B531528627E1B0061474E /* ReviewsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 759B531328627E1B0061474E /* ReviewsVC.xib */; };
+		759B531828627E790061474E /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B531628627E790061474E /* ReviewsTableViewCell.swift */; };
+		759B531928627E790061474E /* ReviewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 759B531728627E790061474E /* ReviewsTableViewCell.xib */; };
 		75FE22982861F0270071039C /* ProductDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE22972861F0270071039C /* ProductDetailsVM.swift */; };
 		75FE229A2861F6650071039C /* ProductDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE22992861F6650071039C /* ProductDetails.swift */; };
 		75FE229C2861FD160071039C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE229B2861FD160071039C /* Constants.swift */; };
@@ -98,6 +102,10 @@
 		7593F00228623A8C000BF315 /* MeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeVC.xib; sourceTree = "<group>"; };
 		7593F0062862503D000BF315 /* LabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTableViewCell.swift; sourceTree = "<group>"; };
 		7593F0072862503D000BF315 /* LabelTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelTableViewCell.xib; sourceTree = "<group>"; };
+		759B531228627E1B0061474E /* ReviewsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsVC.swift; sourceTree = "<group>"; };
+		759B531328627E1B0061474E /* ReviewsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewsVC.xib; sourceTree = "<group>"; };
+		759B531628627E790061474E /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsTableViewCell.swift; sourceTree = "<group>"; };
+		759B531728627E790061474E /* ReviewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewsTableViewCell.xib; sourceTree = "<group>"; };
 		75FE22972861F0270071039C /* ProductDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsVM.swift; sourceTree = "<group>"; };
 		75FE22992861F6650071039C /* ProductDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetails.swift; sourceTree = "<group>"; };
 		75FE229B2861FD160071039C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -264,7 +272,8 @@
 				755C468F285E46F9005C4208 /* Base */,
 				752796262860E64900381C89 /* HomeVC */,
 				7527962B2861104600381C89 /* ProductDetailsVC */,
-				8DE87154286147C300D239CF /* ShoppingCart */,
+				759B530928627B700061474E /* ReviewsVC */,
+				8DE87154286147C300D239CF /* ShoppingCartVC */,
 				7593F00028623A6B000BF315 /* MeVC */,
 			);
 			path = View;
@@ -325,14 +334,25 @@
 			path = MeVC;
 			sourceTree = "<group>";
 		};
-		8DE87154286147C300D239CF /* ShoppingCart */ = {
+		759B530928627B700061474E /* ReviewsVC */ = {
+			isa = PBXGroup;
+			children = (
+				759B531228627E1B0061474E /* ReviewsVC.swift */,
+				759B531328627E1B0061474E /* ReviewsVC.xib */,
+				759B531628627E790061474E /* ReviewsTableViewCell.swift */,
+				759B531728627E790061474E /* ReviewsTableViewCell.xib */,
+			);
+			path = ReviewsVC;
+			sourceTree = "<group>";
+		};
+		8DE87154286147C300D239CF /* ShoppingCartVC */ = {
 			isa = PBXGroup;
 			children = (
 				8DE87155286147FD00D239CF /* ShoppingCartVC.swift */,
 				8DE87156286147FD00D239CF /* ShoppingCartVC.xib */,
 				8DE8715D28614A6900D239CF /* ShoppingCartCell */,
 			);
-			path = ShoppingCart;
+			path = ShoppingCartVC;
 			sourceTree = "<group>";
 		};
 		8DE8715D28614A6900D239CF /* ShoppingCartCell */ = {
@@ -475,11 +495,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7527962F2861106D00381C89 /* ProductDetailsVC.xib in Resources */,
+				759B531928627E790061474E /* ReviewsTableViewCell.xib in Resources */,
 				755C4662285E38F2005C4208 /* LaunchScreen.storyboard in Resources */,
 				8DE8715C28614A5D00D239CF /* ShoppingCartCell.xib in Resources */,
 				7527962A2860E68600381C89 /* HomeVC.xib in Resources */,
 				7593F00428623A8C000BF315 /* MeVC.xib in Resources */,
 				755C465F285E38F2005C4208 /* Assets.xcassets in Resources */,
+				759B531528627E1B0061474E /* ReviewsVC.xib in Resources */,
 				7593F0092862503D000BF315 /* LabelTableViewCell.xib in Resources */,
 				7527963428612B1600381C89 /* ImageCollectionViewCell.xib in Resources */,
 				7524F76D285FDE6600BFBE51 /* SplashScreenVC.xib in Resources */,
@@ -616,6 +638,7 @@
 				755C4653285E38F0005C4208 /* AppDelegate.swift in Sources */,
 				8DE8715F28614C8200D239CF /* ShoppingCartCell.swift in Sources */,
 				755C465D285E38F0005C4208 /* Shopify.xcdatamodeld in Sources */,
+				759B531828627E790061474E /* ReviewsTableViewCell.swift in Sources */,
 				75FE229A2861F6650071039C /* ProductDetails.swift in Sources */,
 				7524F76C285FDE6600BFBE51 /* SplashScreenVC.swift in Sources */,
 				75165924285FEBA000132444 /* DataProviderProtocol.swift in Sources */,
@@ -632,6 +655,7 @@
 				8DE87157286147FD00D239CF /* ShoppingCartVC.swift in Sources */,
 				752796292860E68600381C89 /* HomeVC.swift in Sources */,
 				755C468D285E39A4005C4208 /* CoreData.swift in Sources */,
+				759B531428627E1B0061474E /* ReviewsVC.swift in Sources */,
 				7524F769285FDE4B00BFBE51 /* Helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
