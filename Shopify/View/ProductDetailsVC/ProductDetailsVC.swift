@@ -38,11 +38,7 @@ class ProductDetailsVC: UIViewController
     {
         didSet
         {
-            addToShoppingCartBtn.layer.shadowColor = UIColor.black.cgColor
-            addToShoppingCartBtn.layer.shadowRadius = 5
-            addToShoppingCartBtn.layer.shadowOffset = CGSize(width: 0, height: 3)
-            addToShoppingCartBtn.layer.shadowOpacity = 0.6
-            addToShoppingCartBtn.layer.cornerRadius = 5
+            addToShoppingCartBtn.shopifyBtn(title: "ADD TO SHOPPING CART")
         }
     }
     
@@ -59,6 +55,7 @@ class ProductDetailsVC: UIViewController
     
     //MARK: - Var(s)
     private let productsCellReuseIdentifier = "ImageCollectionViewCell"
+    private let VM = ProductDetailsVM(dataProvider: API(), productID: "7358109810859")
     
     //MARK: - Helper Funcs
     func setUI()
@@ -71,10 +68,40 @@ class ProductDetailsVC: UIViewController
         
         //set coll view delegates
         productImgCollectionView.dataSource = self
-        
+        productImgCollectionView.delegate = self
         //TODO: - bind to VM
             //TODO: - set page control count, size segment control, rating, wishlist
         
+        
+        VM.bind =
+        {
+            [weak self] in
+            guard let self = self else {return}
+            
+            DispatchQueue.main.async
+            {
+                let product = self.VM.product
+
+                //set number of pages of the page control
+                self.imgPageControl.numberOfPages = product.images?.count ?? 1
+                
+                //set sizes segment control
+                self.setSizesSegmentedControl()
+                
+                //reload coll view data
+                self.productImgCollectionView.reloadData()
+                
+                //set title
+                self.productNameLabel.text = product.title
+                
+                //set description
+                self.descriptionLabel.text = product.body_html
+                
+                //set price
+                self.priceLabel.text = product.variants?[0].price
+            
+            }
+        }
         
     }
     
@@ -87,13 +114,37 @@ class ProductDetailsVC: UIViewController
         rateView.tintColor = .black
         rateView.isUserInteractionEnabled = false
     }
+    
+    func setSizesSegmentedControl()
+    {
+        let product = self.VM.product
+
+        if let productSizeOption = product.options?.first(where: {Option in Option.name == "Size"})
+        {
+            if let productSizes = productSizeOption.values
+            {
+                self.sizeSegmentControl.removeAllSegments()
+                self.sizeSegmentControl.isHidden = false
+
+                for i in 0..<productSizes.count
+                {
+                    self.sizeSegmentControl.insertSegment(withTitle: productSizes[i], at: i, animated: true)
+                }
+                self.sizeSegmentControl.selectedSegmentIndex = 0
+            }
+            else
+            {
+                self.sizeSegmentControl.isHidden = true
+            }
+        }
+    }
 }
 
 extension ProductDetailsVC : UICollectionViewDelegate , UICollectionViewDataSource
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return 0
+        return VM.product.images?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -101,7 +152,7 @@ extension ProductDetailsVC : UICollectionViewDelegate , UICollectionViewDataSour
         guard let cell = productImgCollectionView.dequeueReusableCell(withReuseIdentifier: productsCellReuseIdentifier, for: indexPath) as? ImageCollectionViewCell
         else {return UICollectionViewCell()}
         
-        //TODO: - set image
+        cell.imgView.sd_setImage(with: URL(string: VM.product.images?[indexPath.row].src ?? ""), placeholderImage: UIImage(named: "placeHolder"))
         
         return cell
     }
@@ -117,7 +168,7 @@ extension ProductDetailsVC : UICollectionViewDelegateFlowLayout
 {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        return CGSize(width: productImgCollectionView.frame.width, height: productImgCollectionView.frame.height)
+        return productImgCollectionView.frame.size
     }
     
 }
