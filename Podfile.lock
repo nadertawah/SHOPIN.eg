@@ -1,16 +1,26 @@
 PODS:
   - Alamofire (5.5.0)
+  - HCSStarRatingView (1.5)
+  - SDWebImage (5.12.5):
+    - SDWebImage/Core (= 5.12.5)
+  - SDWebImage/Core (5.12.5)
 
 DEPENDENCIES:
   - Alamofire
+  - HCSStarRatingView
+  - SDWebImage
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - HCSStarRatingView
+    - SDWebImage
 
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
+  HCSStarRatingView: 1d18f79654735514cd6f00e6d90e38cb6320dc31
+  SDWebImage: 0905f1b7760fc8ac4198cae0036600d67478751e
 
-PODFILE CHECKSUM: 7bd899ed6e64d68e034c3f13eebaf07d514ec9bc
+PODFILE CHECKSUM: 2ec81aa0f4be6290f9f66931ad67d16be12d0ffc
 
 COCOAPODS: 1.11.2

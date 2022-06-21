@@ -7,6 +7,8 @@ target 'Shopify' do
 
   # Pods for Shopify
 	pod 'Alamofire'
+  pod 'HCSStarRatingView'
+  pod 'SDWebImage'
   target 'ShopifyTests' do
     inherit! :search_paths
     # Pods for testing

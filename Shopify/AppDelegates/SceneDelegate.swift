@@ -20,15 +20,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
-        let vc = HomeVC.init(nibName: "HomeVC", bundle: nil)
+        let vc = ProductDetailsVC.init(nibName: "ProductDetailsVC", bundle: nil)
         
         window.rootViewController = vc
         self.window = window
         window.makeKeyAndVisible()
         
         
-        //let navBar = BaseNavBar()
-        //navBar.viewControllers = [BaseTabBar()]
         
         
         
