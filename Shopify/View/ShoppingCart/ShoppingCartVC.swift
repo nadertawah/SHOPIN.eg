@@ -29,16 +29,18 @@ class ShoppingCartVC: UIViewController {
 
 
     @IBAction func proccedToChechoutBtnPressed(_ sender: Any) {
+        
     }
 }
 
 
 // MARK: - ShoppingCartVC DataSource & Delegate Methods
 extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
+    //Number of Rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
     }
-    
+    //Cell For Row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = cartTableView.dequeueReusableCell(withIdentifier: "cartCell", for: indexPath) as! ShoppingCartCell
         
@@ -48,7 +50,7 @@ extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
         
         return cell
     }
-    
+    //Row Height
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
