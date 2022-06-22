@@ -32,8 +32,8 @@ class LoginRegisterVC: UIViewController
     
     @IBOutlet weak var swipeLabel: UILabel!
     
+
     //MARK: - IBAction(s)
-    
     @IBAction func loginRegisterBtnPressed(_ sender: Any)
     {
         if !emailTextField.text!.isEmpty && !passwordTextField.text!.isEmpty
@@ -59,7 +59,7 @@ class LoginRegisterVC: UIViewController
         }
        else
        {
-           alert(title: "Error", message: "All fields are required including the picture!")
+           alert(title: "Error", message: "All fields are required!")
        }
     }
     

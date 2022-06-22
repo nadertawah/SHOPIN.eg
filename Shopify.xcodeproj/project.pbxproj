@@ -34,6 +34,8 @@
 		755C4691285E4706005C4208 /* BaseTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C4690285E4706005C4208 /* BaseTabBar.swift */; };
 		7576E2242862B63900022E69 /* LoginRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7576E2222862B63900022E69 /* LoginRegisterVC.swift */; };
 		7576E2252862B63900022E69 /* LoginRegisterVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7576E2232862B63900022E69 /* LoginRegisterVC.xib */; };
+		7576E22728633E7900022E69 /* LoginRegisterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7576E22628633E7900022E69 /* LoginRegisterVM.swift */; };
+		7576E22928634E0900022E69 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7576E22828634E0900022E69 /* Customer.swift */; };
 		7593F00328623A8C000BF315 /* MeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7593F00128623A8C000BF315 /* MeVC.swift */; };
 		7593F00428623A8C000BF315 /* MeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7593F00228623A8C000BF315 /* MeVC.xib */; };
 		7593F0082862503D000BF315 /* LabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7593F0062862503D000BF315 /* LabelTableViewCell.swift */; };
@@ -107,6 +109,8 @@
 		755C4690285E4706005C4208 /* BaseTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTabBar.swift; sourceTree = "<group>"; };
 		7576E2222862B63900022E69 /* LoginRegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterVC.swift; sourceTree = "<group>"; };
 		7576E2232862B63900022E69 /* LoginRegisterVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginRegisterVC.xib; sourceTree = "<group>"; };
+		7576E22628633E7900022E69 /* LoginRegisterVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterVM.swift; sourceTree = "<group>"; };
+		7576E22828634E0900022E69 /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		7593F00128623A8C000BF315 /* MeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeVC.swift; sourceTree = "<group>"; };
 		7593F00228623A8C000BF315 /* MeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeVC.xib; sourceTree = "<group>"; };
 		7593F0062862503D000BF315 /* LabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTableViewCell.swift; sourceTree = "<group>"; };
@@ -180,6 +184,7 @@
 			children = (
 				7516591F285FE1C200132444 /* HomeVM.swift */,
 				75FE22972861F0270071039C /* ProductDetailsVM.swift */,
+				7576E22628633E7900022E69 /* LoginRegisterVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -300,6 +305,7 @@
 			children = (
 				755C465B285E38F0005C4208 /* Shopify.xcdatamodeld */,
 				75FE22992861F6650071039C /* ProductDetails.swift */,
+				7576E22828634E0900022E69 /* Customer.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -681,6 +687,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7576E22728633E7900022E69 /* LoginRegisterVM.swift in Sources */,
 				75378E56285E4F16004DAD3D /* BaseNavBar.swift in Sources */,
 				75165920285FE1C200132444 /* HomeVM.swift in Sources */,
 				8DFCF05D2862AF29007D30A0 /* UITextField.swift in Sources */,
@@ -701,6 +708,7 @@
 				75FE22982861F0270071039C /* ProductDetailsVM.swift in Sources */,
 				7593F0082862503D000BF315 /* LabelTableViewCell.swift in Sources */,
 				75FE229C2861FD160071039C /* Constants.swift in Sources */,
+				7576E22928634E0900022E69 /* Customer.swift in Sources */,
 				8DE87157286147FD00D239CF /* ShoppingCartVC.swift in Sources */,
 				752796292860E68600381C89 /* HomeVC.swift in Sources */,
 				8DFCF0552862AEEF007D30A0 /* CheckoutVC.swift in Sources */,
