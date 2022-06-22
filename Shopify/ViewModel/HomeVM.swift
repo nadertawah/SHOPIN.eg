@@ -7,10 +7,18 @@
 
 import Foundation
 
-struct HomeViewModel {
+class HomeViewModel {
     
-//    private let brandsList: Observable<Brands> = Observable(nil)
+    var brandsList: Observable<SmartCollections> = Observable(nil)
     
-    
+    func getBrands() {
+        
+        API().get(urlStr: Constants.brandsAPIUrl, type: SmartCollections.self) { result in
+            DispatchQueue.main.async {
+                self.brandsList.value = result
+            }
+        }
+        
+    }
     
 }

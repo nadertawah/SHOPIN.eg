@@ -49,6 +49,7 @@ class HomeVC: UIViewController {
     //MARK: - Variable(s)
     private let brandCellReuseIdentifier = "brandCell"
     private let adCellReuseIdentifier = "adCell"
+    private let homeViewModel = HomeViewModel()
     
     //MARK: - Helper functions
     func setUI()
@@ -76,7 +77,14 @@ class HomeVC: UIViewController {
         layout.scrollDirection = .horizontal
         brandsCollectionView.collectionViewLayout = layout
         adsCollectionView.collectionViewLayout = layout
-
+        
+        // Fetching data from API and Updating Collection View
+        homeViewModel.getBrands()
+        homeViewModel.brandsList.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.brandsCollectionView.reloadData()
+            }
+        }
     }
     
     func setNavBarBtns()
@@ -106,11 +114,12 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        // TODO: Set number of items in ads and brands collection views
-        if collectionView == adsCollectionView {
-            return 3
+        // Set number of items in ads and brands collection views
+        if collectionView == brandsCollectionView {
+            return homeViewModel.brandsList.value?.smart_collections.count ?? 0
         } else {
-            return 10
+            //TODO: set number of ads
+            return 3
         }
         
     }
@@ -121,9 +130,11 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             
             guard let cell = brandsCollectionView.dequeueReusableCell(withReuseIdentifier: brandCellReuseIdentifier, for: indexPath) as? BrandCell else { return UICollectionViewCell() }
             
-            // TODO: Set brands using API
-            cell.brandNameLabel.text = "Brand"
-            cell.brandLogoImgView.sd_setImage(with: URL(string: "https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png"), placeholderImage: UIImage(named: "placeHolder"))
+            let brand = homeViewModel.brandsList.value?.smart_collections[indexPath.item]
+            
+            // Set brands using API
+            cell.brandNameLabel.text = brand?.title
+            cell.brandLogoImgView.sd_setImage(with: URL(string: brand?.image.src ?? ""), placeholderImage: UIImage(named: "placeHolder"))
             
             return cell
             
