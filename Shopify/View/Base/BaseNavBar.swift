@@ -23,8 +23,8 @@ class BaseNavBar : UINavigationController
 //        let vc = MeVC.init(nibName: "MeVC", bundle: nil)
 //        let vc = ProductDetailsVC.init(nibName: "ProductDetailsVC", bundle: nil)
 //        let vc = LoginRegisterVC.init(nibName: "LoginRegisterVC", bundle: nil)
-        let vc = BaseTabBar()
-        self.viewControllers = [vc]
+        //let vc = BaseTabBar()
+       // self.viewControllers = [vc]
         
     }
 

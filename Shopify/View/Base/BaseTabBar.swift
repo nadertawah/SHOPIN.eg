@@ -14,9 +14,9 @@ class BaseTabBar:  UITabBarController
         super.viewDidLoad()
         
         //TODO: - initiate tabBar VC(s)
-        let vc1 = HomeVC()
-        let vc2 = CategoryVC()
-        let vc3 = MeVC()
+        let vc1 = BaseNavBar.init(rootViewController: HomeVC())
+        let vc2 = BaseNavBar.init(rootViewController: CategoryVC())
+        let vc3 = BaseNavBar.init(rootViewController: MeVC())
         
         //TODO: - set tabBar title(s)
         vc1.title = "Home"
