@@ -53,6 +53,11 @@ class HomeVC: UIViewController {
     //MARK: - Helper functions
     func setUI()
     {
+        //set title
+        title = "SHOPIN.eg"
+        
+        //set navbar wishlist and settings buttons
+        setNavBarBtns()
         
         // Registering CollectionViews' Cells
         brandsCollectionView.register(UINib(nibName: "BrandCell", bundle: nil), forCellWithReuseIdentifier: brandCellReuseIdentifier)
@@ -71,6 +76,26 @@ class HomeVC: UIViewController {
         layout.scrollDirection = .horizontal
         brandsCollectionView.collectionViewLayout = layout
         adsCollectionView.collectionViewLayout = layout
+
+    }
+    
+    func setNavBarBtns()
+    {
+        let wishlistNavBtn = UIBarButtonItem(image: UIImage(systemName: "heart")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(navigateToWishlist))
+        
+        
+        let shoppingCartNavBtn = UIBarButtonItem(image: UIImage(systemName: "cart")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(navigateToShoppingCart))
+        
+        self.navigationController?.navigationBar.topItem?.setRightBarButtonItems([shoppingCartNavBtn], animated: true)
+        
+        self.navigationController?.navigationBar.topItem?.setLeftBarButtonItems([wishlistNavBtn], animated: true)
+    }
+    
+    @objc func navigateToWishlist() {
+        
+    }
+    
+    @objc func navigateToShoppingCart() {
 
     }
 
