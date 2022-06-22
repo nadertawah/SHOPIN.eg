@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
         //let vc = ProductDetailsVC.init(nibName: "ProductDetailsVC", bundle: nil)
-        let vc = ShoppingCartVC.init(nibName: "ShoppingCartVC", bundle: nil)
+        let vc = CheckoutVC.init(nibName: "CheckoutVC", bundle: nil)
         
         window.rootViewController = vc
         self.window = window
