@@ -19,11 +19,13 @@ class BaseNavBar : UINavigationController
         self.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 25)]
         self.navigationBar.tintColor = .black
         
-        //set VC(s)
-        //let vc = MeVC.init(nibName: "MeVC", bundle: nil)
-       // let vc = ProductDetailsVC.init(nibName: "ProductDetailsVC", bundle: nil)
-        let vc = LoginRegisterVC.init(nibName: "LoginRegisterVC", bundle: nil)
+        // Set VC(s)
+//        let vc = MeVC.init(nibName: "MeVC", bundle: nil)
+//        let vc = ProductDetailsVC.init(nibName: "ProductDetailsVC", bundle: nil)
+//        let vc = LoginRegisterVC.init(nibName: "LoginRegisterVC", bundle: nil)
+        let vc = BaseTabBar()
         self.viewControllers = [vc]
+        
     }
 
 }

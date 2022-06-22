@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="brandCell" id="gTV-IL-0wX" customClass="BrandCell" customModule="Shopify" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="309" height="226"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="309" height="226"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UEW-dz-PDv">
+                        <rect key="frame" x="5" y="5" width="299" height="216"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zeD-n1-jbS">
+                                <rect key="frame" x="5" y="5" width="289" height="172"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BrandName" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ju-5H-fys">
+                                <rect key="frame" x="5" y="187" width="289" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="zeD-n1-jbS" firstAttribute="top" secondItem="UEW-dz-PDv" secondAttribute="top" constant="5" id="329-rT-mtY"/>
+                            <constraint firstItem="1ju-5H-fys" firstAttribute="top" secondItem="zeD-n1-jbS" secondAttribute="bottom" constant="10" id="4YM-iM-Ogq"/>
+                            <constraint firstItem="zeD-n1-jbS" firstAttribute="leading" secondItem="UEW-dz-PDv" secondAttribute="leading" constant="5" id="CFc-Ez-dGc"/>
+                            <constraint firstAttribute="bottom" secondItem="1ju-5H-fys" secondAttribute="bottom" constant="5" id="Uca-kh-uWf"/>
+                            <constraint firstItem="1ju-5H-fys" firstAttribute="leading" secondItem="UEW-dz-PDv" secondAttribute="leading" constant="5" id="Z5o-T0-eFp"/>
+                            <constraint firstItem="1ju-5H-fys" firstAttribute="top" secondItem="zeD-n1-jbS" secondAttribute="bottom" constant="10" id="ckz-cv-rpk"/>
+                            <constraint firstAttribute="trailing" secondItem="1ju-5H-fys" secondAttribute="trailing" constant="5" id="n2y-Z5-FSE"/>
+                            <constraint firstAttribute="trailing" secondItem="zeD-n1-jbS" secondAttribute="trailing" constant="5" id="wSP-xX-ITR"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="UEW-dz-PDv" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="F8K-si-SB1"/>
+                <constraint firstAttribute="bottom" secondItem="UEW-dz-PDv" secondAttribute="bottom" constant="5" id="Lm4-j3-P1N"/>
+                <constraint firstItem="UEW-dz-PDv" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="Wu1-Df-rKa"/>
+                <constraint firstAttribute="trailing" secondItem="UEW-dz-PDv" secondAttribute="trailing" constant="5" id="soi-hS-7uY"/>
+            </constraints>
+            <size key="customSize" width="309" height="226"/>
+            <connections>
+                <outlet property="brandLogoImgView" destination="zeD-n1-jbS" id="P6M-MB-xbE"/>
+                <outlet property="brandNameLabel" destination="1ju-5H-fys" id="Pw0-Uh-VU9"/>
+            </connections>
+            <point key="canvasLocation" x="-50.000000000000007" y="158.70535714285714"/>
+        </collectionViewCell>
+    </objects>
+</document>

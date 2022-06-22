@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CategoryVC" customModule="Shopify" customModuleProvider="target">
+            <connections>
+                <outlet property="mainCategoriesCollectionView" destination="cf8-yM-pd5" id="ePi-IK-iZc"/>
+                <outlet property="productSearch" destination="Cca-1N-IxO" id="JTi-sM-Gj5"/>
+                <outlet property="productsCollectionView" destination="Eml-ZB-EwC" id="HqN-mu-pdb"/>
+                <outlet property="subCategoriesTableView" destination="7Fu-Vc-Eb7" id="flx-IC-h4Z"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="Cca-1N-IxO">
+                    <rect key="frame" x="36" y="44" width="340" height="51"/>
+                    <textInputTraits key="textInputTraits"/>
+                </searchBar>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="cf8-yM-pd5">
+                    <rect key="frame" x="0.0" y="95" width="414" height="40"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="tay-9P-xRP"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LqD-zi-Ohh">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ual-9w-Y4Z">
+                    <rect key="frame" x="0.0" y="135" width="414" height="727"/>
+                    <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="7Fu-Vc-Eb7">
+                            <rect key="frame" x="0.0" y="0.0" width="90" height="727"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="90" id="CZn-ls-9R4"/>
+                            </constraints>
+                        </tableView>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Eml-ZB-EwC">
+                            <rect key="frame" x="90" y="0.0" width="324" height="727"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="rxr-WT-tbJ">
+                                <size key="itemSize" width="128" height="128"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                        </collectionView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="Eml-ZB-EwC" secondAttribute="bottom" id="HrB-hV-c0J"/>
+                        <constraint firstItem="Eml-ZB-EwC" firstAttribute="leading" secondItem="7Fu-Vc-Eb7" secondAttribute="trailing" id="Igg-oC-2o3"/>
+                        <constraint firstItem="Eml-ZB-EwC" firstAttribute="top" secondItem="Ual-9w-Y4Z" secondAttribute="top" id="RJD-N3-1l7"/>
+                        <constraint firstItem="7Fu-Vc-Eb7" firstAttribute="top" secondItem="Ual-9w-Y4Z" secondAttribute="top" id="Sz4-He-XG0"/>
+                        <constraint firstAttribute="bottom" secondItem="7Fu-Vc-Eb7" secondAttribute="bottom" id="aY6-IH-0cS"/>
+                        <constraint firstAttribute="trailing" secondItem="Eml-ZB-EwC" secondAttribute="trailing" id="e7U-06-Yed"/>
+                        <constraint firstItem="7Fu-Vc-Eb7" firstAttribute="leading" secondItem="Ual-9w-Y4Z" secondAttribute="leading" id="lkz-rl-1hS"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="62z-h4-LUK">
+                    <rect key="frame" x="376" y="44" width="23" height="51"/>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" image="cart" catalog="system"/>
+                    <connections>
+                        <action selector="shoppingCartBtn:" destination="-1" eventType="touchUpInside" id="90c-nF-QTf"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qfY-aj-u2D">
+                    <rect key="frame" x="15" y="44" width="21" height="51"/>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" image="heart" catalog="system"/>
+                    <connections>
+                        <action selector="wishListBtn:" destination="-1" eventType="touchUpInside" id="ajl-dZ-R8D"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="62z-h4-LUK" firstAttribute="leading" secondItem="Cca-1N-IxO" secondAttribute="trailing" id="5GV-Qn-KGK"/>
+                <constraint firstItem="qfY-aj-u2D" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="5xm-XG-g0E"/>
+                <constraint firstItem="cf8-yM-pd5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="7Vu-mw-WJL"/>
+                <constraint firstItem="Cca-1N-IxO" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="9nj-Zp-sp4"/>
+                <constraint firstItem="cf8-yM-pd5" firstAttribute="top" secondItem="qfY-aj-u2D" secondAttribute="bottom" id="FD8-qq-GJc"/>
+                <constraint firstItem="Ual-9w-Y4Z" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Ju7-Vh-uIX"/>
+                <constraint firstItem="qfY-aj-u2D" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="Kll-Nq-EXo"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cf8-yM-pd5" secondAttribute="trailing" id="Tqj-AM-36z"/>
+                <constraint firstItem="Ual-9w-Y4Z" firstAttribute="top" secondItem="cf8-yM-pd5" secondAttribute="bottom" id="Wed-lV-R3E"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="62z-h4-LUK" secondAttribute="trailing" constant="15" id="ZBG-fy-2jT"/>
+                <constraint firstItem="Cca-1N-IxO" firstAttribute="leading" secondItem="qfY-aj-u2D" secondAttribute="trailing" id="dsx-pg-MoG"/>
+                <constraint firstItem="cf8-yM-pd5" firstAttribute="top" secondItem="Cca-1N-IxO" secondAttribute="bottom" id="e4u-kB-7KD"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Ual-9w-Y4Z" secondAttribute="trailing" id="kC2-Vr-Vye"/>
+                <constraint firstItem="62z-h4-LUK" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="kPT-8j-2i0"/>
+                <constraint firstItem="cf8-yM-pd5" firstAttribute="top" secondItem="62z-h4-LUK" secondAttribute="bottom" id="pnd-Np-22p"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Ual-9w-Y4Z" secondAttribute="bottom" id="te1-jH-5Bc"/>
+            </constraints>
+            <point key="canvasLocation" x="137.68115942028987" y="99.776785714285708"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="cart" catalog="system" width="128" height="102"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+struct HomeViewModel {
+    
+//    private let brandsList: Observable<Brands> = Observable(nil)
+    
+    
+    
+}
