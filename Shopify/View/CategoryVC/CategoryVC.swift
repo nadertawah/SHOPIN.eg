@@ -41,7 +41,6 @@ class CategoryVC: UIViewController {
     }
     
     //MARK: - Variable(s)
-    private let productCellReuseIdentifier = "productCell"
     private let mainCategoryCellReuseIdentifier = "mainCategoryCell"
     private let subCategoryCellReuseIdentifier = "subCategoryCell"
 
@@ -57,7 +56,7 @@ class CategoryVC: UIViewController {
         
         subCategoriesTableView.register(UINib(nibName: "SubCategoryCell", bundle: nil), forCellReuseIdentifier: subCategoryCellReuseIdentifier)
         
-        productsCollectionView.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: productCellReuseIdentifier)
+        productsCollectionView.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: Constants.productCellReuseIdentifier)
         
         // Setting Delegates and Datasources
         mainCategoriesCollectionView.delegate = self
@@ -109,13 +108,12 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
             
         } else {
             
-            guard let cell = productsCollectionView.dequeueReusableCell(withReuseIdentifier: productCellReuseIdentifier, for: indexPath) as? ProductCell else { return UICollectionViewCell() }
+            guard let cell = productsCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.productCellReuseIdentifier, for: indexPath) as? ProductCell else { return UICollectionViewCell() }
             
-            // TODO: Get Products from API
+            // TODO: Configure product cell
             cell.priceLabel.text = "100.00"
             cell.currencyLabel.text = "USD"
             cell.productImgView.image = UIImage(named: "test")
-            
             
             return cell
             

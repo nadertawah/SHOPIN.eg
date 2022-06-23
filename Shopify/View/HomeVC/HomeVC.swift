@@ -89,22 +89,14 @@ class HomeVC: UIViewController {
     
     func setNavBarBtns()
     {
-        let wishlistNavBtn = UIBarButtonItem(image: UIImage(systemName: "heart")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(navigateToWishlist))
+        let wishlistNavBtn = UIBarButtonItem(image: UIImage(systemName: "heart")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(OBJCFunctions().navigateToWishlist))
         
         
-        let shoppingCartNavBtn = UIBarButtonItem(image: UIImage(systemName: "cart")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(navigateToShoppingCart))
+        let shoppingCartNavBtn = UIBarButtonItem(image: UIImage(systemName: "cart")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(OBJCFunctions().navigateToShoppingCart))
         
         self.navigationController?.navigationBar.topItem?.setRightBarButtonItems([shoppingCartNavBtn], animated: true)
         
         self.navigationController?.navigationBar.topItem?.setLeftBarButtonItems([wishlistNavBtn], animated: true)
-    }
-    
-    @objc func navigateToWishlist() {
-        
-    }
-    
-    @objc func navigateToShoppingCart() {
-
     }
 
 }
@@ -119,7 +111,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             return homeViewModel.brandsList.value?.smart_collections.count ?? 0
         } else {
             //TODO: set number of ads
-            return 3
+            return homeViewModel.brandsList.value?.smart_collections.count ?? 0
         }
         
     }
@@ -149,6 +141,24 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             
         }
 
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let brand = homeViewModel.brandsList.value?.smart_collections[indexPath.item].title
+        
+        let destinationVC = ProductsVC()
+//        destinationVC.navigationItem.title = "Products"
+        destinationVC.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3.decrease"),
+                                                                          style: .done,
+                                                                          target: self,
+                                                                          action: #selector(filterProducts))
+        navigationController?.pushViewController(destinationVC, animated: true)
+        
+    }
+    
+    @objc func filterProducts() {
+        //TODO: filter products by (price, best seller...)
     }
     
 }

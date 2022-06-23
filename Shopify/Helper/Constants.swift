@@ -15,4 +15,7 @@ struct Constants
     
     static let brandsAPIUrl = "\(APICredintials)menofia-2022-q3.myshopify.com/admin/api/2022-01/smart_collections.json"
     
+    static let productCellReuseIdentifier = "productCell"
+
+    
 }
