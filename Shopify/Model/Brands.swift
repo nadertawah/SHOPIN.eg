@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SmartCollections: Codable {
+struct BrandsModel: Codable {
     
     var smart_collections: [Brand]
     

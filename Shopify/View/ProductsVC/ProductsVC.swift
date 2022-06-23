@@ -50,10 +50,7 @@ class ProductsVC: UIViewController {
         productsCollectionView.delegate = self
         productsCollectionView.dataSource = self
 
-        
-        // Setting Products CollectionView layouts
-        productsCollectionView.collectionViewLayout = UICollectionViewFlowLayout()
-        
+                
         // Fetching data from API and Updating Collection View
         productsVM?.productsList.bind({ [weak self] _ in
             DispatchQueue.main.async {

@@ -16,7 +16,7 @@ class ProductsViewModel
 
     //MARK: - Variable(s)
     var productsList: Observable<Products> = Observable(nil)
-    
+    //var filteredProductList : Observable<Products> = Observable(nil)
     //MARK: - Helper Funcs
     func getProducts(from brand: String) {
         

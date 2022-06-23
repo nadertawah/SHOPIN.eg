@@ -14,7 +14,6 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
 
         setUI()
-        
     }
 
     //MARK: - IBAction(s)
@@ -70,6 +69,9 @@ class HomeVC: UIViewController {
         adsCollectionView.delegate = self
         adsCollectionView.dataSource = self
         
+        //set search bar delegate
+        brandsSearchBar.delegate = self
+        
         // Setting CollectionViews' layouts
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -77,8 +79,7 @@ class HomeVC: UIViewController {
         adsCollectionView.collectionViewLayout = layout
         
         // Fetching data from API and Updating Collection View
-        homeViewModel.getBrands()
-        homeViewModel.brandsList.bind { [weak self] _ in
+        homeViewModel.filtereBrandsList.bind { [weak self] _ in
             DispatchQueue.main.async {
                 self?.brandsCollectionView.reloadData()
             }
@@ -115,10 +116,10 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         // Set number of items in ads and brands collection views
         if collectionView == brandsCollectionView {
-            return homeViewModel.brandsList.value?.smart_collections.count ?? 0
+            return homeViewModel.filtereBrandsList.value?.count ?? 0
         } else {
             //TODO: set number of ads
-            return homeViewModel.brandsList.value?.smart_collections.count ?? 0
+            return homeViewModel.filtereBrandsList.value?.count ?? 0
         }
         
     }
@@ -129,7 +130,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             
             guard let cell = brandsCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.brandCellReuseIdentifier, for: indexPath) as? BrandCell else { return UICollectionViewCell() }
             
-            let brand = homeViewModel.brandsList.value?.smart_collections[indexPath.item]
+            let brand = homeViewModel.filtereBrandsList.value?[indexPath.item]
             
             // Set brands using API
             cell.brandNameLabel.text = brand?.title
@@ -152,7 +153,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let brand = homeViewModel.brandsList.value?.smart_collections[indexPath.item].title
+        let brand = homeViewModel.filtereBrandsList.value?[indexPath.item].title
         
         let destinationVC = ProductsVC()
         destinationVC.productsVM = ProductsViewModel(brand: brand ?? "")
@@ -189,3 +190,11 @@ extension HomeVC: UICollectionViewDelegateFlowLayout {
     
 }
 
+//MARK: - search bar callbacks
+extension HomeVC : UISearchBarDelegate
+{
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
+    {
+        homeViewModel.searchBrands(searchStr: searchBar.text ?? "" )
+    }
+}
