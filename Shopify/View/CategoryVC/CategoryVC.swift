@@ -41,8 +41,7 @@ class CategoryVC: UIViewController {
     }
     
     //MARK: - Variable(s)
-    private let mainCategoryCellReuseIdentifier = "mainCategoryCell"
-    private let subCategoryCellReuseIdentifier = "subCategoryCell"
+    
 
     //MARK: - Helper functions
     func setUI()
@@ -52,9 +51,9 @@ class CategoryVC: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         
         // Registering Cells
-        mainCategoriesCollectionView.register(UINib(nibName: "MainCategoryCell", bundle: nil), forCellWithReuseIdentifier: mainCategoryCellReuseIdentifier)
+        mainCategoriesCollectionView.register(UINib(nibName: "MainCategoryCell", bundle: nil), forCellWithReuseIdentifier: Constants.mainCategoryCellReuseIdentifier)
         
-        subCategoriesTableView.register(UINib(nibName: "SubCategoryCell", bundle: nil), forCellReuseIdentifier: subCategoryCellReuseIdentifier)
+        subCategoriesTableView.register(UINib(nibName: "SubCategoryCell", bundle: nil), forCellReuseIdentifier: Constants.subCategoryCellReuseIdentifier)
         
         productsCollectionView.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: Constants.productCellReuseIdentifier)
         
@@ -99,7 +98,7 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         if collectionView == mainCategoriesCollectionView {
             
-            guard let cell = mainCategoriesCollectionView.dequeueReusableCell(withReuseIdentifier: mainCategoryCellReuseIdentifier, for: indexPath) as? MainCategoryCell else { return UICollectionViewCell() }
+            guard let cell = mainCategoriesCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.mainCategoryCellReuseIdentifier, for: indexPath) as? MainCategoryCell else { return UICollectionViewCell() }
             
             // TODO: Get main categories from API
             cell.mainCategoryLabel.text = "Category"
@@ -160,7 +159,7 @@ extension CategoryVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = subCategoriesTableView.dequeueReusableCell(withIdentifier: subCategoryCellReuseIdentifier, for: indexPath) as? SubCategoryCell else { return UITableViewCell() }
+        guard let cell = subCategoriesTableView.dequeueReusableCell(withIdentifier: Constants.subCategoryCellReuseIdentifier, for: indexPath) as? SubCategoryCell else { return UITableViewCell() }
         
         // TODO: get subCategories from API
         cell.subCategoryLabel.text = "Sub Category"

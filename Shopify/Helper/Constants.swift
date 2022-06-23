@@ -15,9 +15,16 @@ struct Constants
     
     static let brandsAPIUrl = "\(APICredintials)menofia-2022-q3.myshopify.com/admin/api/2022-01/smart_collections.json"
     
+    //MARK: - ProductsVC Constants
     static let productCellReuseIdentifier = "productCell"
+    
+    //MARK: - HomeVC Constants
     static let brandCellReuseIdentifier = "brandCell"
     static let adCellReuseIdentifier = "adCell"
+    
+    //MARK: - CategoryVC Constants
+    static let mainCategoryCellReuseIdentifier = "mainCategoryCell"
+    static let subCategoryCellReuseIdentifier = "subCategoryCell"
 
     
 }
