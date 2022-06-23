@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ProductsVC: UIViewController {
 
@@ -33,7 +34,7 @@ class ProductsVC: UIViewController {
     }
     
     //MARK: - Variable(s)
-    
+    var productsVM: ProductsViewModel?
     
     //MARK: - Helper Function(s)
     func setUI() {
@@ -53,7 +54,12 @@ class ProductsVC: UIViewController {
         // Setting Products CollectionView layouts
         productsCollectionView.collectionViewLayout = UICollectionViewFlowLayout()
         
-        //TODO: Fetching data from API and Updating Collection View
+        // Fetching data from API and Updating Collection View
+        productsVM?.productsList.bind({ [weak self] _ in
+            DispatchQueue.main.async {
+                self?.productsCollectionView.reloadData()
+            }
+        })
         
     }
     
@@ -74,18 +80,20 @@ class ProductsVC: UIViewController {
 extension ProductsVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //TODO: Set number of products
-        return 20
+        // Set number of products
+        return productsVM?.productsList.value?.products.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = productsCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.productCellReuseIdentifier, for: indexPath) as? ProductCell else { return UICollectionViewCell() }
         
-        //TODO: Configure cell
-        cell.priceLabel.text = "100.00"
+        let product = productsVM?.productsList.value?.products[indexPath.item]
+        
+        // Configure cell
+        cell.priceLabel.text = product?.variants?[0].price ?? "N/A"
         cell.currencyLabel.text = "USD"
-        cell.productImgView.image = UIImage(named: "test")
+        cell.productImgView.sd_setImage(with: URL(string: product?.images?[0].src ?? ""), placeholderImage: UIImage(named: "placeHolder"))
         
         return cell
     }

@@ -12,6 +12,10 @@ struct ProductModel : Codable
     var product : Product
 }
 
+struct Products: Codable {
+    var products: [Product]
+}
+
 // MARK: - Product
 struct Product: Codable
 {
