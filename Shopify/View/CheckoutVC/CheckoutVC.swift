@@ -19,6 +19,8 @@ class CheckoutVC: UIViewController {
     @IBOutlet weak var paymentMethodTabelView: UITableView!
     @IBOutlet weak var placeOrderBtn: UIButton!
     
+    private let checkOutVM = CheckOutVM()
+    var discountList = [PriceRule]()
     
     var subtotal = 100
     var shippingFees = 50
@@ -27,16 +29,12 @@ class CheckoutVC: UIViewController {
     
     var PaymentMethodArrText = ["Cash On Delivery" , "Credit/Debit Cart"]
     var PaymentMethodArrIcon = ["cash","online"]
-    var SelectData = [NSMutableDictionary]()
     var selectedPaymentOptionIndex = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for i in 0..<PaymentMethodArrText.count
-        {
-            self.SelectData.append(["data":PaymentMethodArrText[i],"isSelect":"NO"])
-        }
+        getDiscountCodes()
         
         // Confirm DataSource & Delegate for TableView
         paymentMethodTabelView.dataSource = self
@@ -58,10 +56,18 @@ class CheckoutVC: UIViewController {
         // Configration Of TextField
         couponTF.shopifyTF(placeholder: "Apply Coupon")
 
+        
     }
+    
+    
 
 // MARK: - IBActions
     @IBAction func applyCopounBtnPressed(_ sender: Any) {
+        for discountCode in discountList {
+            if couponTF.text == discountCode.title {
+                print(discountCode.value)
+            }
+        }
     }
     
     @IBAction func placeOrderBtnPressed(_ sender: Any) {
@@ -102,4 +108,19 @@ extension CheckoutVC : UITableViewDelegate , UITableViewDataSource {
         paymentMethodTabelView.reloadData()
     }
     
+}
+
+// MARK: - Load Data Methods
+extension CheckoutVC {
+    // Get Discount Codes Function
+    func getDiscountCodes() {
+        checkOutVM.BindingParsingclouser = { [weak self] in
+            DispatchQueue.main.async {
+                self?.discountList = self?.checkOutVM.discountList ?? []
+                print(self?.discountList[0].title)
+                print(self?.discountList[0].value)
+            }
+        }
+        checkOutVM.getDiscountCodes()
+    }
 }

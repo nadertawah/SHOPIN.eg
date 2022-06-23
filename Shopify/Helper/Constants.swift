@@ -13,4 +13,6 @@ struct Constants
     
     static let productsAPIUrl = "\(APICredintials)menofia-2022-q3.myshopify.com/admin/api/2022-01/products.json"
     
+    static let discountCodesUrl =
+        "\(APICredintials)menofia-2022-q3.myshopify.com/admin/api/2022-04/price_rules.json"
 }
