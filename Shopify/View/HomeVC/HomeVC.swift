@@ -47,8 +47,6 @@ class HomeVC: UIViewController {
     @IBOutlet weak var brandsCollectionView: UICollectionView!
     
     //MARK: - Variable(s)
-    private let brandCellReuseIdentifier = "brandCell"
-    private let adCellReuseIdentifier = "adCell"
     private let homeViewModel = HomeViewModel()
     
     //MARK: - Helper functions
@@ -61,9 +59,9 @@ class HomeVC: UIViewController {
         setNavBarBtns()
         
         // Registering CollectionViews' Cells
-        brandsCollectionView.register(UINib(nibName: "BrandCell", bundle: nil), forCellWithReuseIdentifier: brandCellReuseIdentifier)
+        brandsCollectionView.register(UINib(nibName: "BrandCell", bundle: nil), forCellWithReuseIdentifier: Constants.brandCellReuseIdentifier)
         
-        adsCollectionView.register(UINib(nibName: "AdCell", bundle: nil), forCellWithReuseIdentifier: adCellReuseIdentifier)
+        adsCollectionView.register(UINib(nibName: "AdCell", bundle: nil), forCellWithReuseIdentifier: Constants.adCellReuseIdentifier)
         
         // Setting CollectionViews' Delegates and Datasources
         brandsCollectionView.delegate = self
@@ -129,7 +127,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         if collectionView == brandsCollectionView {
             
-            guard let cell = brandsCollectionView.dequeueReusableCell(withReuseIdentifier: brandCellReuseIdentifier, for: indexPath) as? BrandCell else { return UICollectionViewCell() }
+            guard let cell = brandsCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.brandCellReuseIdentifier, for: indexPath) as? BrandCell else { return UICollectionViewCell() }
             
             let brand = homeViewModel.brandsList.value?.smart_collections[indexPath.item]
             
@@ -141,7 +139,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             
         } else {
             
-            guard let cell = adsCollectionView.dequeueReusableCell(withReuseIdentifier: adCellReuseIdentifier, for: indexPath) as? AdCell else { return UICollectionViewCell() }
+            guard let cell = adsCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.adCellReuseIdentifier, for: indexPath) as? AdCell else { return UICollectionViewCell() }
             
             // TODO: Set Ads
             cell.adImgView.sd_setImage(with: URL(string: "https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png"), placeholderImage: UIImage(named: "placeHolder"))

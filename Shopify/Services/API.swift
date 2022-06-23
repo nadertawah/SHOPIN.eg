@@ -10,7 +10,7 @@ import Alamofire
 
 class API : DataProviderProtocol
 {
-    func get<T:Decodable>(urlStr: String,type: T.Type, completion: @escaping (T?) -> ())
+    func get<T:Decodable>(urlStr: String, type: T.Type, completion: @escaping (T?) -> ())
     {
         AF.request(urlStr)
         
