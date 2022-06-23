@@ -387,9 +387,9 @@
 		8DFCF0522862AECD007D30A0 /* CheckoutVC */ = {
 			isa = PBXGroup;
 			children = (
-				8DFCF0572862AF01007D30A0 /* paymentMethodCell */,
 				8DFCF0532862AEEF007D30A0 /* CheckoutVC.swift */,
 				8DFCF0542862AEEF007D30A0 /* CheckoutVC.xib */,
+				8DFCF0572862AF01007D30A0 /* paymentMethodCell */,
 			);
 			path = CheckoutVC;
 			sourceTree = "<group>";

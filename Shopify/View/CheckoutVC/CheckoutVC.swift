@@ -19,8 +19,24 @@ class CheckoutVC: UIViewController {
     @IBOutlet weak var paymentMethodTabelView: UITableView!
     @IBOutlet weak var placeOrderBtn: UIButton!
     
+    
+    var subtotal = 100
+    var shippingFees = 50
+    var discount = 25
+    var total = 0
+    
+    var PaymentMethodArrText = ["Cash On Delivery" , "Credit/Debit Cart"]
+    var PaymentMethodArrIcon = ["cash","online"]
+    var SelectData = [NSMutableDictionary]()
+    var selectedPaymentOptionIndex = -1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        for i in 0..<PaymentMethodArrText.count
+        {
+            self.SelectData.append(["data":PaymentMethodArrText[i],"isSelect":"NO"])
+        }
         
         // Confirm DataSource & Delegate for TableView
         paymentMethodTabelView.dataSource = self
@@ -30,10 +46,10 @@ class CheckoutVC: UIViewController {
         paymentMethodTabelView.register(UINib(nibName: "PaymentMethodCell", bundle: nil), forCellReuseIdentifier: "PaymentMethodCell")
         
         
-        subTotalLabel.text = "L.E 100"
-        shippingFeesLabel.text = "L.E 50"
-        discountLabel.text = "L.E 25"
-        totalLabel.text = "L.E 125"
+        subTotalLabel.text = "L.E \(subtotal)"
+        shippingFeesLabel.text = "L.E \(shippingFees)"
+        discountLabel.text = "L.E \(discount)"
+        totalLabel.text = "L.E \((subtotal + shippingFees) - discount )"
         
         // Configration Of Buttons
         placeOrderBtn.shopifyBtn(title: "PLACE ORDER")
@@ -57,29 +73,33 @@ class CheckoutVC: UIViewController {
 extension CheckoutVC : UITableViewDelegate , UITableViewDataSource {
     // Number of Rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return PaymentMethodArrText.count
     }
     // Cell for Row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = paymentMethodTabelView.dequeueReusableCell(withIdentifier: "PaymentMethodCell", for: indexPath) as! PaymentMethodCell
         
-        // Cash Payment
-        if indexPath.row == 0 {
-        
-            cell.paymentLabel.text = "Cash On Delivery"
-            cell.PaymentImage.image = UIImage(named: "cash")
-            return cell
-        
+        cell.paymentLabel.text = PaymentMethodArrText[indexPath.row]
+        cell.PaymentImage.image = UIImage(named: PaymentMethodArrIcon[indexPath.row])
+
+        if selectedPaymentOptionIndex == indexPath.row {
+            cell.checkPaymentBtn.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
         }
-        // Online Payment
         else
         {
-            
-            cell.paymentLabel.text = "Credit/Debit Cart"
-            cell.PaymentImage.image = UIImage(named: "online")
-            cell.checkPaymentBtn.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
-            return cell
-            
+            cell.checkPaymentBtn.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
         }
+        
+        return cell
+        
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedPaymentOptionIndex = indexPath.row
+        
+        print(PaymentMethodArrText[selectedPaymentOptionIndex]) 
+        
+        paymentMethodTabelView.reloadData()
+    }
+    
 }
