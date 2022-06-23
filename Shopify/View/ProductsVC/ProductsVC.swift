@@ -38,8 +38,9 @@ class ProductsVC: UIViewController {
     //MARK: - Helper Function(s)
     func setUI() {
         
-        // set title
+        // Setting Navigation Bar
         title = "Products"
+        setNavBarBtns()
         
         // Registering CollectionView Cell
         productsCollectionView.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: Constants.productCellReuseIdentifier)
@@ -54,6 +55,17 @@ class ProductsVC: UIViewController {
         
         //TODO: Fetching data from API and Updating Collection View
         
+    }
+    
+    func setNavBarBtns() {
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3.decrease")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(filterProducts))
+        
+    }
+    
+    @objc func filterProducts() {
+        //TODO: filter products by (price, best seller...)
+        debugPrint("filterProducts")
     }
     
 }

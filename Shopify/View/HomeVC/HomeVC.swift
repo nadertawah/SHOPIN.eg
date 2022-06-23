@@ -87,16 +87,25 @@ class HomeVC: UIViewController {
         }
     }
     
-    func setNavBarBtns()
-    {
-        let wishlistNavBtn = UIBarButtonItem(image: UIImage(systemName: "heart")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(OBJCFunctions().navigateToWishlist))
+    func setNavBarBtns() {
+        let wishlistNavBtn = UIBarButtonItem(image: UIImage(systemName: "heart")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(navigateToWishlist))
         
         
-        let shoppingCartNavBtn = UIBarButtonItem(image: UIImage(systemName: "cart")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(OBJCFunctions().navigateToShoppingCart))
+        let shoppingCartNavBtn = UIBarButtonItem(image: UIImage(systemName: "cart")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(navigateToShoppingCart))
         
         self.navigationController?.navigationBar.topItem?.setRightBarButtonItems([shoppingCartNavBtn], animated: true)
         
         self.navigationController?.navigationBar.topItem?.setLeftBarButtonItems([wishlistNavBtn], animated: true)
+    }
+    
+    @objc func navigateToWishlist() {
+        //TODO: Navigate to wishList
+        debugPrint("navigateToWishlist")
+    }
+    
+    @objc func navigateToShoppingCart() {
+        //TODO: Navigate to wishList
+        debugPrint("navigateToShoppingCart")
     }
 
 }
@@ -148,17 +157,8 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
         let brand = homeViewModel.brandsList.value?.smart_collections[indexPath.item].title
         
         let destinationVC = ProductsVC()
-//        destinationVC.navigationItem.title = "Products"
-        destinationVC.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3.decrease"),
-                                                                          style: .done,
-                                                                          target: self,
-                                                                          action: #selector(filterProducts))
         navigationController?.pushViewController(destinationVC, animated: true)
         
-    }
-    
-    @objc func filterProducts() {
-        //TODO: filter products by (price, best seller...)
     }
     
 }
