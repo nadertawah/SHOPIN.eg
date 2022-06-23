@@ -24,7 +24,7 @@ class CheckoutVC: UIViewController {
     
     var subtotal = 100
     var shippingFees = 50
-    var discount = 25
+    var discount = 0
     var total = 0
     
     var PaymentMethodArrText = ["Cash On Delivery" , "Credit/Debit Cart"]
@@ -60,12 +60,20 @@ class CheckoutVC: UIViewController {
     }
     
     
-
+    
 // MARK: - IBActions
     @IBAction func applyCopounBtnPressed(_ sender: Any) {
         for discountCode in discountList {
             if couponTF.text == discountCode.title {
-                print(discountCode.value)
+                discount = (discountCode.value! as NSString).integerValue
+                discountLabel.text = "L.E \(discountCode.value!)"
+                totalLabel.text = "L.E \((subtotal + shippingFees) + discount )"
+                break
+            }
+            else
+            {
+                let alert = Alerts.instance.showAlert(title: "Invalid Code", message: "Please Enter Correct Discount Code to Get Your Discount")
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }

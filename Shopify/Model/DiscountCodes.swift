@@ -7,43 +7,13 @@
 
 import Foundation
 
-struct RootClass: Codable {
+struct PriceRules: Codable {
 
-    let priceRules: [PriceRules]
+    let price_rules: [PriceRule]
     
 }
 
-struct PriceRules: Codable {
-
-    let id: Int?
-    let valueType: String?
+struct PriceRule: Codable {
     let value: String?
-    let customerSelection: String?
-    let targetType: String?
-    let targetSelection: String?
-    let allocationMethod: String?
-    let allocationLimit: String?
-    let oncePerCustomer: Bool?
-    let usageLimit: String?
-    let startsAt: String?
-    let endsAt: String?
-    let createdAt: String?
-    let updatedAt: String?
-    let entitledProductIds: [String]?
-    let entitledVariantIds: [String]?
-    let entitledCollectionIds: [String]?
-    let entitledCountryIds: [String]?
-    let prerequisiteProductIds: [String]?
-    let prerequisiteVariantIds: [String]?
-    let prerequisiteCollectionIds: [String]?
-    let customerSegmentPrerequisiteIds: [String]?
-    let prerequisiteCustomerIds: [String]?
-    let prerequisiteSubtotalRange: String?
-    let prerequisiteQuantityRange: String?
-    let prerequisiteShippingPriceRange: String?
-    let prerequisiteToEntitlementQuantityRatio: [String]?
-    let prerequisiteToEntitlementPurchase: [String]?
     let title: String?
-    let adminGraphqlApiId: String?
-
 }
