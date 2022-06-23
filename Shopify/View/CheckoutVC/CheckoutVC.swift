@@ -19,8 +19,22 @@ class CheckoutVC: UIViewController {
     @IBOutlet weak var paymentMethodTabelView: UITableView!
     @IBOutlet weak var placeOrderBtn: UIButton!
     
+    private let checkOutVM = CheckOutVM(dataProvider: API())
+    var discountList = [PriceRule]()
+    
+    var subtotal = 100
+    var shippingFees = 50
+    var discount = 0
+    var total = 0
+    
+    var PaymentMethodArrText = ["Cash On Delivery" , "Credit/Debit Cart"]
+    var PaymentMethodArrIcon = ["cash","online"]
+    var selectedPaymentOptionIndex = -1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getDiscountCodes()
         
         // Confirm DataSource & Delegate for TableView
         paymentMethodTabelView.dataSource = self
@@ -30,10 +44,10 @@ class CheckoutVC: UIViewController {
         paymentMethodTabelView.register(UINib(nibName: "PaymentMethodCell", bundle: nil), forCellReuseIdentifier: "PaymentMethodCell")
         
         
-        subTotalLabel.text = "L.E 100"
-        shippingFeesLabel.text = "L.E 50"
-        discountLabel.text = "L.E 25"
-        totalLabel.text = "L.E 125"
+        subTotalLabel.text = "L.E \(subtotal)"
+        shippingFeesLabel.text = "L.E \(shippingFees)"
+        discountLabel.text = "L.E \(discount)"
+        totalLabel.text = "L.E \((subtotal + shippingFees) - discount )"
         
         // Configration Of Buttons
         placeOrderBtn.shopifyBtn(title: "PLACE ORDER")
@@ -42,10 +56,26 @@ class CheckoutVC: UIViewController {
         // Configration Of TextField
         couponTF.shopifyTF(placeholder: "Apply Coupon")
 
+        
     }
-
+    
+    
+    
 // MARK: - IBActions
     @IBAction func applyCopounBtnPressed(_ sender: Any) {
+        for discountCode in discountList {
+            if couponTF.text == discountCode.title {
+                discount = (discountCode.value! as NSString).integerValue
+                discountLabel.text = "L.E \(discountCode.value!)"
+                totalLabel.text = "L.E \((subtotal + shippingFees) + discount )"
+                break
+            }
+            else
+            {
+                let alert = Alerts.instance.showAlert(title: "Invalid Code", message: "Please Enter Correct Discount Code to Get Your Discount")
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
     }
     
     @IBAction func placeOrderBtnPressed(_ sender: Any) {
@@ -57,29 +87,48 @@ class CheckoutVC: UIViewController {
 extension CheckoutVC : UITableViewDelegate , UITableViewDataSource {
     // Number of Rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return PaymentMethodArrText.count
     }
     // Cell for Row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = paymentMethodTabelView.dequeueReusableCell(withIdentifier: "PaymentMethodCell", for: indexPath) as! PaymentMethodCell
         
-        // Cash Payment
-        if indexPath.row == 0 {
-        
-            cell.paymentLabel.text = "Cash On Delivery"
-            cell.PaymentImage.image = UIImage(named: "cash")
-            return cell
-        
+        cell.paymentLabel.text = PaymentMethodArrText[indexPath.row]
+        cell.PaymentImage.image = UIImage(named: PaymentMethodArrIcon[indexPath.row])
+
+        if selectedPaymentOptionIndex == indexPath.row {
+            cell.checkPaymentBtn.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
         }
-        // Online Payment
         else
         {
-            
-            cell.paymentLabel.text = "Credit/Debit Cart"
-            cell.PaymentImage.image = UIImage(named: "online")
-            cell.checkPaymentBtn.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
-            return cell
-            
+            cell.checkPaymentBtn.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
         }
+        
+        return cell
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedPaymentOptionIndex = indexPath.row
+        
+        print(PaymentMethodArrText[selectedPaymentOptionIndex]) 
+        
+        paymentMethodTabelView.reloadData()
+    }
+    
+}
+
+// MARK: - Load Data Methods
+extension CheckoutVC {
+    // Get Discount Codes Function
+    func getDiscountCodes() {
+        checkOutVM.BindingParsingclouser = { [weak self] in
+            DispatchQueue.main.async {
+                self?.discountList = self?.checkOutVM.discountList ?? []
+                print(self?.discountList[0].title)
+                print(self?.discountList[0].value)
+            }
+        }
+        checkOutVM.getDiscountCodes()
     }
 }

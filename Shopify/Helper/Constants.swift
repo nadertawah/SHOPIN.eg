@@ -11,10 +11,12 @@ struct Constants
 {
     private static let APICredintials = "https://fde429753a207f610321a557c2e0ceb0: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@"
     
-    static let productsAPIUrl = "\(APICredintials)menofia-2022-q3.myshopify.com/admin/api/2022-01/products.json"
-    
-    static let brandsAPIUrl = "\(APICredintials)menofia-2022-q3.myshopify.com/admin/api/2022-01/smart_collections.json"
-    
+    static let brandsAPIUrl = "https://menofia-2022-q3.myshopify.com/admin/api/2022-01/smart_collections.json"
+      
+    static let productsAPIUrl = "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/products.json"
+    static let customersAPIUrl = "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/customers.json"
+    static let shopifyHeader = ["X-Shopify-Access-Token":"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","Content-Type": "application/json"]
+
     //MARK: - ProductsVC Constants
     static let productCellReuseIdentifier = "productCell"
     
@@ -22,9 +24,9 @@ struct Constants
     static let brandCellReuseIdentifier = "brandCell"
     static let adCellReuseIdentifier = "adCell"
     
+
     //MARK: - CategoryVC Constants
     static let mainCategoryCellReuseIdentifier = "mainCategoryCell"
     static let subCategoryCellReuseIdentifier = "subCategoryCell"
-
-    
+    static let discountCodesUrl = "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/price_rules.json"
 }
