@@ -12,11 +12,18 @@ class LoginRegisterVC: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        //VM init
+        VM = LoginRegisterVM(dataProvider: API())
+        
+        //set UI
         setUpUI()
     }
 
     //MARK: - IBOutlet(s)
     @IBOutlet weak var nameTextField: UITextField!
+    
+    @IBOutlet weak var phoneNumberTextField: UITextField!
     
     @IBOutlet weak var emailTextField: UITextField!
     
@@ -40,21 +47,36 @@ class LoginRegisterVC: UIViewController
         {
             if swipeLabel.text == "Swipe to Login"
             {
-                if nameTextField.text!.isEmpty
+                if nameTextField.text!.isEmpty && !phoneNumberTextField.text!.isEmpty
                 {
                     alert(title: "Error", message: "All fields are required!")
                 }
                 else
                 {
-                    //TODO: - Register new user
-                    
+                    // Register new user
+                    VM.register(name: nameTextField.text!, email: emailTextField.text!, password: passwordTextField.text!,phone: phoneNumberTextField.text!)
+                    { [weak self] resulMsg in
+                        
+                        DispatchQueue.main.async
+                        {
+                            [weak self] in
+                            self?.alert(title: "", message: resulMsg)
+                        }
+                    }
                 }
             }
             else
             {
                 //TODO: - Login
-                
-                
+                VM.login(email: emailTextField.text!, password: passwordTextField.text!)
+                { [weak self] resulMsg in
+                    
+                    DispatchQueue.main.async
+                    {
+                        [weak self] in
+                        self?.alert(title: "", message: resulMsg)
+                    }
+                }
             }
         }
        else
@@ -72,7 +94,7 @@ class LoginRegisterVC: UIViewController
     }
     
     //MARK: - Var(s)
-    
+    var VM : LoginRegisterVM!
     
     
     //MARK: - Helper Funcs
@@ -91,7 +113,6 @@ class LoginRegisterVC: UIViewController
         
         self.view.addGestureRecognizer(rightSwipeGesture)
         self.view.addGestureRecognizer(lefttSwipeGesture)
-        
     }
     
     @objc func swipe()
@@ -101,6 +122,7 @@ class LoginRegisterVC: UIViewController
             UIView.transition(with: self.loginRegisterBtn, duration: 0.5, options: [.transitionCrossDissolve], animations:
             {   [weak self] in
                 self?.nameTextField.alpha = 0
+                self?.phoneNumberTextField.alpha = 0
                 self?.loginRegisterBtn.shopifyBtn(title:"SIGN IN")
                 self?.swipeLabel.text = "Swipe to Register"
                 self?.title = "Login"
@@ -112,12 +134,10 @@ class LoginRegisterVC: UIViewController
             { [weak self] in
                 self?.loginRegisterBtn.shopifyBtn(title:"SIGN UP")
                 self?.nameTextField.alpha = 1
+                self?.phoneNumberTextField.alpha = 1
                 self?.swipeLabel.text = "Swipe to Login"
                 self?.title = "Register"
             })
         }
     }
-    
-    
-    
 }

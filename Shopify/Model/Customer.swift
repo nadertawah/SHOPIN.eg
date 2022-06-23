@@ -7,10 +7,16 @@
 
 import Foundation
 
-// MARK: - Welcome
-struct CustomerModel: Codable
+// MARK: - Customers Model
+struct CustomersModel: Codable
 {
     var customers: [Customer]?
+}
+
+// MARK: - Customer Model
+struct CustomerModel: Codable
+{
+    var customer: Customer?
 }
 
 // MARK: - Customer
@@ -34,12 +40,12 @@ struct Customer: Codable
     var last_order_name: String?
     var currency: String?
     var addresses: [Address]?
-    var acceptsMarketingUpdatedAt: String?
-    var marketingOptInLevel: String?
-    var taxExemptions: [String]?
-    var smsMarketingConsent: SMSMarketingConsent?
-    var adminGraphqlAPIID: String?
-    var defaultAddress: Address?
+    var accepts_marketing_updated_at: String?
+    var marketing_opt_in_level: String?
+    var tax_exemptions: [String]?
+    var sms_marketing_consent: SMSMarketingConsent?
+    var admin_graphql_api_id: String?
+    var default_address: Address?
 }
 
 // MARK: - Address
@@ -54,20 +60,7 @@ struct Address: Codable
     var phone, name: String?
     var province_code: String?
     var country_code, country_name: String?
-    var addressDefault: Bool?
-    
-    enum CodingKeys: String, CodingKey
-    {
-            case id
-            case customerID
-            case firstName
-            case lastName
-            case company, address1, address2, city, province, country, zip, phone, name
-            case provinceCode
-            case countryCode
-            case countryName
-            case addressDefault
-        }
+    var `default`: Bool?
 }
 
 
@@ -75,7 +68,20 @@ struct Address: Codable
 struct SMSMarketingConsent: Codable
 {
     var state: String?
-    var optInLevel: String?
-    var consentUpdatedAt: String?
-    var consentCollectedFrom: String?
+    var opt_in_level: String?
+    var consent_updated_at: String?
+    var consent_collected_from: String?
+}
+
+
+// MARK: - Error
+struct CustomerErrorModel: Codable
+{
+    var errors: Errors?
+}
+
+// MARK: - Errors
+struct Errors: Codable
+{
+    var email, phone: [String]?
 }

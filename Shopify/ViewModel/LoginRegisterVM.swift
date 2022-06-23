@@ -18,29 +18,75 @@ class LoginRegisterVM
     //data provider service
     var dataProvider : DataProviderProtocol
     
-    //VC binding closure
-    var bind : ((Bool) -> ())?
-    
     //MARK: - intent(s)
-    func login(email:String, password:String)
+    func login(email:String, password:String,completionHandler : @escaping (String)->())
     {
-        
-    }
-    
-    func register(name:String,email:String, password:String)
-    {
-        
-    }
-    
-    //MARK: - Helper Funcs
-    func getProductDetails(productID : String)
-    {
-        let productDetailsURL = Constants.productsAPIUrl.replacingOccurrences(of: ".json", with: "/\(productID).json")
-        dataProvider.get(urlStr: productDetailsURL, type: ProductModel.self)
+        dataProvider.get(urlStr: Constants.customersAPIUrl, type: CustomersModel.self)
         {
-            [weak self] in
-            //self?.product = $0?.product ?? Product()
+            customersModel in
+            guard let customers = customersModel?.customers else { return }
+            var isLoggedIn = false
+            var customerID : Int = 0
+            for customer in customers
+            {
+                if customer.email == email && customer.multipass_identifier == password
+                {
+                    isLoggedIn = true
+                    customerID = customer.id ?? 0
+                    completionHandler("Welcome, \(customer.first_name ?? "")")
+                    break
+                }
+            }
+            
+            if isLoggedIn
+            {
+                UserDefaults.standard.set(customerID, forKey: "customerID")
+            }
+            else
+            {
+                completionHandler("Wrong credintials!")
+            }
         }
     }
     
+    func register(name:String,email:String, password:String,phone:String, completionHandler : @escaping (String)->())
+    {
+        let fullName = name.split(separator: " ")
+        let parameter: [String: Any] = [
+            "customer":[
+                "first_name": fullName[0],
+                "last_name": fullName[fullName.count - 1] ,
+                  "email": email,
+                  "verified_email":true,
+                "multipass_identifier": password,
+                "phone": phone,
+                  "addresses":[]
+               ]
+        ]
+        
+        dataProvider.post(urlStr: Constants.customersAPIUrl, dataType: CustomerModel.self, errorType: CustomerErrorModel.self, params: parameter)
+        {
+            if $0 != nil
+            {
+                completionHandler("Done!")
+            }
+            else if let errors = $1?.errors
+            {
+                var message = ""
+                if let emailError = errors.email
+                {
+                    message += "Email : \(emailError[0])\n"
+                }
+                else if let phoneError = errors.phone
+                {
+                    message += "Phone: \(phoneError[0])"
+                }
+                else
+                {
+                    message = "Error"
+                }
+                completionHandler(message)
+            }
+        }
+    }    
 }
