@@ -70,12 +70,6 @@ class HomeVC: UIViewController {
         adsCollectionView.delegate = self
         adsCollectionView.dataSource = self
         
-        // Setting CollectionViews' layouts
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        brandsCollectionView.collectionViewLayout = layout
-        adsCollectionView.collectionViewLayout = layout
-        
         // Fetching data from API and Updating Collection View
         homeViewModel.getBrands()
         homeViewModel.brandsList.bind { [weak self] _ in
@@ -85,15 +79,18 @@ class HomeVC: UIViewController {
         }
     }
     
+    // Setting Navigation Bar Buttons
     func setNavBarBtns() {
+        
+        // Left Button - Navigation to WishList
         let wishlistNavBtn = UIBarButtonItem(image: UIImage(systemName: "heart")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(navigateToWishlist))
+        self.navigationController?.navigationBar.topItem?.setLeftBarButtonItems([wishlistNavBtn], animated: true)
         
-        
+        // Right Button - Navigation to ShoppingCart
         let shoppingCartNavBtn = UIBarButtonItem(image: UIImage(systemName: "cart")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(navigateToShoppingCart))
-        
         self.navigationController?.navigationBar.topItem?.setRightBarButtonItems([shoppingCartNavBtn], animated: true)
         
-        self.navigationController?.navigationBar.topItem?.setLeftBarButtonItems([wishlistNavBtn], animated: true)
+        
     }
     
     @objc func navigateToWishlist() {
@@ -102,7 +99,7 @@ class HomeVC: UIViewController {
     }
     
     @objc func navigateToShoppingCart() {
-        //TODO: Navigate to wishList
+        //TODO: Navigate to shoppinCart
         debugPrint("navigateToShoppingCart")
     }
 
@@ -118,7 +115,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             return homeViewModel.brandsList.value?.smart_collections.count ?? 0
         } else {
             //TODO: set number of ads
-            return homeViewModel.brandsList.value?.smart_collections.count ?? 0
+            return 3
         }
         
     }
@@ -152,11 +149,19 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let brand = homeViewModel.brandsList.value?.smart_collections[indexPath.item].title
-        
-        let destinationVC = ProductsVC()
-        destinationVC.productsVM = ProductsViewModel(brand: brand ?? "")
-        navigationController?.pushViewController(destinationVC, animated: true)
+        if collectionView == brandsCollectionView {
+            
+            let brand = homeViewModel.brandsList.value?.smart_collections[indexPath.item].title
+            
+            let destinationVC = ProductsVC()
+            destinationVC.productsVM = ProductsViewModel(brand: brand ?? "")
+            navigationController?.pushViewController(destinationVC, animated: true)
+            
+        } else {
+            
+            // TODO: For Ads selection
+            
+        }
         
     }
     
@@ -165,12 +170,11 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
 //MARK: - CollectionView FlowLayout Methods
 extension HomeVC: UICollectionViewDelegateFlowLayout {
     
-    // TODO: Fix the flaw in layout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         if collectionView == brandsCollectionView {
             
-            return CGSize(width: brandsCollectionView.frame.width/2.0, height: brandsCollectionView.frame.width/2.0)
+            return CGSize(width: brandsCollectionView.frame.width/2, height: brandsCollectionView.frame.height/2)
             
         } else {
             
