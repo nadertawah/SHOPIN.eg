@@ -135,9 +135,7 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
             // Configure Selected Cell Design
             if let cell = collectionView.cellForItem(at: indexPath) as? MainCategoryCell {
                 cell.underlineView.backgroundColor = .black
-                
             }
-            
         }
     }
     
@@ -192,7 +190,10 @@ extension CategoryVC: UITableViewDelegate, UITableViewDataSource {
         
         // Deselect all cells
         for cell in tableView.visibleCells {
-            cell.setSelected(false, animated: true)
+            if let cell = cell as? SubCategoryCell {
+                cell.subCategoryLabel.backgroundColor = .systemGray6
+                cell.subCategoryLabel.textColor = .black
+            }
         }
         tableView.reloadData()
         
@@ -209,6 +210,6 @@ extension CategoryVC: UITableViewDelegate, UITableViewDataSource {
                 self?.productsCollectionView.reloadData()
             }
         }
-        
     }
+    
 }
