@@ -18,9 +18,7 @@ class ProductCell: UICollectionViewCell {
     @IBOutlet weak var productImgView: UIImageView!
     
     @IBOutlet weak var priceLabel: UILabel!
-    
-    @IBOutlet weak var currencyLabel: UILabel!
-    
+        
     //MARK: - IBAction(s)
     @IBAction func wishListBtn(_ sender: UIButton) {
         

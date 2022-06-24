@@ -10,24 +10,30 @@ import Foundation
 class CategoryViewModel
 {
     
-    init(dataProvider: DataProviderProtocol, brand: String) {
+    init(dataProvider: DataProviderProtocol) {
         self.dataProvider = dataProvider
-        getProducts(from: brand)
+        getSubCategories()
     }
 
     //MARK: - Variable(s)
-    var productsList: Observable<Products> = Observable(nil)
+    let mainCategoriesList = ["WOMEN", "KIDS", "MEN", "SALE"]
+    var subCategoriesList = [String]()
     var dataProvider: DataProviderProtocol
+    let productsVM = ProductsViewModel(dataProvider: API())
     
     //MARK: - Helper Funcs
-    func getProducts(from brand: String) {
+    func getSubCategories() {
         
-        API().get(urlStr: Constants.productsAPIUrl, type: Products.self) { result in
+        productsVM.productsList.bind { [weak self] _ in
+            guard let products = self?.productsVM.productsList.value?.products else { return }
             DispatchQueue.main.async {
-                self.productsList.value = Products(products: result?.products.filter { $0.vendor == brand } ?? [])
+                for product in products {
+                    if !(self?.subCategoriesList.contains(product.product_type ?? "") ?? true) {
+                        self?.subCategoriesList.append(product.product_type ?? "")
+                    }
+                }
             }
         }
-        
     }
     
 }

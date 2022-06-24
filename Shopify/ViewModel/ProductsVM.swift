@@ -14,6 +14,11 @@ class ProductsViewModel
         self.dataProvider = dataProvider
         getProducts(from: brand)
     }
+    
+    init(dataProvider: DataProviderProtocol) {
+        self.dataProvider = dataProvider
+        getProducts()
+    }
 
     //MARK: - Variable(s)
     var productsList: Observable<Products> = Observable(nil)
@@ -22,9 +27,19 @@ class ProductsViewModel
     //MARK: - Helper Funcs
     func getProducts(from brand: String) {
         
-        API().get(urlStr: Constants.productsAPIUrl, type: Products.self) { result in
+        dataProvider.get(urlStr: Constants.productsAPIUrl, type: Products.self) { result in
             DispatchQueue.main.async {
                 self.productsList.value = Products(products: result?.products.filter { $0.vendor == brand } ?? [])
+            }
+        }
+        
+    }
+    
+    func getProducts() {
+        
+        dataProvider.get(urlStr: Constants.productsAPIUrl, type: Products.self) { result in
+            DispatchQueue.main.async {
+                self.productsList.value = result
             }
         }
         
