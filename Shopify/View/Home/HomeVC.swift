@@ -47,7 +47,7 @@ class HomeVC: UIViewController {
     @IBOutlet weak var brandsCollectionView: UICollectionView!
     
     //MARK: - Variable(s)
-    private let homeViewModel = HomeViewModel()
+    private let homeViewModel = HomeViewModel(dataProvider: API())
     
     //MARK: - Helper functions
     func setUI()

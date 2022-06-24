@@ -66,12 +66,6 @@ class CategoryVC: UIViewController {
         
         productsCollectionView.delegate = self
         productsCollectionView.dataSource = self
-        
-        // Setting CollectionViews' layouts
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        mainCategoriesCollectionView.collectionViewLayout = layout
-        productsCollectionView.collectionViewLayout = UICollectionViewFlowLayout()
 
     }
     
@@ -87,7 +81,7 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         // TODO: Set number of items in mainCategories and products collection views
         if collectionView == mainCategoriesCollectionView {
-            return 4
+            return 7
         } else {
             return 40
         }

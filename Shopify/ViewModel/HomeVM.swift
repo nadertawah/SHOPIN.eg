@@ -9,11 +9,18 @@ import Foundation
 
 class HomeViewModel {
     
+    // Init
+    init(dataProvider: DataProviderProtocol) {
+        self.dataProvider = dataProvider
+    }
+    
+    //MARK: - Variable(s)
     var brandsList: Observable<SmartCollections> = Observable(nil)
+    var dataProvider: DataProviderProtocol
     
     func getBrands() {
         
-        API().get(urlStr: Constants.brandsAPIUrl, type: SmartCollections.self) { result in
+        dataProvider.get(urlStr: Constants.brandsAPIUrl, type: SmartCollections.self) { result in
             DispatchQueue.main.async {
                 self.brandsList.value = result
             }
