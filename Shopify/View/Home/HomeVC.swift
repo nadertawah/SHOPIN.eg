@@ -154,7 +154,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             let brand = homeViewModel.brandsList.value?.smart_collections[indexPath.item].title
             
             let destinationVC = ProductsVC()
-            destinationVC.productsVM = ProductsViewModel(brand: brand ?? "")
+            destinationVC.productsVM = ProductsViewModel(dataProvider: API(), brand: brand ?? "")
             navigationController?.pushViewController(destinationVC, animated: true)
             
         } else {

@@ -10,12 +10,14 @@ import Foundation
 class ProductsViewModel
 {
     
-    init(brand: String) {
+    init(dataProvider: DataProviderProtocol, brand: String) {
+        self.dataProvider = dataProvider
         getProducts(from: brand)
     }
 
     //MARK: - Variable(s)
     var productsList: Observable<Products> = Observable(nil)
+    var dataProvider: DataProviderProtocol
     
     //MARK: - Helper Funcs
     func getProducts(from brand: String) {

@@ -17,7 +17,6 @@ class HomeViewModel {
             DispatchQueue.main.async {
                 self.brandsList.value = result
             }
-            
         }
     }
 }
