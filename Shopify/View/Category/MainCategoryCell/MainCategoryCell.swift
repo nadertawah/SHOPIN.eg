@@ -16,4 +16,6 @@ class MainCategoryCell: UICollectionViewCell {
 
     @IBOutlet weak var mainCategoryLabel: UILabel!
     
+    @IBOutlet weak var underlineView: UIView!
+    
 }

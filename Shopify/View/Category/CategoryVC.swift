@@ -78,8 +78,6 @@ class CategoryVC: UIViewController {
     }
     
     
-    
-    
 }
 
 //MARK: - CollectionView Delegate and DataSource Methods
@@ -127,7 +125,18 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         if collectionView == mainCategoriesCollectionView {
             
-            //TODO: Underline category when selected
+            // Deselect all cells
+            for cell in collectionView.visibleCells {
+                if let cell = cell as? MainCategoryCell {
+                    cell.underlineView.backgroundColor = .white
+                }
+            }
+            
+            // Configure Selected Cell Design
+            if let cell = collectionView.cellForItem(at: indexPath) as? MainCategoryCell {
+                cell.underlineView.backgroundColor = .black
+                
+            }
             
         }
     }
@@ -194,6 +203,12 @@ extension CategoryVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         //TODO: View Products of this subCategory
+        categoryVM.productsVM.getProducts(using: categoryVM.subCategoriesList[indexPath.row])
+        categoryVM.productsVM.productsList.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.productsCollectionView.reloadData()
+            }
+        }
         
     }
 }
