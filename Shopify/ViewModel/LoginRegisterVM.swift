@@ -19,10 +19,10 @@ class LoginRegisterVM
     var dataProvider : DataProviderProtocol
     
     //MARK: - intent(s)
-    func login(email:String, password:String,completionHandler : @escaping (String)->())
+    func login(email:String, password:String,completionHandler : @escaping (String,Bool)->())
     {
         dataProvider.get(urlStr: Constants.customersAPIUrl, type: CustomersModel.self)
-        {
+        { 
             customersModel in
             guard let customers = customersModel?.customers else { return }
             var isLoggedIn = false
@@ -33,7 +33,7 @@ class LoginRegisterVM
                 {
                     isLoggedIn = true
                     customerID = customer.id ?? 0
-                    completionHandler("Welcome, \(customer.first_name ?? "")")
+                    completionHandler("Welcome, \(customer.first_name ?? "")",true)
                     break
                 }
             }
@@ -41,10 +41,11 @@ class LoginRegisterVM
             if isLoggedIn
             {
                 UserDefaults.standard.set(customerID, forKey: "customerID")
+                UserDefaults.standard.set(true, forKey: "isLoggedIn")
             }
             else
             {
-                completionHandler("Wrong credintials!")
+                completionHandler("Wrong credintials!",false)
             }
         }
     }

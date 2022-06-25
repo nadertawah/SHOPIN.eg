@@ -13,8 +13,6 @@ class MeVC: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
-        isLoggedIn = !UserDefaults.standard.bool(forKey: "loggedIn")
         
         setUI()
     }
@@ -48,16 +46,21 @@ class MeVC: UIViewController
         
     }
     
-    @IBAction func logoutBtnPressed(_ sender: Any) {
+    @IBAction func logoutBtnPressed(_ sender: Any)
+    {
+        VM.logout()
     }
+    
     //MARK: - Var(s)
+    var VM = MeViewModel(dataProvider: API())
     private let labelCellIdentfier = "LabelTableViewCell"
-    private var isLoggedIn : Bool!
     
     //MARK: - Helper Funcs
     func setUI()
     {
         //TODO: - get customer info and use customer id as a password
+        
+        
         
         //set title
         title = "Me"
@@ -78,20 +81,58 @@ class MeVC: UIViewController
         setNavBarBtns()
         
         //show/hide login or register and logout buttons
+        VM.isLoggedIn.bind
+        { [weak self] isLoggedIn in
+            DispatchQueue.main.async
+            {
+                self?.updateUILoginRegisterState(isLoggedIn: isLoggedIn ?? false)
+                self?.wishlistTableView.reloadData()
+                self?.ordersTableView.reloadData()
+            }
+        }
+        
+        // bind customer data
+        VM.customer.bind { [weak self] customer in
+            DispatchQueue.main.async
+            {
+                self?.welcomeLabel.text = "Welcome, \(customer?.first_name ?? "")"
+            }
+        }
+        
+        //TODO: - get wishlist items (if > 4, enable more btn)
+        //TODO: - get order history (if > 2, enable more btn)
+    }
+    
+    @IBAction func loginRegisterBtnPressed(_ sender: Any)
+    {
+        let vc = LoginRegisterVC()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
+    func updateUILoginRegisterState(isLoggedIn:Bool)
+    {
         if isLoggedIn
         {
-            welcomeLabel.isHidden = false
-            logoutBtn.isHidden = false
-            loginRegisterBtn.isHidden = true
+            UIView.animate(withDuration: 0.5)
+            { [weak self] in
+                self?.welcomeLabel.alpha = 1
+                self?.logoutBtn.alpha = 1
+                self?.loginRegisterBtn.alpha = 0
+                
+            }
+            
         }
         else
         {
-            welcomeLabel.isHidden = true
-            logoutBtn.isHidden = true
-            loginRegisterBtn.isHidden = false
+            UIView.animate(withDuration: 0.5)
+            {
+                [weak self] in
+                self?.welcomeLabel.alpha = 0
+                self?.logoutBtn.alpha = 0
+                self?.loginRegisterBtn.alpha = 1
+            }
         }
-        //TODO: - get wishlist items (if > 4, enable more btn)
-        //TODO: - get order history (if > 2, enable more btn)
     }
     
     func setNavBarBtns()
@@ -113,6 +154,11 @@ class MeVC: UIViewController
     {
 
     }
+    
+    override func viewWillAppear(_ animated: Bool)
+    {
+        VM.getLoginState()
+    }
 }
 
 //MARK: - table view delegates
@@ -120,8 +166,7 @@ extension MeVC : UITableViewDelegate, UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if !isLoggedIn {return 0}
-        else
+        if VM.isLoggedIn.value == true
         {
             if tableView == ordersTableView
             {
@@ -133,6 +178,7 @@ extension MeVC : UITableViewDelegate, UITableViewDataSource
             }
                 
         }
+        else {return 0}
         return 0
     }
     
@@ -160,7 +206,7 @@ extension MeVC : UITableViewDelegate, UITableViewDataSource
         }
         else if tableView == wishlistTableView
         {
-            guard let cell = ordersTableView.dequeueReusableCell(withIdentifier: labelCellIdentfier) as? LabelTableViewCell else {return UITableViewCell()}
+            guard let cell = wishlistTableView.dequeueReusableCell(withIdentifier: labelCellIdentfier) as? LabelTableViewCell else {return UITableViewCell()}
             
             switch indexPath.row
             {

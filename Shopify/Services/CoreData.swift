@@ -70,5 +70,17 @@ class CoreData
 
         saveContext()
     }
+    
+    func insertObject(entityName : String,valuesForKeys: [String:Any])
+    {
+        guard let entity = NSEntityDescription.entity(forEntityName: entityName, in: context)
+        else{return}
+        
+        let obj = NSManagedObject(entity: entity, insertInto: context)
+        obj.setValuesForKeys(valuesForKeys)
+        
+        saveContext()
+    }
+
 }
 

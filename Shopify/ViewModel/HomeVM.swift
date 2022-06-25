@@ -19,7 +19,7 @@ class HomeViewModel
     //MARK: - Var(s)
     var brandsList: Observable<BrandsModel> = Observable(nil)
     var filtereBrandsList: Observable<[Brand]> = Observable([Brand]())
-
+    
     //MARK: - intent(s)
     func searchBrands(searchStr:String)
     {

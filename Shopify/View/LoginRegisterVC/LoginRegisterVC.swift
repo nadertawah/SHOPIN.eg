@@ -67,14 +67,23 @@ class LoginRegisterVC: UIViewController
             }
             else
             {
-                //TODO: - Login
+                // Login
                 VM.login(email: emailTextField.text!, password: passwordTextField.text!)
-                { [weak self] resulMsg in
+                { [weak self] resulMsg,LoggedIn  in
                     
                     DispatchQueue.main.async
                     {
                         [weak self] in
-                        self?.alert(title: "", message: resulMsg)
+                        
+                        var alert = UIAlertController()
+                        alert = UIAlertController(title: "", message: resulMsg, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default)
+                                        {
+                            _ in
+                            if LoggedIn {self?.navigationController?.popViewController(animated: true)}})
+                        
+                        self?.present(alert, animated: true)
+                    
                     }
                 }
             }

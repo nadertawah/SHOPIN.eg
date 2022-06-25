@@ -35,6 +35,7 @@
 		7576E2252862B63900022E69 /* LoginRegisterVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7576E2232862B63900022E69 /* LoginRegisterVC.xib */; };
 		7576E22728633E7900022E69 /* LoginRegisterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7576E22628633E7900022E69 /* LoginRegisterVM.swift */; };
 		7576E22928634E0900022E69 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7576E22828634E0900022E69 /* Customer.swift */; };
+		757DA7782865D41800CEBE56 /* MeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DA7772865D41700CEBE56 /* MeVM.swift */; };
 		7593F00328623A8C000BF315 /* MeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7593F00128623A8C000BF315 /* MeVC.swift */; };
 		7593F00428623A8C000BF315 /* MeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7593F00228623A8C000BF315 /* MeVC.xib */; };
 		7593F0082862503D000BF315 /* LabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7593F0062862503D000BF315 /* LabelTableViewCell.swift */; };
@@ -46,7 +47,6 @@
 		75FE22982861F0270071039C /* ProductDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE22972861F0270071039C /* ProductDetailsVM.swift */; };
 		75FE229A2861F6650071039C /* ProductDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE22992861F6650071039C /* ProductDetails.swift */; };
 		75FE229C2861FD160071039C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE229B2861FD160071039C /* Constants.swift */; };
-
 		76A3EF162863531F00A1DED7 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A3EF152863531F00A1DED7 /* Observable.swift */; };
 		76A3EF172863531F00A1DED7 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A3EF152863531F00A1DED7 /* Observable.swift */; };
 		76A3EF182863531F00A1DED7 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A3EF152863531F00A1DED7 /* Observable.swift */; };
@@ -163,6 +163,7 @@
 		7576E2232862B63900022E69 /* LoginRegisterVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginRegisterVC.xib; sourceTree = "<group>"; };
 		7576E22628633E7900022E69 /* LoginRegisterVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterVM.swift; sourceTree = "<group>"; };
 		7576E22828634E0900022E69 /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		757DA7772865D41700CEBE56 /* MeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeVM.swift; sourceTree = "<group>"; };
 		7593F00128623A8C000BF315 /* MeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeVC.swift; sourceTree = "<group>"; };
 		7593F00228623A8C000BF315 /* MeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeVC.xib; sourceTree = "<group>"; };
 		7593F0062862503D000BF315 /* LabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTableViewCell.swift; sourceTree = "<group>"; };
@@ -174,7 +175,6 @@
 		75FE22972861F0270071039C /* ProductDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsVM.swift; sourceTree = "<group>"; };
 		75FE22992861F6650071039C /* ProductDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetails.swift; sourceTree = "<group>"; };
 		75FE229B2861FD160071039C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-
 		76A3EF152863531F00A1DED7 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		76A3EF1C286353D400A1DED7 /* CategoryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryVC.xib; sourceTree = "<group>"; };
 		76A3EF1D286353D400A1DED7 /* CategoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryVC.swift; sourceTree = "<group>"; };
@@ -260,9 +260,8 @@
 				76A3EF622863ED6600A1DED7 /* ProductsVM.swift */,
 				75FE22972861F0270071039C /* ProductDetailsVM.swift */,
 				7576E22628633E7900022E69 /* LoginRegisterVM.swift */,
-
 				8DAF4FB22864522F004DB212 /* CheckOutVM.swift */,
-
+				757DA7772865D41700CEBE56 /* MeVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -388,12 +387,9 @@
 			children = (
 				755C465B285E38F0005C4208 /* Shopify.xcdatamodeld */,
 				75FE22992861F6650071039C /* ProductDetails.swift */,
-
 				76A3EF5328636A3B00A1DED7 /* Brands.swift */,
 				7576E22828634E0900022E69 /* Customer.swift */,
-
 				8DAF4FB028645093004DB212 /* DiscountCodes.swift */,
-
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -413,11 +409,8 @@
 			children = (
 				7524F768285FDE4B00BFBE51 /* Helper.swift */,
 				75FE229B2861FD160071039C /* Constants.swift */,
-
 				76A3EF152863531F00A1DED7 /* Observable.swift */,
-
 				8D75C25C28648EA600ADC31A /* Alerts.swift */,
-
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -874,6 +867,7 @@
 				7576E22728633E7900022E69 /* LoginRegisterVM.swift in Sources */,
 				75378E56285E4F16004DAD3D /* BaseNavBar.swift in Sources */,
 				8DAF4FB32864522F004DB212 /* CheckOutVM.swift in Sources */,
+				757DA7782865D41800CEBE56 /* MeVM.swift in Sources */,
 				75165920285FE1C200132444 /* HomeVM.swift in Sources */,
 				8DFCF05D2862AF29007D30A0 /* UITextField.swift in Sources */,
 				755C4653285E38F0005C4208 /* AppDelegate.swift in Sources */,
@@ -883,7 +877,6 @@
 				759B531828627E790061474E /* ReviewsTableViewCell.swift in Sources */,
 				75FE229A2861F6650071039C /* ProductDetails.swift in Sources */,
 				7524F76C285FDE6600BFBE51 /* SplashScreenVC.swift in Sources */,
-
 				76A3EF29286353F700A1DED7 /* ProductCell.swift in Sources */,
 				8DAF4FB128645093004DB212 /* DiscountCodes.swift in Sources */,
 				75165924285FEBA000132444 /* DataProviderProtocol.swift in Sources */,

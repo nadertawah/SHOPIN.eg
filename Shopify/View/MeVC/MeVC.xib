@@ -41,6 +41,9 @@
                             <buttonConfiguration key="configuration" style="filled" title="LOGIN/REGISTER">
                                 <color key="baseBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </buttonConfiguration>
+                            <connections>
+                                <action selector="loginRegisterBtnPressed:" destination="-1" eventType="touchUpInside" id="qZU-Ru-HfT"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>

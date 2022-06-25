@@ -27,6 +27,10 @@ class ProductDetailsVM
     
     
     //MARK: - intent(s)
+    func addToWishlist()
+    {
+        
+    }
     
     //MARK: - Helper Funcs
     func getProductDetails(productID : String)
