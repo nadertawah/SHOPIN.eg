@@ -57,6 +57,15 @@ class ProductDetailsVC: UIViewController
     
     @IBAction func addToShoppingCartBtnPressed(_ sender: Any)
     {
+//        let shopingCartVC = ShoppingCartVC()
+//        shopingCartVC.shoppingcartVM = ShoppingCartVM(product: VM.product)
+//        self.navigationController?.pushViewController(shopingCartVC, animated: true)
+        
+        let product = self.VM.product
+        ShoppingCartVM.instance.addDataToCoreData(title: product.title ?? "", image:product.images?[0].src ?? "" , price: product.variants?[0].price ?? "")
+       
+        let shopingCartVC = ShoppingCartVC()
+        self.navigationController?.pushViewController(shopingCartVC, animated: true)
         
     }
     @IBAction func moreReviewsBtnPressed(_ sender: Any)

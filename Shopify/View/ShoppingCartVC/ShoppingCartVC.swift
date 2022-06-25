@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ShoppingCartVC: UIViewController
 {
@@ -13,6 +14,10 @@ class ShoppingCartVC: UIViewController
     @IBOutlet weak var cartTableView: UITableView!
     @IBOutlet weak var subTotalLabel: UILabel!
     @IBOutlet weak var proccedToChechoutBtn: UIButton!
+    
+    var shoppingcartVM : ShoppingCartVM?
+    var products = [CoreDataProdutc]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,6 +29,13 @@ class ShoppingCartVC: UIViewController
         
         //CheckOut Btn Configrations
         proccedToChechoutBtn.shopifyBtn(title: "PROCCED TO CHECKOUT")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        products.removeAll()
+        products = ShoppingCartVM.instance.getData()
+        cartTableView.reloadData()
     }
 
     @IBAction func proccedToChechoutBtnPressed(_ sender: Any)
@@ -37,15 +49,15 @@ class ShoppingCartVC: UIViewController
 extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
     //Number of Rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return products.count ?? 0
     }
     //Cell For Row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = cartTableView.dequeueReusableCell(withIdentifier: "cartCell", for: indexPath) as! ShoppingCartCell
         
-        cell.productImageView.image = UIImage(named: "test")
-        cell.titleLabel.text = "BLUTECH Canvas Red Waterproof,Laptop College School Bag for Boys with Combo of Watch"
-        cell.priceLabel.text = "100 L.E"
+        cell.titleLabel.text = products[indexPath.row].title
+        cell.priceLabel.text = products[indexPath.row].price
+        cell.productImageView.sd_setImage(with: URL(string: products[indexPath.row].image ?? ""), placeholderImage: UIImage(named: "placeHolder"))
         
         return cell
     }

@@ -5,9 +5,7 @@
         <attribute name="price" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
-    <entity name="WishlistProduct" representedClassName="WishlistProduct" syncable="YES" codeGenerationType="class"/>
     <elements>
-        <element name="WishlistProduct" positionX="-63" positionY="-18" width="128" height="29"/>
-        <element name="CartProducts" positionX="-63" positionY="-18" width="128" height="74"/>
+        <element name="CartProducts" positionX="-54" positionY="-9" width="128" height="74"/>
     </elements>
 </model>

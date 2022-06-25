@@ -20,8 +20,8 @@ class BaseNavBar : UINavigationController
         self.navigationBar.tintColor = .black
         
         // Set VC(s)
-        let vc = CheckoutVC.init(nibName: "CheckoutVC", bundle: nil)
-//        let vc = ProductDetailsVC.init(nibName: "ProductDetailsVC", bundle: nil)
+//        let vc = CheckoutVC.init(nibName: "CheckoutVC", bundle: nil)
+        let vc = ProductDetailsVC.init(nibName: "ProductDetailsVC", bundle: nil)
 //        let vc = LoginRegisterVC.init(nibName: "LoginRegisterVC", bundle: nil)
         //let vc = BaseTabBar()
         self.viewControllers = [vc]
