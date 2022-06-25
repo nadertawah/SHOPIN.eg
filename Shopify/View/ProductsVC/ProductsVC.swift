@@ -50,9 +50,11 @@ class ProductsVC: UIViewController {
         productsCollectionView.delegate = self
         productsCollectionView.dataSource = self
 
-                
+        //search bar delegate
+        productsSearch.delegate = self
+        
         // Fetching data from API and Updating Collection View
-        productsVM?.productsList.bind({ [weak self] _ in
+        productsVM?.filteredProductList.bind({ [weak self] _ in
             DispatchQueue.main.async {
                 self?.productsCollectionView.reloadData()
             }
@@ -78,20 +80,20 @@ extension ProductsVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // Set number of products
-        return productsVM?.productsList.value?.products.count ?? 0
+        return productsVM?.filteredProductList.value?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = productsCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.productCellReuseIdentifier, for: indexPath) as? ProductCell else { return UICollectionViewCell() }
         
-        let product = productsVM?.productsList.value?.products[indexPath.item]
+        let product = productsVM?.filteredProductList.value?[indexPath.item]
         
         // Configure cell
         cell.priceLabel.text = product?.variants?[0].price ?? "N/A"
         cell.currencyLabel.text = "USD"
         cell.productImgView.sd_setImage(with: URL(string: product?.images?[0].src ?? ""), placeholderImage: UIImage(named: "placeHolder"))
-        
+        print(product?.title)
         return cell
     }
 }
@@ -109,5 +111,16 @@ extension ProductsVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+}
+
+
+
+//MARK: - search bar callbacks
+extension ProductsVC : UISearchBarDelegate
+{
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
+    {
+        productsVM?.searchProducts(searchStr: searchBar.text ?? "" )
     }
 }

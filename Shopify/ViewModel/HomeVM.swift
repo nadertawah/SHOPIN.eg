@@ -24,7 +24,7 @@ class HomeViewModel
     func searchBrands(searchStr:String)
     {
         filtereBrandsList.value = searchStr == "" ?
-            brandsList.value?.smart_collections : brandsList.value?.smart_collections.filter{$0.title?.contains(searchStr) ?? false}
+        brandsList.value?.smart_collections : brandsList.value?.smart_collections.filter{$0.title?.uppercased().contains(searchStr.uppercased()) ?? false}
     }
     
     
