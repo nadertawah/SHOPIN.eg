@@ -27,9 +27,8 @@ class HomeVC: UIViewController {
     
     @IBAction func shoppingCartBtn(_ sender: UIButton) {
         
-        // TODO: Set Navigation to shopping cart
-        debugPrint("ShoppingCart Button Pressed!")
-        
+        let shopingCartVC = ShoppingCartVC()
+        self.navigationController?.pushViewController(shopingCartVC, animated: true)
     }
     
     @IBAction func adsPageControl(_ sender: UIPageControl) {
