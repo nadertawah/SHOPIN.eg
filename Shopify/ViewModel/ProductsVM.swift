@@ -10,17 +10,23 @@ import Foundation
 class ProductsViewModel
 {
     
-    init(brand: String)
-    {
+    init(dataProvider: DataProviderProtocol, brand: String) {
+        self.dataProvider = dataProvider
         getProducts(from: brand)
         
         productsList.bind {[weak self] in self?.filteredProductList.value = $0?.products}
+    }
+    
+    init(dataProvider: DataProviderProtocol) {
+        self.dataProvider = dataProvider
+        getProducts()
     }
 
     //MARK: - Variable(s)
     var productsList: Observable<Products> = Observable(Products(products: []))
     var filteredProductList : Observable<[Product]> = Observable([])
-    
+    var dataProvider: DataProviderProtocol
+
     //MARK: - intent(s)
     func searchProducts(searchStr:String)
     {
@@ -31,9 +37,30 @@ class ProductsViewModel
     //MARK: - Helper Funcs
     func getProducts(from brand: String) {
         
-        API().get(urlStr: Constants.productsAPIUrl, type: Products.self) { result in
+        dataProvider.get(urlStr: Constants.productsAPIUrl, type: Products.self) { result in
             DispatchQueue.main.async {
                 self.productsList.value = Products(products: result?.products.filter { $0.vendor == brand } ?? [] )
+            }
+        }
+        
+    }
+    
+    func getProducts(using subCategory: String?, for mainCategory: String?) {
+        
+        dataProvider.get(urlStr: Constants.productsAPIUrl, type: Products.self) { result in
+            if mainCategory == nil {
+                DispatchQueue.main.async {
+                    self.productsList.value = Products(products: result?.products.filter { $0.product_type == subCategory } ?? [])
+                }
+            }
+        }
+    }
+    
+    func getProducts() {
+        
+        dataProvider.get(urlStr: Constants.productsAPIUrl, type: Products.self) { result in
+            DispatchQueue.main.async {
+                self.productsList.value = result
             }
         }
         

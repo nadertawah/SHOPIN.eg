@@ -26,6 +26,8 @@ struct Constants
     
 
     //MARK: - CategoryVC Constants
+    static let mainCategoryAPIUrl = "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/custom_collections.json"
+    static let collectsAPIUrl = "https://menofia-2022-q3.myshopify.com/admin/api/2022-01/collects.json"
     static let mainCategoryCellReuseIdentifier = "mainCategoryCell"
     static let subCategoryCellReuseIdentifier = "subCategoryCell"
     static let discountCodesUrl = "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/price_rules.json"

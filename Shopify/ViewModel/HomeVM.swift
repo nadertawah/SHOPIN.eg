@@ -9,9 +9,9 @@ import Foundation
 
 class HomeViewModel
 {
-    
-    init()
-    {
+    // Init
+    init(dataProvider: DataProviderProtocol) {
+        self.dataProvider = dataProvider
         getBrands()
         brandsList.bind {[weak self] in self?.filtereBrandsList.value = $0?.smart_collections}
     }
@@ -19,7 +19,8 @@ class HomeViewModel
     //MARK: - Var(s)
     var brandsList: Observable<BrandsModel> = Observable(nil)
     var filtereBrandsList: Observable<[Brand]> = Observable([Brand]())
-    
+    var dataProvider: DataProviderProtocol
+
     //MARK: - intent(s)
     func searchBrands(searchStr:String)
     {
@@ -27,15 +28,13 @@ class HomeViewModel
         brandsList.value?.smart_collections : brandsList.value?.smart_collections.filter{$0.title?.uppercased().contains(searchStr.uppercased()) ?? false}
     }
     
-    
     //MARK: - Helper Funcs
     func getBrands() {
         
-        API().get(urlStr: Constants.brandsAPIUrl, type: BrandsModel.self) { result in
+        dataProvider.get(urlStr: Constants.brandsAPIUrl, type: BrandsModel.self) { result in
             DispatchQueue.main.async {
                 self.brandsList.value = result
             }
-            
         }
     }
 }

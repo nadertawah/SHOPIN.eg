@@ -17,20 +17,6 @@ class HomeVC: UIViewController {
     }
 
     //MARK: - IBAction(s)
-    @IBAction func wishListBtn(_ sender: UIButton) {
-        
-        // TODO: Set Navigation to wishlist
-        debugPrint("WishList Button Pressed!")
-        
-    }
-    
-    @IBAction func shoppingCartBtn(_ sender: UIButton) {
-        
-        // TODO: Set Navigation to shopping cart
-        debugPrint("ShoppingCart Button Pressed!")
-        
-    }
-    
     @IBAction func adsPageControl(_ sender: UIPageControl) {
         
         // TODO: Connect adsPageControl with adsCollectionView
@@ -46,7 +32,7 @@ class HomeVC: UIViewController {
     @IBOutlet weak var brandsCollectionView: UICollectionView!
     
     //MARK: - Variable(s)
-    private let homeViewModel = HomeViewModel()
+    private let homeViewModel = HomeViewModel(dataProvider: API())
     
     //MARK: - Helper functions
     func setUI()
@@ -155,7 +141,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             let brand = homeViewModel.filtereBrandsList.value?[indexPath.item].title
             
             let destinationVC = ProductsVC()
-            destinationVC.productsVM = ProductsViewModel(brand: brand ?? "")
+            destinationVC.productsVM = ProductsViewModel(dataProvider: API(), brand: brand ?? "")
             navigationController?.pushViewController(destinationVC, animated: true)
             
         } else {

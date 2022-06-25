@@ -90,10 +90,8 @@ extension ProductsVC: UICollectionViewDelegate, UICollectionViewDataSource {
         let product = productsVM?.filteredProductList.value?[indexPath.item]
         
         // Configure cell
-        cell.priceLabel.text = product?.variants?[0].price ?? "N/A"
-        cell.currencyLabel.text = "USD"
+        cell.priceLabel.text = "\(product?.variants?[0].price ?? "N/A")$"
         cell.productImgView.sd_setImage(with: URL(string: product?.images?[0].src ?? ""), placeholderImage: UIImage(named: "placeHolder"))
-        print(product?.title)
         return cell
     }
 }
