@@ -32,13 +32,16 @@ class ProductsViewModel
                 self.productsList.value = Products(products: result?.products.filter { $0.vendor == brand } ?? [])
             }
         }
+        
     }
     
-    func getProducts(using subCategory: String) {
+    func getProducts(using subCategory: String?, for mainCategory: String?) {
         
         dataProvider.get(urlStr: Constants.productsAPIUrl, type: Products.self) { result in
-            DispatchQueue.main.async {
-                self.productsList.value = Products(products: result?.products.filter { $0.product_type == subCategory } ?? [])
+            if mainCategory == nil {
+                DispatchQueue.main.async {
+                    self.productsList.value = Products(products: result?.products.filter { $0.product_type == subCategory } ?? [])
+                }
             }
         }
     }
@@ -50,6 +53,7 @@ class ProductsViewModel
                 self.productsList.value = result
             }
         }
+        
     }
     
 }

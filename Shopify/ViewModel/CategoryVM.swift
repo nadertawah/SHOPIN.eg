@@ -7,16 +7,19 @@
 
 import Foundation
 
-class CategoryViewModel
-{
+class CategoryViewModel {
     
+    //MARK: - Initializer
     init(dataProvider: DataProviderProtocol) {
+        
         self.dataProvider = dataProvider
         getSubCategories()
+        getMainCategories()
+        
     }
 
     //MARK: - Variable(s)
-    let mainCategoriesList = ["WOMEN", "KIDS", "MEN", "SALE"]
+    var mainCategoriesList = [String]()
     var subCategoriesList = [String]()
     var dataProvider: DataProviderProtocol
     let productsVM = ProductsViewModel(dataProvider: API())
@@ -34,6 +37,22 @@ class CategoryViewModel
                 }
             }
         }
+        
+    }
+    
+    func getMainCategories() {
+        
+        dataProvider.get(urlStr: Constants.mainCategoryAPIUrl, type: CustomCollections.self) { result in
+            guard let categories = result?.custom_collections else { return }
+            DispatchQueue.main.async {
+                for category in categories {
+                    if !(self.mainCategoriesList.contains(category.title ?? "") ) {
+                        self.mainCategoriesList.append(category.title ?? "")
+                    }
+                }
+            }
+        }
+
     }
     
 }

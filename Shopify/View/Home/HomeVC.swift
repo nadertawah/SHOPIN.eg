@@ -18,20 +18,6 @@ class HomeVC: UIViewController {
     }
 
     //MARK: - IBAction(s)
-    @IBAction func wishListBtn(_ sender: UIButton) {
-        
-        // TODO: Set Navigation to wishlist
-        debugPrint("WishList Button Pressed!")
-        
-    }
-    
-    @IBAction func shoppingCartBtn(_ sender: UIButton) {
-        
-        // TODO: Set Navigation to shopping cart
-        debugPrint("ShoppingCart Button Pressed!")
-        
-    }
-    
     @IBAction func adsPageControl(_ sender: UIPageControl) {
         
         // TODO: Connect adsPageControl with adsCollectionView

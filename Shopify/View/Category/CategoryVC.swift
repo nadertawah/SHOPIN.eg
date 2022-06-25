@@ -136,9 +136,11 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
             if let cell = collectionView.cellForItem(at: indexPath) as? MainCategoryCell {
                 cell.underlineView.backgroundColor = .black
             }
+            
+            // TODO: View Products of selected mainCategory
+            
         }
     }
-    
     
 }
 
@@ -149,7 +151,7 @@ extension CategoryVC: UICollectionViewDelegateFlowLayout {
         
         if collectionView == mainCategoriesCollectionView {
             
-            return CGSize(width: mainCategoriesCollectionView.frame.width/4, height: mainCategoriesCollectionView.frame.height)
+            return CGSize(width: mainCategoriesCollectionView.frame.width/3.5, height: mainCategoriesCollectionView.frame.height)
             
         } else {
             
@@ -180,7 +182,7 @@ extension CategoryVC: UITableViewDelegate, UITableViewDataSource {
         
         guard let cell = subCategoriesTableView.dequeueReusableCell(withIdentifier: Constants.subCategoryCellReuseIdentifier, for: indexPath) as? SubCategoryCell else { return UITableViewCell() }
         
-        // TODO: get subCategories from API
+        // get subCategories from API
         cell.subCategoryLabel.text = categoryVM.subCategoriesList[indexPath.row]
         
         return cell
@@ -195,7 +197,6 @@ extension CategoryVC: UITableViewDelegate, UITableViewDataSource {
                 cell.subCategoryLabel.textColor = .black
             }
         }
-        tableView.reloadData()
         
         // Configure Selected Cell Design
         if let cell = tableView.cellForRow(at: indexPath) as? SubCategoryCell {
@@ -203,13 +204,14 @@ extension CategoryVC: UITableViewDelegate, UITableViewDataSource {
             cell.subCategoryLabel.textColor = .white
         }
         
-        //TODO: View Products of this subCategory
-        categoryVM.productsVM.getProducts(using: categoryVM.subCategoriesList[indexPath.row])
+        // View Products of this subCategory
+        categoryVM.productsVM.getProducts(using: categoryVM.subCategoriesList[indexPath.row], for: nil)
         categoryVM.productsVM.productsList.bind { [weak self] _ in
             DispatchQueue.main.async {
                 self?.productsCollectionView.reloadData()
             }
         }
+        
     }
     
 }
