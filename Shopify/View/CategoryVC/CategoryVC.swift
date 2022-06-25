@@ -27,6 +27,7 @@ class CategoryVC: UIViewController {
     
     //MARK: - IBAction(s)
     @IBAction func shoppingCartBtn(_ sender: UIButton) {
+        
         let shopingCartVC = ShoppingCartVC()
         self.navigationController?.pushViewController(shopingCartVC, animated: true)
     }

@@ -58,6 +58,7 @@ extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
         cell.titleLabel.text = products[indexPath.row].title
         cell.priceLabel.text = products[indexPath.row].price
         cell.productImageView.sd_setImage(with: URL(string: products[indexPath.row].image ?? ""), placeholderImage: UIImage(named: "placeHolder"))
+        cell.qtyLabel.text = "1"
         
         return cell
     }
@@ -65,4 +66,16 @@ extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
+    
+    // Delete Row Method
+        internal func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if editingStyle == .delete {
+                print("Delete")
+            }
+            ShoppingCartVM.instance.deletLeague(index: indexPath.row)
+            products.remove(at: indexPath.row)
+            self.cartTableView.deleteRows(at: [indexPath], with: .right)
+            self.cartTableView.reloadData()
+        }
+    
 }

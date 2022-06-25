@@ -13,6 +13,7 @@ class ShoppingCartVM {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var product: NSManagedObject?
     var productList = [CoreDataProdutc]()
+    var productQty = 0
     
     static let instance = ShoppingCartVM()
     
@@ -63,6 +64,29 @@ class ShoppingCartVM {
                return []
            }
        }
+    
+    
+    // MARK: - Delete Data form Data-Base
+        func deletLeague (index : Int) {
+            let viewContext = appDelegate.persistentContainer.viewContext
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CartProducts")
+            do {
+                let products = try viewContext.fetch(fetchRequest)
+          
+                product = products[index]
+            }
+            catch let error {
+                print(error.localizedDescription)
+            }
+            viewContext.delete(product!)
+            appDelegate.saveContext()
+            //        print("Delete")
+        }
+    
+//    func calculateQty () -> Int{
+//
+//        return productQty += 1
+//    }
     
     
     
