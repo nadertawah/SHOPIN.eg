@@ -18,18 +18,6 @@ class HomeVC: UIViewController {
     }
 
     //MARK: - IBAction(s)
-    @IBAction func wishListBtn(_ sender: UIButton) {
-        
-        // TODO: Set Navigation to wishlist
-        debugPrint("WishList Button Pressed!")
-        
-    }
-    
-    @IBAction func shoppingCartBtn(_ sender: UIButton) {
-        
-        let shopingCartVC = ShoppingCartVC()
-        self.navigationController?.pushViewController(shopingCartVC, animated: true)
-    }
     
     @IBAction func adsPageControl(_ sender: UIPageControl) {
         
@@ -98,10 +86,10 @@ class HomeVC: UIViewController {
     }
     
     @objc func navigateToShoppingCart() {
-        //TODO: Navigate to shoppinCart
-        debugPrint("navigateToShoppingCart")
+        let shopingCartVC = ShoppingCartVC()
+        self.navigationController?.pushViewController(shopingCartVC, animated: true)
     }
-
+    
 }
 
 //MARK: - CollectionView Datasource Methods
