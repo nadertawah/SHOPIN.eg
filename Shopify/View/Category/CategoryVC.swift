@@ -147,9 +147,10 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
                 cell.underlineView.backgroundColor = .black
             }
             
-            // View Products of this mainCategory
+            // View Products of this mainCategory and selected subCategory
             let subCategory = categoryVM.subCategoriesList[categoryVM.productsVM.selectedSubCategory]
-            categoryVM.productsVM.getProducts(with: subCategory, and: categoryVM.mainCategoriesList.value?.custom_collections[indexPath.item].id)
+            let mainCategoryID = categoryVM.mainCategoriesList.value?.custom_collections[indexPath.item].id
+            categoryVM.productsVM.getProducts(with: subCategory, and: mainCategoryID)
             categoryVM.productsVM.productsList.bind { [weak self] _ in
                 DispatchQueue.main.async {
                     self?.productsCollectionView.reloadData()
@@ -167,7 +168,13 @@ extension CategoryVC: UICollectionViewDelegateFlowLayout {
         
         if collectionView == mainCategoriesCollectionView {
             
-            return CGSize(width: mainCategoriesCollectionView.frame.width/3.5, height: mainCategoriesCollectionView.frame.height)
+            if indexPath.item == 0 {
+                return CGSize(width: mainCategoriesCollectionView.frame.width/3.5, height: mainCategoriesCollectionView.frame.height)
+            } else if indexPath.item == 4 {
+                return CGSize(width: mainCategoriesCollectionView.frame.width/4, height: mainCategoriesCollectionView.frame.height)
+            } else {
+                return CGSize(width: mainCategoriesCollectionView.frame.width/6, height: mainCategoriesCollectionView.frame.height)
+            }
             
         } else {
             
@@ -229,7 +236,7 @@ extension CategoryVC: UITableViewDelegate, UITableViewDataSource {
             cell.subCategoryLabel.textColor = .white
         }
         
-        // View Products of this subCategory
+        // View Products of this subCategory and selected mainCategory
         let mainCategory = categoryVM.mainCategoriesList.value?.custom_collections[categoryVM.productsVM.selectedMainCategory].id
         categoryVM.productsVM.getProducts(with: categoryVM.subCategoriesList[indexPath.row], and: mainCategory)
         categoryVM.productsVM.productsList.bind { [weak self] _ in
