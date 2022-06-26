@@ -15,7 +15,7 @@ struct Collects: Codable {
 
 struct Collect: Codable {
 
-    var collection_id: String?
-    var product_id: String?
+    var collection_id: UInt64?
+    var product_id: UInt64?
 
 }
