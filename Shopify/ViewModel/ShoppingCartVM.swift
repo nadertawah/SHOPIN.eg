@@ -82,12 +82,10 @@ class ShoppingCartVM {
                 
                 let products = try viewContext.fetch(fetchRequest)
                 for product in products {
-                    var QTY = qty
-                    QTY += 1
-                    product.setValue(QTY, forKey: "qty")
+                    product.setValue(qty, forKey: "qty")
                     appDelegate.saveContext()
-                    let cartProductModel = CoreDataProdutc.init(product: product)
-                    productList.append(cartProductModel)
+//                    let cartProductModel = CoreDataProdutc.init(product: product)
+//                    productList.append(cartProductModel)
                 }
                 
             } catch let error {

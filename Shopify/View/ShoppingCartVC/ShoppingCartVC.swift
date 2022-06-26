@@ -18,6 +18,8 @@ class ShoppingCartVC: UIViewController
     var shoppingcartVM : ShoppingCartVM?
     var products = [CoreDataProdutc]()
     
+    var sum : Int = 0
+    var result : Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,12 +31,17 @@ class ShoppingCartVC: UIViewController
         
         //CheckOut Btn Configrations
         proccedToChechoutBtn.shopifyBtn(title: "PROCCED TO CHECKOUT")
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         products.removeAll()
         products = ShoppingCartVM.instance.getData()
+        for product in products {
+            sum += (product.qty ?? 0) * (product.price! as NSString).integerValue
+        }
+        subTotalLabel.text = "\(sum)"
         cartTableView.reloadData()
     }
 
@@ -66,7 +73,12 @@ extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
         cell.plusBtn.addTarget(self, action: #selector(PlusBtnPressed), for: .touchUpInside)
         cell.minusBtn.addTarget(self, action: #selector(MinusBtnPressed), for: .touchUpInside)
         
-        subTotalLabel.text = cell.priceLabel.text
+//        subTotalLabel.text = cell.priceLabel.text
+//
+//        subTotalLabel.text = "\(sum)"
+//        let intPrice = (products[indexPath.row].price as! NSString).integerValue
+//        let qty = products[indexPath.row].qty!
+//        subTotalLabel.text = "\(intPrice * qty)"
         
         return cell
     }
@@ -76,8 +88,11 @@ extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
         let buttonRow = sender.tag
         var qty = products[buttonRow].qty!
         let id = products[buttonRow].id!
-        ShoppingCartVM.instance.updateData(qty: qty, id: id)
+        ShoppingCartVM.instance.updateData(qty: qty + 1, id: id)
         products = ShoppingCartVM.instance.getData()
+        let intPrice = (products[buttonRow].price as! NSString).integerValue
+        sum += intPrice
+        subTotalLabel.text = "\(sum)"
         cartTableView.reloadData()
     }
     
@@ -85,9 +100,16 @@ extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
         let buttonRow = sender.tag
         var qty = products[buttonRow].qty!
         let id = products[buttonRow].id!
-        qty -= 2
+        if qty == 0 {
+            return
+        }
+        qty -= 1
         ShoppingCartVM.instance.updateData(qty: qty, id: id)
         products = ShoppingCartVM.instance.getData()
+        let intPrice = (products[buttonRow].price as! NSString).integerValue
+        sum -= intPrice
+        subTotalLabel.text = "\(sum)"
+        
         cartTableView.reloadData()
     }
     
@@ -106,5 +128,4 @@ extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
             self.cartTableView.deleteRows(at: [indexPath], with: .right)
             self.cartTableView.reloadData()
         }
-    
 }
