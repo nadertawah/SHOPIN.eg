@@ -23,6 +23,7 @@ class CategoryViewModel {
     var subCategoriesList = [String]()
     var dataProvider: DataProviderProtocol
     let productsVM = ProductsViewModel(dataProvider: API())
+    var filteredProducts = Observable<[Product]>([])
     
     //MARK: - Helper Funcs
     func getSubCategories() {
@@ -35,6 +36,7 @@ class CategoryViewModel {
                         self?.subCategoriesList.append(product.product_type ?? "")
                     }
                 }
+                self?.filteredProducts.value = products
             }
         }
         
@@ -53,6 +55,13 @@ class CategoryViewModel {
             }
         }
 
+    }
+    
+    
+    func searchProducts(searchStr:String)
+    {
+        filteredProducts.value = searchStr == "" ?
+        productsVM.productsList.value?.products : productsVM.productsList.value?.products.filter{$0.title?.uppercased().contains(searchStr.uppercased()) ?? false}
     }
     
 }

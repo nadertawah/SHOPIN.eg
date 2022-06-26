@@ -67,9 +67,11 @@ class CategoryVC: UIViewController {
         productsCollectionView.delegate = self
         productsCollectionView.dataSource = self
         
+        productSearch.delegate = self
+        
         // Fetching all products from API and Updating Collection View
         categoryVM.productsVM.getProducts()
-        categoryVM.productsVM.productsList.bind { [weak self] _ in
+        categoryVM.filteredProducts.bind { [weak self] _ in
             DispatchQueue.main.async {
                 self?.productsCollectionView.reloadData()
             }
@@ -89,7 +91,7 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
         if collectionView == mainCategoriesCollectionView {
             return categoryVM.mainCategoriesList.count
         } else {
-            return categoryVM.productsVM.productsList.value?.products.count ?? 0
+            return categoryVM.filteredProducts.value?.count ?? 0
         }
         
     }
@@ -109,7 +111,7 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
             
             guard let cell = productsCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.productCellReuseIdentifier, for: indexPath) as? ProductCell else { return UICollectionViewCell() }
             
-            let product = categoryVM.productsVM.productsList.value?.products[indexPath.item]
+            let product = categoryVM.filteredProducts.value?[indexPath.item]
             
             //TODO: Configure product cell
             cell.priceLabel.text = "\(product?.variants?[0].price ?? "0.00")$"
@@ -214,4 +216,13 @@ extension CategoryVC: UITableViewDelegate, UITableViewDataSource {
         
     }
     
+}
+
+
+extension CategoryVC : UISearchBarDelegate
+{
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
+    {
+        categoryVM.searchProducts(searchStr: searchBar.text ?? "")
+    }
 }
