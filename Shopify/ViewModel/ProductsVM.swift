@@ -34,8 +34,8 @@ class ProductsViewModel
         productsList.value?.products : productsList.value?.products.filter{$0.title?.uppercased().contains(searchStr.uppercased()) ?? false}
     }
 
-    var selectedSubCategory = 0
-    var selectedMainCategory = 0
+    var selectedSubCategory = 1
+    var selectedMainCategory = 2
     
     //MARK: - Helper Funcs
     func getProducts(from brand: String) {

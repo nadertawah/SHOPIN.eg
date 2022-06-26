@@ -19,6 +19,8 @@ class ProductCell: UICollectionViewCell {
     
     @IBOutlet weak var priceLabel: UILabel!
         
+    @IBOutlet weak var productNameLabel: UILabel!
+    
     //MARK: - IBAction(s)
     @IBAction func wishListBtn(_ sender: UIButton) {
         

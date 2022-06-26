@@ -69,7 +69,7 @@ class CategoryVC: UIViewController {
         
         // Fetching products from API and Updating Collection View
         let mainCategory = categoryVM.mainCategoriesList.value?.custom_collections[categoryVM.productsVM.selectedMainCategory].id
-        let subCategory = categoryVM.subCategoriesList[0]
+        let subCategory = categoryVM.subCategoriesList[1]
         categoryVM.productsVM.getProducts(with: subCategory, and: mainCategory)
         categoryVM.productsVM.productsList.bind { [weak self] _ in
             DispatchQueue.main.async {
@@ -87,7 +87,7 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        // TODO: Set number of items in mainCategories and products collection views
+        // Set number of items in mainCategories and products collection views
         if collectionView == mainCategoriesCollectionView {
             return categoryVM.mainCategoriesList.value?.custom_collections.count ?? 0
         } else {
@@ -102,8 +102,8 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
             
             guard let cell = mainCategoriesCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.mainCategoryCellReuseIdentifier, for: indexPath) as? MainCategoryCell else { return UICollectionViewCell() }
             
-            // Select first mainCategory
-            if indexPath.row == 0 {
+            // Select MEN mainCategory on first navigation to screen
+            if indexPath.row == 2 {
                 cell.underlineView.backgroundColor = .black
             }
             
@@ -118,8 +118,9 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
             
             let product = categoryVM.productsVM.productsList.value?.products[indexPath.item]
             
-            //TODO: Configure product cell
-            cell.priceLabel.text = "\(product?.variants?[0].price ?? "0.00")$"
+            // Configure product cell
+            cell.priceLabel.text = "\(product?.variants?[0].price ?? "N/A")$"
+            cell.productNameLabel.text = product?.title
             cell.productImgView.sd_setImage(with: URL(string: product?.images?[0].src ?? ""), placeholderImage: UIImage(named: "placeHolder"))
             
             return cell
@@ -205,8 +206,8 @@ extension CategoryVC: UITableViewDelegate, UITableViewDataSource {
         
         guard let cell = subCategoriesTableView.dequeueReusableCell(withIdentifier: Constants.subCategoryCellReuseIdentifier, for: indexPath) as? SubCategoryCell else { return UITableViewCell() }
         
-        // Select first subCategory
-        if indexPath.row == 0 {
+        // Select SHOES subCategory on first navigation to screen
+        if indexPath.row == 1 {
             cell.subCategoryLabel.backgroundColor = .black
             cell.subCategoryLabel.textColor = .white
         }
