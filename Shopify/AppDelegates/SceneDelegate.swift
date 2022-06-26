@@ -21,8 +21,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
 
-//        let tabVC = BaseTabBar()
         let tabVC = BaseTabBar()
+//        let tabVC = BaseNavBar()
+
         
         window.rootViewController = tabVC
         self.window = window
@@ -47,7 +48,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillResignActive(_ scene: UIScene) {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
-        coreData.saveContext()
+//        coreData.saveContext()
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
@@ -61,7 +62,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
 
         // Save changes in the application's managed object context when the application transitions to the background.
-        coreData.saveContext()
+//        coreData.saveContext()
     }
 
 

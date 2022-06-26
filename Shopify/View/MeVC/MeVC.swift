@@ -137,17 +137,18 @@ class MeVC: UIViewController
     
     func setNavBarBtns()
     {
-        let wishlistNavBtn = UIBarButtonItem(image: UIImage(systemName: "heart.fill")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(navigateToWishlist))
+        let cartNavBtn = UIBarButtonItem(image: UIImage(systemName: "cart")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(navigateToShoppingCart))
         
         
-        let settingsNavBtn = UIBarButtonItem(image: UIImage(systemName: "gearshape.fill")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(navigateToSettings))
+        let settingsNavBtn = UIBarButtonItem(image: UIImage(systemName: "gearshape")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(navigateToSettings))
         
-        self.navigationController?.navigationBar.topItem?.setRightBarButtonItems([settingsNavBtn,wishlistNavBtn], animated: true)
+        self.navigationController?.navigationBar.topItem?.setRightBarButtonItems([settingsNavBtn,cartNavBtn], animated: true)
     }
     
-    @objc func navigateToWishlist()
+    @objc func navigateToShoppingCart()
     {
-        
+        let shopingCartVC = ShoppingCartVC()
+        self.navigationController?.pushViewController(shopingCartVC, animated: true)
     }
     
     @objc func navigateToSettings()

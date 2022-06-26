@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ShoppingCartVC: UIViewController
 {
@@ -13,6 +14,12 @@ class ShoppingCartVC: UIViewController
     @IBOutlet weak var cartTableView: UITableView!
     @IBOutlet weak var subTotalLabel: UILabel!
     @IBOutlet weak var proccedToChechoutBtn: UIButton!
+    
+    var shoppingcartVM : ShoppingCartVM?
+    var products = [CoreDataProdutc]()
+    
+    var sum : Int = 0
+    var result : Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,6 +31,18 @@ class ShoppingCartVC: UIViewController
         
         //CheckOut Btn Configrations
         proccedToChechoutBtn.shopifyBtn(title: "PROCCED TO CHECKOUT")
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        products.removeAll()
+        products = ShoppingCartVM.instance.getData()
+        for product in products {
+            sum += (product.qty ?? 0) * (product.price! as NSString).integerValue
+        }
+        subTotalLabel.text = "\(sum)"
+        cartTableView.reloadData()
     }
 
     @IBAction func proccedToChechoutBtnPressed(_ sender: Any)
@@ -37,20 +56,76 @@ class ShoppingCartVC: UIViewController
 extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
     //Number of Rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return products.count ?? 0
     }
     //Cell For Row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = cartTableView.dequeueReusableCell(withIdentifier: "cartCell", for: indexPath) as! ShoppingCartCell
         
-        cell.productImageView.image = UIImage(named: "test")
-        cell.titleLabel.text = "BLUTECH Canvas Red Waterproof,Laptop College School Bag for Boys with Combo of Watch"
-        cell.priceLabel.text = "100 L.E"
+        cell.titleLabel.text = products[indexPath.row].title
+        cell.priceLabel.text = products[indexPath.row].price
+        cell.productImageView.sd_setImage(with: URL(string: products[indexPath.row].image ?? ""), placeholderImage: UIImage(named: "placeHolder"))
+        cell.qtyLabel.text = "\(products[indexPath.row].qty!)"
+        
+        cell.minusBtn.tag = indexPath.row
+        cell.plusBtn.tag = indexPath.row
+        
+        cell.plusBtn.addTarget(self, action: #selector(PlusBtnPressed), for: .touchUpInside)
+        cell.minusBtn.addTarget(self, action: #selector(MinusBtnPressed), for: .touchUpInside)
+        
+//        subTotalLabel.text = cell.priceLabel.text
+//
+//        subTotalLabel.text = "\(sum)"
+//        let intPrice = (products[indexPath.row].price as! NSString).integerValue
+//        let qty = products[indexPath.row].qty!
+//        subTotalLabel.text = "\(intPrice * qty)"
         
         return cell
     }
+    
+    // Function For Adding Minus Qty Btn's
+    @objc func PlusBtnPressed(sender : UIButton) {
+        let buttonRow = sender.tag
+        var qty = products[buttonRow].qty!
+        let id = products[buttonRow].id!
+        ShoppingCartVM.instance.updateData(qty: qty + 1, id: id)
+        products = ShoppingCartVM.instance.getData()
+        let intPrice = (products[buttonRow].price as! NSString).integerValue
+        sum += intPrice
+        subTotalLabel.text = "\(sum)"
+        cartTableView.reloadData()
+    }
+    
+    @objc func MinusBtnPressed(sender : UIButton) {
+        let buttonRow = sender.tag
+        var qty = products[buttonRow].qty!
+        let id = products[buttonRow].id!
+        if qty == 0 {
+            return
+        }
+        qty -= 1
+        ShoppingCartVM.instance.updateData(qty: qty, id: id)
+        products = ShoppingCartVM.instance.getData()
+        let intPrice = (products[buttonRow].price as! NSString).integerValue
+        sum -= intPrice
+        subTotalLabel.text = "\(sum)"
+        
+        cartTableView.reloadData()
+    }
+    
     //Row Height
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
+    
+    // Delete Row Method
+        internal func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if editingStyle == .delete {
+                print("Delete")
+            }
+            ShoppingCartVM.instance.deletLeague(index: indexPath.row)
+            products.remove(at: indexPath.row)
+            self.cartTableView.deleteRows(at: [indexPath], with: .right)
+            self.cartTableView.reloadData()
+        }
 }
