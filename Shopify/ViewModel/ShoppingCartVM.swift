@@ -19,7 +19,7 @@ class ShoppingCartVM {
     
     // MARK: - Add Data to Data-Base using CoreData
     
-    func addDataToCoreData (title: String ,image: String ,price: String) {
+    func addDataToCoreData (title: String ,image: String ,price: String , id: Int , qty: Int , isCheckOut: Bool) {
         let viewContext = appDelegate.persistentContainer.viewContext
         
         guard let entity = NSEntityDescription.entity(forEntityName:"CartProducts",in: viewContext) else { return }
@@ -29,6 +29,9 @@ class ShoppingCartVM {
         product.setValue(title, forKey: "title")
         product.setValue(image, forKey: "image")
         product.setValue(price, forKey: "price")
+        product.setValue(id, forKey: "id")
+        product.setValue(qty, forKey: "qty")
+        product.setValue(isCheckOut, forKey: "isCheckedOut")
        
         appDelegate.saveContext()
         
@@ -50,7 +53,7 @@ class ShoppingCartVM {
            
            do {
                let products = try viewContext.fetch(fetchRequest)
-             
+               
                for product in products {
       
                    let cartProductModel = CoreDataProdutc.init(product: product)
@@ -65,6 +68,33 @@ class ShoppingCartVM {
            }
        }
     
+    
+    
+    // MARK: - updateData form Data-Base ( CoreData )
+        
+    func updateData (qty : Int , id : Int)  {
+            productList.removeAll()
+            let viewContext = appDelegate.persistentContainer.viewContext
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CartProducts")
+            
+            fetchRequest.predicate = NSPredicate(format: "id == %@", "\(id)")
+            do {
+                
+                let products = try viewContext.fetch(fetchRequest)
+                for product in products {
+                    var QTY = qty
+                    QTY += 1
+                    product.setValue(QTY, forKey: "qty")
+                    appDelegate.saveContext()
+                    let cartProductModel = CoreDataProdutc.init(product: product)
+                    productList.append(cartProductModel)
+                }
+                
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+     
     
     // MARK: - Delete Data form Data-Base
         func deletLeague (index : Int) {
@@ -82,18 +112,5 @@ class ShoppingCartVM {
             appDelegate.saveContext()
             //        print("Delete")
         }
-    
-//    func calculateQty () -> Int{
-//
-//        return productQty += 1
-//    }
-    
-    
-    
-    
-    //    var products = [Product]()
-    
-    //    init ( product : Product) {
-    //        products.append(product)
-    //    }
+
 }

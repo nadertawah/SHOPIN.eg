@@ -32,5 +32,4 @@ class ShoppingCartCell: UITableViewCell {
         plusBtn.layer.cornerRadius = 5
         
     }
-
 }

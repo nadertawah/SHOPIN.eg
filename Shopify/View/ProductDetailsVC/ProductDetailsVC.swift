@@ -60,12 +60,13 @@ class ProductDetailsVC: UIViewController
         let product = self.VM.product
         
         let cartProducts = ShoppingCartVM.instance.getData()
-        let filtered = cartProducts.filter({$0.title == product.title})
-        
+        let filtered = cartProducts.filter({$0.id == product.id})
+
         if filtered.isEmpty {
-            ShoppingCartVM.instance.addDataToCoreData(title: product.title ?? "", image:product.images?[0].src ?? "" , price: product.variants?[0].price ?? "")
+            ShoppingCartVM.instance.addDataToCoreData(title: product.title ?? "", image:product.images?[0].src ?? "" , price: product.variants?[0].price ?? "" , id: product.id ?? 0 , qty: 1  , isCheckOut: false )
         } else {
-            ShoppingCartVM.instance.productQty += 1
+            
+            ShoppingCartVM.instance.updateData(qty: filtered.map({$0.qty!}).first!, id: product.id ?? 0)
         }
         
         let shopingCartVC = ShoppingCartVC()

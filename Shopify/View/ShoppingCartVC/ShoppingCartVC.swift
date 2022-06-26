@@ -58,10 +58,39 @@ extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
         cell.titleLabel.text = products[indexPath.row].title
         cell.priceLabel.text = products[indexPath.row].price
         cell.productImageView.sd_setImage(with: URL(string: products[indexPath.row].image ?? ""), placeholderImage: UIImage(named: "placeHolder"))
-        cell.qtyLabel.text = "1"
+        cell.qtyLabel.text = "\(products[indexPath.row].qty!)"
+        
+        cell.minusBtn.tag = indexPath.row
+        cell.plusBtn.tag = indexPath.row
+        
+        cell.plusBtn.addTarget(self, action: #selector(PlusBtnPressed), for: .touchUpInside)
+        cell.minusBtn.addTarget(self, action: #selector(MinusBtnPressed), for: .touchUpInside)
+        
+        subTotalLabel.text = cell.priceLabel.text
         
         return cell
     }
+    
+    // Function For Adding Minus Qty Btn's
+    @objc func PlusBtnPressed(sender : UIButton) {
+        let buttonRow = sender.tag
+        var qty = products[buttonRow].qty!
+        let id = products[buttonRow].id!
+        ShoppingCartVM.instance.updateData(qty: qty, id: id)
+        products = ShoppingCartVM.instance.getData()
+        cartTableView.reloadData()
+    }
+    
+    @objc func MinusBtnPressed(sender : UIButton) {
+        let buttonRow = sender.tag
+        var qty = products[buttonRow].qty!
+        let id = products[buttonRow].id!
+        qty -= 2
+        ShoppingCartVM.instance.updateData(qty: qty, id: id)
+        products = ShoppingCartVM.instance.getData()
+        cartTableView.reloadData()
+    }
+    
     //Row Height
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
