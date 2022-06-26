@@ -67,8 +67,10 @@ class CategoryVC: UIViewController {
         productsCollectionView.delegate = self
         productsCollectionView.dataSource = self
         
-        // Fetching all products from API and Updating Collection View
-        categoryVM.productsVM.getProducts()
+        // Fetching products from API and Updating Collection View
+        let mainCategory = categoryVM.mainCategoriesList.value?.custom_collections[categoryVM.productsVM.selectedMainCategory].id
+        let subCategory = categoryVM.subCategoriesList[0]
+        categoryVM.productsVM.getProducts(with: subCategory, and: mainCategory)
         categoryVM.productsVM.productsList.bind { [weak self] _ in
             DispatchQueue.main.async {
                 self?.productsCollectionView.reloadData()
@@ -87,7 +89,7 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         // TODO: Set number of items in mainCategories and products collection views
         if collectionView == mainCategoriesCollectionView {
-            return categoryVM.mainCategoriesList.count
+            return categoryVM.mainCategoriesList.value?.custom_collections.count ?? 0
         } else {
             return categoryVM.productsVM.productsList.value?.products.count ?? 0
         }
@@ -100,8 +102,13 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
             
             guard let cell = mainCategoriesCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.mainCategoryCellReuseIdentifier, for: indexPath) as? MainCategoryCell else { return UICollectionViewCell() }
             
+            // Select first mainCategory
+            if indexPath.row == 0 {
+                cell.underlineView.backgroundColor = .black
+            }
+            
             // Set main categories
-            cell.mainCategoryLabel.text = categoryVM.mainCategoriesList[indexPath.item]
+            cell.mainCategoryLabel.text = categoryVM.mainCategoriesList.value?.custom_collections[indexPath.item].title
             
             return cell
             
@@ -125,6 +132,9 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         if collectionView == mainCategoriesCollectionView {
             
+            // Set selected subCategory
+            categoryVM.productsVM.selectedMainCategory = indexPath.item
+            
             // Deselect all cells
             for cell in collectionView.visibleCells {
                 if let cell = cell as? MainCategoryCell {
@@ -137,8 +147,15 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
                 cell.underlineView.backgroundColor = .black
             }
             
-            // TODO: View Products of selected mainCategory
-            
+            // View Products of this mainCategory and selected subCategory
+            let subCategory = categoryVM.subCategoriesList[categoryVM.productsVM.selectedSubCategory]
+            let mainCategoryID = categoryVM.mainCategoriesList.value?.custom_collections[indexPath.item].id
+            categoryVM.productsVM.getProducts(with: subCategory, and: mainCategoryID)
+            categoryVM.productsVM.productsList.bind { [weak self] _ in
+                DispatchQueue.main.async {
+                    self?.productsCollectionView.reloadData()
+                }
+            }
         }
     }
     
@@ -151,7 +168,13 @@ extension CategoryVC: UICollectionViewDelegateFlowLayout {
         
         if collectionView == mainCategoriesCollectionView {
             
-            return CGSize(width: mainCategoriesCollectionView.frame.width/3.5, height: mainCategoriesCollectionView.frame.height)
+            if indexPath.item == 0 {
+                return CGSize(width: mainCategoriesCollectionView.frame.width/3.5, height: mainCategoriesCollectionView.frame.height)
+            } else if indexPath.item == 4 {
+                return CGSize(width: mainCategoriesCollectionView.frame.width/4, height: mainCategoriesCollectionView.frame.height)
+            } else {
+                return CGSize(width: mainCategoriesCollectionView.frame.width/6, height: mainCategoriesCollectionView.frame.height)
+            }
             
         } else {
             
@@ -182,6 +205,12 @@ extension CategoryVC: UITableViewDelegate, UITableViewDataSource {
         
         guard let cell = subCategoriesTableView.dequeueReusableCell(withIdentifier: Constants.subCategoryCellReuseIdentifier, for: indexPath) as? SubCategoryCell else { return UITableViewCell() }
         
+        // Select first subCategory
+        if indexPath.row == 0 {
+            cell.subCategoryLabel.backgroundColor = .black
+            cell.subCategoryLabel.textColor = .white
+        }
+        
         // get subCategories from API
         cell.subCategoryLabel.text = categoryVM.subCategoriesList[indexPath.row]
         
@@ -189,6 +218,9 @@ extension CategoryVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // Set selected subCategory
+        categoryVM.productsVM.selectedSubCategory = indexPath.row
         
         // Deselect all cells
         for cell in tableView.visibleCells {
@@ -204,8 +236,9 @@ extension CategoryVC: UITableViewDelegate, UITableViewDataSource {
             cell.subCategoryLabel.textColor = .white
         }
         
-        // View Products of this subCategory
-        categoryVM.productsVM.getProducts(using: categoryVM.subCategoriesList[indexPath.row], for: nil)
+        // View Products of this subCategory and selected mainCategory
+        let mainCategory = categoryVM.mainCategoriesList.value?.custom_collections[categoryVM.productsVM.selectedMainCategory].id
+        categoryVM.productsVM.getProducts(with: categoryVM.subCategoriesList[indexPath.row], and: mainCategory)
         categoryVM.productsVM.productsList.bind { [weak self] _ in
             DispatchQueue.main.async {
                 self?.productsCollectionView.reloadData()
