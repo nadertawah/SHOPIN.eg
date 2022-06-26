@@ -19,7 +19,7 @@ class CategoryViewModel {
     }
 
     //MARK: - Variable(s)
-    var mainCategoriesList = [String]()
+    var mainCategoriesList: Observable<CustomCollections> = Observable(nil)
     var subCategoriesList = [String]()
     var dataProvider: DataProviderProtocol
     let productsVM = ProductsViewModel(dataProvider: API())
@@ -45,13 +45,8 @@ class CategoryViewModel {
     func getMainCategories() {
         
         dataProvider.get(urlStr: Constants.mainCategoryAPIUrl, type: CustomCollections.self) { result in
-            guard let categories = result?.custom_collections else { return }
             DispatchQueue.main.async {
-                for category in categories {
-                    if !(self.mainCategoriesList.contains(category.title ?? "") ) {
-                        self.mainCategoriesList.append(category.title ?? "")
-                    }
-                }
+                self.mainCategoriesList.value = result
             }
         }
 

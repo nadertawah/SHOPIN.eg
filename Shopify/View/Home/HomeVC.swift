@@ -37,6 +37,7 @@ class HomeVC: UIViewController {
     //MARK: - Helper functions
     func setUI()
     {
+        
         //set title
         title = "SHOPIN.eg"
         

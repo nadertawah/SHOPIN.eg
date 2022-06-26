@@ -91,6 +91,7 @@ extension ProductsVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         // Configure cell
         cell.priceLabel.text = "\(product?.variants?[0].price ?? "N/A")$"
+        cell.productNameLabel.text = product?.title
         cell.productImgView.sd_setImage(with: URL(string: product?.images?[0].src ?? ""), placeholderImage: UIImage(named: "placeHolder"))
         return cell
     }
