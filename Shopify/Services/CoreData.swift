@@ -79,7 +79,7 @@ class CoreData
         let obj = NSManagedObject(entity: entity, insertInto: context)
         obj.setValuesForKeys(valuesForKeys)
         
-        saveContext()
+//        saveContext()
     }
 
 }
