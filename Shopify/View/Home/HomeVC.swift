@@ -17,6 +17,7 @@ class HomeVC: UIViewController {
     }
 
     //MARK: - IBAction(s)
+
     @IBAction func adsPageControl(_ sender: UIPageControl) {
         
         // TODO: Connect adsPageControl with adsCollectionView
@@ -87,10 +88,10 @@ class HomeVC: UIViewController {
     }
     
     @objc func navigateToShoppingCart() {
-        //TODO: Navigate to shoppinCart
-        debugPrint("navigateToShoppingCart")
+        let shopingCartVC = ShoppingCartVC()
+        self.navigationController?.pushViewController(shopingCartVC, animated: true)
     }
-
+    
 }
 
 //MARK: - CollectionView Datasource Methods

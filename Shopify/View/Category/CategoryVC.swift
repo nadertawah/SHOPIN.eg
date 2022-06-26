@@ -28,8 +28,8 @@ class CategoryVC: UIViewController {
     //MARK: - IBAction(s)
     @IBAction func shoppingCartBtn(_ sender: UIButton) {
         
-        // TODO: Set Navigation to shopping cart
-        debugPrint("Shopping Cart Button Pressed!")
+        let shopingCartVC = ShoppingCartVC()
+        self.navigationController?.pushViewController(shopingCartVC, animated: true)
 
     }
     

@@ -57,7 +57,19 @@ class ProductDetailsVC: UIViewController
     
     @IBAction func addToShoppingCartBtnPressed(_ sender: Any)
     {
+        let product = self.VM.product
         
+        let cartProducts = ShoppingCartVM.instance.getData()
+        let filtered = cartProducts.filter({$0.id == product.id})
+
+        if filtered.isEmpty {
+            ShoppingCartVM.instance.addDataToCoreData(title: product.title ?? "", image:product.images?[0].src ?? "" , price: product.variants?[0].price ?? "" , id: product.id ?? 0 , qty: 1  , isCheckOut: false )
+        } else {
+            ShoppingCartVM.instance.updateData(qty: filtered.map({$0.qty!}).first! + 1, id: product.id ?? 0)
+        }
+        
+        let shopingCartVC = ShoppingCartVC()
+        self.navigationController?.pushViewController(shopingCartVC, animated: true)
     }
     @IBAction func moreReviewsBtnPressed(_ sender: Any)
     {
@@ -67,7 +79,7 @@ class ProductDetailsVC: UIViewController
     
     //MARK: - Var(s)
     private let productsCellReuseIdentifier = "ImageCollectionViewCell"
-    private let VM = ProductDetailsVM(dataProvider: API(), productID: "7358109810859")
+    private let VM = ProductDetailsVM(dataProvider: API(), productID: "7358110662827")
     
     //MARK: - Helper Funcs
     func setUI()

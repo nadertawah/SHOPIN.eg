@@ -40,22 +40,22 @@ class CoreData
             print("Error retrieving data\n")
         }
     }
-
-    func saveContext ()
-    {
-        if context.hasChanges
-        {
-            do
-            {
-                try context.save()
-            }
-            catch
-            {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
+//
+//    func saveContext ()
+//    {
+//        if context.hasChanges
+//        {
+//            do
+//            {
+//                try context.save()
+//            }
+//            catch
+//            {
+//                let nserror = error as NSError
+//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+//            }
+//        }
+//    }
     func deleteObj<T:NSManagedObject>(type : T.Type,predicate:NSPredicate)
     {
         let fetchRequest = T.fetchRequest() as! NSFetchRequest<T>
@@ -68,7 +68,7 @@ class CoreData
             context.delete(objects[0])
         }
 
-        saveContext()
+//        saveContext()
     }
     
     func insertObject(entityName : String,valuesForKeys: [String:Any])
@@ -79,7 +79,7 @@ class CoreData
         let obj = NSManagedObject(entity: entity, insertInto: context)
         obj.setValuesForKeys(valuesForKeys)
         
-        saveContext()
+//        saveContext()
     }
 
 }
