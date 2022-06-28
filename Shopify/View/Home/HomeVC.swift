@@ -82,9 +82,11 @@ class HomeVC: UIViewController {
         
     }
     
-    @objc func navigateToWishlist() {
-        //TODO: Navigate to wishList
-        debugPrint("navigateToWishlist")
+    @objc func navigateToWishlist()
+    {
+        let vc = WishlistVC()
+        vc.VM = WishlistVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func navigateToShoppingCart() {

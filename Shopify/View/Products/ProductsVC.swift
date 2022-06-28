@@ -37,7 +37,8 @@ class ProductsVC: UIViewController {
     var VM: ProductsViewModel!
     
     //MARK: - Helper Function(s)
-    func setUI() {
+    func setUI()
+    {
         
         // Setting Navigation Bar
         title = "Products"

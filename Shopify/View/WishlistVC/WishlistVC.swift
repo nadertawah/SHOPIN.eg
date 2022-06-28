@@ -2,28 +2,77 @@
 //  WishlistVC.swift
 //  Shopify
 //
-//  Created by Nader Said on 26/06/2022.
+//  Created by Nader Said on 28/06/2022.
 //
 
 import UIKit
 
-class WishlistVC: UIViewController {
+class WishlistVC: UIViewController
+{
 
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        setUI()
     }
 
+    //MARK: - IBOutlet(s)
+    @IBOutlet weak var wishlistCollectionView: UICollectionView!
+    
+    
+    //MARK: - IBAction(s)
+    
+    
+    //MARK: - Var(s)
+    var VM : WishlistVM!
 
-    /*
-    // MARK: - Navigation
+    
+    //MARK: - Helper Funcs
+    func setUI()
+    {
+        
+        // Set title
+        title = "Wishlist"
+        
+        // Registering CollectionView Cell
+        wishlistCollectionView.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: Constants.productCellReuseIdentifier)
+        
+        // Setting Products CollectionView Delegate and Datasource
+        wishlistCollectionView.delegate = self
+        wishlistCollectionView.dataSource = self
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        // Fetching data from API and Updating Collection View
+        VM.wishlistProducts.bind({ [weak self] _ in
+            DispatchQueue.main.async {
+                self?.wishlistCollectionView.reloadData()
+            }
+        })
+        
     }
-    */
+    
+}
 
+//MARK: - CollectionView Delegate and DataSource Methods
+extension WishlistVC: UICollectionViewDelegate, UICollectionViewDataSource
+{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
+        return VM.wishlistProducts.value?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    {
+        guard let cell = wishlistCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.productCellReuseIdentifier, for: indexPath) as? ProductCell else { return UICollectionViewCell() }
+        
+        let product = VM.wishlistProducts.value?[indexPath.item]
+        
+        // Configure cell
+        cell.priceLabel.text = "\(product?.price ?? "")"
+        cell.productNameLabel.text = product?.title
+        cell.productImgView.sd_setImage(with: URL(string: product?.image ?? ""), placeholderImage: UIImage(named: "placeHolder"))
+        return cell
+    }
+    
+    
 }
