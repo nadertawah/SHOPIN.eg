@@ -8,29 +8,57 @@
 import Foundation
 import CoreData
 
-class CoreData
+class CoreData : DataPersistantProtocol
 {
-    var context: NSManagedObjectContext =
+    //Default init
+    init()
     {
-        let container = NSPersistentContainer(name: "Shopify")
-        container.loadPersistentStores
-        { (_ , error) in
-            if let error = error as NSError?
+        context =
+        {
+            let container = NSPersistentContainer(name: "Shopify")
+            container.loadPersistentStores
+            { (_ , error) in
+                if let error = error as NSError?
+                {
+                    fatalError("Unresolved error \(error), \(error.userInfo)")
+                }
+            }
+            return container.viewContext
+        }()
+    }
+    
+    //Injected context
+    init(context: NSManagedObjectContext)
+    {
+        self.context = context
+    }
+    
+    var context: NSManagedObjectContext
+    
+    //Saving support
+    func saveContext ()
+    {
+        if context.hasChanges
+        {
+            do
             {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+                try context.save()
+            }
+            catch
+            {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
-        return container.viewContext
-    }()
+    }
 
-    // MARK: - Core Data Saving support
-
-    func get<T:NSManagedObject>(type : T.Type ,completion : ([T]) -> ())
+    func get<T:NSManagedObject>(type : T.Type,predicate : NSPredicate? ,completion : ([T]) -> ())
     {
         var items = [T]()
         do
         {
             let fetchReq = T.fetchRequest() as! NSFetchRequest<T>
+            fetchReq.predicate = predicate
             items = try context.fetch(fetchReq)
             completion(items)
         }
@@ -40,35 +68,28 @@ class CoreData
             print("Error retrieving data\n")
         }
     }
-//
-//    func saveContext ()
-//    {
-//        if context.hasChanges
-//        {
-//            do
-//            {
-//                try context.save()
-//            }
-//            catch
-//            {
-//                let nserror = error as NSError
-//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-//            }
-//        }
-//    }
+    
+   
     func deleteObj<T:NSManagedObject>(type : T.Type,predicate:NSPredicate)
     {
-        let fetchRequest = T.fetchRequest() as! NSFetchRequest<T>
-        fetchRequest.predicate = predicate
-        let objects = try? context.fetch(fetchRequest)
-
-
-        if let objects = objects , !objects.isEmpty
+        do
         {
-            context.delete(objects[0])
-        }
+            let fetchReq = T.fetchRequest() as! NSFetchRequest<T>
+            fetchReq.predicate = predicate
+            let objects = try context.fetch(fetchReq)
+            
+            if !objects.isEmpty
+            {
+                context.delete(objects[0])
+            }
 
-//        saveContext()
+            saveContext()
+        }
+        catch
+        {
+            print("Error Deleting data\n")
+        }
+       
     }
     
     func insertObject(entityName : String,valuesForKeys: [String:Any])
@@ -79,7 +100,7 @@ class CoreData
         let obj = NSManagedObject(entity: entity, insertInto: context)
         obj.setValuesForKeys(valuesForKeys)
         
-//        saveContext()
+        saveContext()
     }
 
 }

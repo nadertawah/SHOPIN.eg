@@ -6,3 +6,11 @@
 //
 
 import Foundation
+import CoreData
+
+protocol DataPersistantProtocol
+{
+    func get<T:NSManagedObject>(type : T.Type,predicate : NSPredicate? ,completion : ([T]) -> ())
+    func deleteObj<T:NSManagedObject>(type : T.Type,predicate:NSPredicate)
+    func insertObject(entityName : String,valuesForKeys: [String:Any])
+}

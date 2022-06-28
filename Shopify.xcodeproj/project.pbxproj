@@ -43,6 +43,9 @@
 		759B531528627E1B0061474E /* ReviewsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 759B531328627E1B0061474E /* ReviewsVC.xib */; };
 		759B531828627E790061474E /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B531628627E790061474E /* ReviewsTableViewCell.swift */; };
 		759B531928627E790061474E /* ReviewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 759B531728627E790061474E /* ReviewsTableViewCell.xib */; };
+		75B75F4A286B69B600E18277 /* ProductCoreData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B75F48286B69B600E18277 /* ProductCoreData+CoreDataProperties.swift */; };
+		75B75F4B286B69B600E18277 /* ProductCoreData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B75F49286B69B600E18277 /* ProductCoreData+CoreDataClass.swift */; };
+		75B75F4D286B6B7A00E18277 /* DataPersistantProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B75F4C286B6B7A00E18277 /* DataPersistantProtocol.swift */; };
 		75FE22982861F0270071039C /* ProductDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE22972861F0270071039C /* ProductDetailsVM.swift */; };
 		75FE229A2861F6650071039C /* ProductDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE22992861F6650071039C /* ProductDetails.swift */; };
 		75FE229C2861FD160071039C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE229B2861FD160071039C /* Constants.swift */; };
@@ -176,6 +179,9 @@
 		759B531328627E1B0061474E /* ReviewsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewsVC.xib; sourceTree = "<group>"; };
 		759B531628627E790061474E /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsTableViewCell.swift; sourceTree = "<group>"; };
 		759B531728627E790061474E /* ReviewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewsTableViewCell.xib; sourceTree = "<group>"; };
+		75B75F48286B69B600E18277 /* ProductCoreData+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProductCoreData+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		75B75F49286B69B600E18277 /* ProductCoreData+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProductCoreData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		75B75F4C286B6B7A00E18277 /* DataPersistantProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataPersistantProtocol.swift; sourceTree = "<group>"; };
 		75FE22972861F0270071039C /* ProductDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsVM.swift; sourceTree = "<group>"; };
 		75FE22992861F6650071039C /* ProductDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetails.swift; sourceTree = "<group>"; };
 		75FE229B2861FD160071039C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -405,6 +411,8 @@
 				76A3EF662865EA1D00A1DED7 /* Categories.swift */,
 				76A3EF682867287A00A1DED7 /* Collects.swift */,
 				8D9854F02866E354004FF7F8 /* CoreDataProduct.swift */,
+				75B75F49286B69B600E18277 /* ProductCoreData+CoreDataClass.swift */,
+				75B75F48286B69B600E18277 /* ProductCoreData+CoreDataProperties.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -415,6 +423,7 @@
 				755C468C285E39A4005C4208 /* API.swift */,
 				75165923285FEBA000132444 /* DataProviderProtocol.swift */,
 				755C468B285E39A4005C4208 /* CoreData.swift */,
+				75B75F4C286B6B7A00E18277 /* DataPersistantProtocol.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -886,6 +895,7 @@
 				757DA7782865D41800CEBE56 /* MeVM.swift in Sources */,
 				75165920285FE1C200132444 /* HomeVM.swift in Sources */,
 				8DFCF05D2862AF29007D30A0 /* UITextField.swift in Sources */,
+				75B75F4A286B69B600E18277 /* ProductCoreData+CoreDataProperties.swift in Sources */,
 				8D9663192865DB86006188C9 /* ShoppingCartVM.swift in Sources */,
 				755C4653285E38F0005C4208 /* AppDelegate.swift in Sources */,
 				8DE8715F28614C8200D239CF /* ShoppingCartCell.swift in Sources */,
@@ -896,6 +906,7 @@
 				76A3EF692867287A00A1DED7 /* Collects.swift in Sources */,
 				76A3EF29286353F700A1DED7 /* ProductCell.swift in Sources */,
 				8DAF4FB128645093004DB212 /* DiscountCodes.swift in Sources */,
+				75B75F4B286B69B600E18277 /* ProductCoreData+CoreDataClass.swift in Sources */,
 				75165924285FEBA000132444 /* DataProviderProtocol.swift in Sources */,
 				755C4691285E4706005C4208 /* BaseTabBar.swift in Sources */,
 				76A3EF4D2863551100A1DED7 /* AdCell.swift in Sources */,
@@ -910,6 +921,7 @@
 				75FE22982861F0270071039C /* ProductDetailsVM.swift in Sources */,
 				76A3EF58286381D500A1DED7 /* ProductsVC.swift in Sources */,
 				76A3EF322863542500A1DED7 /* MainCategoryCell.swift in Sources */,
+				75B75F4D286B6B7A00E18277 /* DataPersistantProtocol.swift in Sources */,
 				7593F0082862503D000BF315 /* LabelTableViewCell.swift in Sources */,
 				76A3EF672865EA1D00A1DED7 /* Categories.swift in Sources */,
 				75FE229C2861FD160071039C /* Constants.swift in Sources */,
