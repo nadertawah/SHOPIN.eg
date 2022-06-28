@@ -9,13 +9,28 @@ import UIKit
 
 class BaseTabBar:  UITabBarController
 {
+    var dataProvider : DataProviderProtocol!
+    var dataPersistant : DataPersistantProtocol!
+    
+    init(dataProvider : DataProviderProtocol,dataPersistant : DataPersistantProtocol)
+    {
+        self.dataProvider = dataProvider
+        self.dataPersistant = dataPersistant
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder)
+    {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        let dataProvider = API()
-        let dataPersistant = CoreData()
-        
+//        
+//        let dataProvider = API()
+//        let dataPersistant = CoreData()
+//        
         //initiate tabBar VC(s)
         
         //home screen

@@ -21,7 +21,8 @@ class WishlistVM
     var dataProvider: DataProviderProtocol
     var dataPersistant: DataPersistantProtocol
     var wishlistProducts = Observable<[ProductCoreData]>([])
-    
+    private(set) var productID : Int!
+
     //MARK: - intent(s)
     
     

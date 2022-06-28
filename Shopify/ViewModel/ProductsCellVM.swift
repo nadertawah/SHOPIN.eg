@@ -1,33 +1,28 @@
 //
-//  ProductDetailsVM.swift
+//  ProductsCellVM.swift
 //  Shopify
 //
-//  Created by Nader Said on 21/06/2022.
+//  Created by Nader Said on 28/06/2022.
 //
 
 import Foundation
 
-class ProductDetailsVM
+class ProductsCellVM
 {
-    init(dataProvider : DataProviderProtocol,dataPersistant: DataPersistantProtocol, productID : String)
+    //MARK: - Init
+    init(dataProvider: DataProviderProtocol,dataPersistant: DataPersistantProtocol,product:Product)
     {
         self.dataProvider = dataProvider
         self.dataPersistant = dataPersistant
-        getProductDetails(productID: productID)
-        
+        self.product = product
+        getAddedToWishlistStatus()
     }
     
     //MARK: - Var(s)
-    //data provider service
-    var dataProvider : DataProviderProtocol
+    var dataProvider: DataProviderProtocol
     var dataPersistant: DataPersistantProtocol
-
-    //VC binding closure
-    var bind : (() -> ())?
-
-    //VM model
-    private(set) var product = Product() { didSet{bind?()} }
-    private(set) var isAddedToWishlist = Observable<Bool>(false)
+    var isAddedToWishlist =  Observable<Bool>(false)
+    var product : Product!
     
     //MARK: - intent(s)
     func toggleWishlist()
@@ -47,18 +42,8 @@ class ProductDetailsVM
         }
     }
     
-    //MARK: - Helper Funcs
-    func getProductDetails(productID : String)
-    {
-        let productDetailsURL = Constants.productsAPIUrl.replacingOccurrences(of: ".json", with: "/\(productID).json")
-        dataProvider.get(urlStr: productDetailsURL, type: ProductModel.self)
-        {
-            [weak self] in
-            self?.product = $0?.product ?? Product()
-            self?.getAddedToWishlistStatus()
-        }
-    }
     
+    //MARK: - Helper Funcs
     func getAddedToWishlistStatus()
     {
         let predicate = NSPredicate(format: "id == \(product.id ?? 0)")

@@ -51,6 +51,10 @@ class WishlistVC: UIViewController
         
     }
     
+    override func viewWillAppear(_ animated: Bool)
+    {
+        VM.getWishlistProducts()
+    }
 }
 
 //MARK: - CollectionView Delegate and DataSource Methods
@@ -65,14 +69,29 @@ extension WishlistVC: UICollectionViewDelegate, UICollectionViewDataSource
     {
         guard let cell = wishlistCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.productCellReuseIdentifier, for: indexPath) as? ProductCell else { return UICollectionViewCell() }
         
-        let product = VM.wishlistProducts.value?[indexPath.item]
+        let coreDataProduct = VM.wishlistProducts.value?[indexPath.item]
+        let image = Image(src: coreDataProduct?.image ?? "")
+        let varients = [Variant(price: coreDataProduct?.price ?? "")]
+        
+        let product = Product(id: Int(coreDataProduct?.id ?? 0 ) , title: coreDataProduct?.title ?? "", variants: varients,image: image)
         
         // Configure cell
-        cell.priceLabel.text = "\(product?.price ?? "")"
-        cell.productNameLabel.text = product?.title
-        cell.productImgView.sd_setImage(with: URL(string: product?.image ?? ""), placeholderImage: UIImage(named: "placeHolder"))
+        
+        cell.VM = ProductsCellVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant, product: product)
+        cell.configureCellVM()
+        
+        cell.priceLabel.text = "\(coreDataProduct?.price ?? "")"
+        cell.productNameLabel.text = coreDataProduct?.title
+        cell.productImgView.sd_setImage(with: URL(string: coreDataProduct?.image ?? ""), placeholderImage: UIImage(named: "placeHolder"))
         return cell
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    {
+        let coreDataProduct = VM.wishlistProducts.value?[indexPath.item]
+
+        let vc = ProductDetailsVC()
+        vc.VM = ProductDetailsVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant, productID: "\(coreDataProduct?.id ?? 0)")
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }

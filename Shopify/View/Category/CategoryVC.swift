@@ -35,8 +35,10 @@ class CategoryVC: UIViewController
     
     @IBAction func wishListBtn(_ sender: UIButton) {
         
-        // TODO: Set Navigation to wishlist
-        debugPrint("WishList Button Pressed!")
+        //Navigation to wishlist
+        let vc = WishlistVC()
+        vc.VM = WishlistVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant)
+        self.navigationController?.pushViewController(vc, animated: true)
 
     }
     
@@ -78,6 +80,11 @@ class CategoryVC: UIViewController
         }
     }
     
+    override func viewWillAppear(_ animated: Bool)
+    {
+        productsCollectionView.reloadData()
+    }
+    
 }
 
 //MARK: - CollectionView Delegate and DataSource Methods
@@ -117,6 +124,9 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
             let product = VM.filteredProducts.value?[indexPath.item]
             
             // Configure product cell
+            cell.VM = ProductsCellVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant, product: product ?? Product())
+            cell.configureCellVM()
+            
             cell.priceLabel.text = "\(product?.variants?[0].price ?? "N/A")$"
             cell.productNameLabel.text = product?.title
             cell.productImgView.sd_setImage(with: URL(string: product?.images?[0].src ?? ""), placeholderImage: UIImage(named: "placeHolder"))
@@ -150,11 +160,7 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
             let subCategory = VM.subCategoriesList[VM.productsVM.selectedSubCategory]
             let mainCategoryID = VM.mainCategoriesList.value?.custom_collections[indexPath.item].id
             VM.productsVM.getProducts(with: subCategory, and: mainCategoryID)
-            VM.productsVM.productsList.bind { [weak self] _ in
-                DispatchQueue.main.async {
-                    self?.productsCollectionView.reloadData()
-                }
-            }
+            
         }
         else if collectionView == productsCollectionView
         {
@@ -246,11 +252,7 @@ extension CategoryVC: UITableViewDelegate, UITableViewDataSource {
         // View Products of this subCategory and selected mainCategory
         let mainCategory = VM.mainCategoriesList.value?.custom_collections[VM.productsVM.selectedMainCategory].id
         VM.productsVM.getProducts(with: VM.subCategoriesList[indexPath.row], and: mainCategory)
-        VM.productsVM.productsList.bind { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.productsCollectionView.reloadData()
-            }
-        }
+       
         
     }
     

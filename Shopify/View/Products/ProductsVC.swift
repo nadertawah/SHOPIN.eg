@@ -8,8 +8,8 @@
 import UIKit
 import SDWebImage
 
-class ProductsVC: UIViewController {
-
+class ProductsVC: UIViewController
+{
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -74,6 +74,10 @@ class ProductsVC: UIViewController {
         debugPrint("filterProducts")
     }
     
+    override func viewWillAppear(_ animated: Bool)
+    {
+        productsCollectionView.reloadData()
+    }
 }
 
 //MARK: - CollectionView Delegate and DataSource Methods
@@ -91,6 +95,9 @@ extension ProductsVC: UICollectionViewDelegate, UICollectionViewDataSource {
         let product = VM.filteredProductList.value?[indexPath.item]
         
         // Configure cell
+        cell.VM = ProductsCellVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant, product: product ?? Product())
+        cell.configureCellVM()
+        
         cell.priceLabel.text = "\(product?.variants?[0].price ?? "N/A")$"
         cell.productNameLabel.text = product?.title
         cell.productImgView.sd_setImage(with: URL(string: product?.images?[0].src ?? ""), placeholderImage: UIImage(named: "placeHolder"))

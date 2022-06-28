@@ -55,7 +55,7 @@ class ProductDetailsVC: UIViewController
     //MARK: - IBAction(s)
     @IBAction func toggleWishListBtnPressed(_ sender: Any)
     {
-        VM.toogleWishlist()
+        VM.toggleWishlist()
     }
     
     @IBAction func addToShoppingCartBtnPressed(_ sender: Any)

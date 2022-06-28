@@ -10,7 +10,8 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-   // private var coreData = CoreData()
+    private let dataProvider = API()
+    private let dataPersistant = CoreData()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -19,17 +20,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        
 
-        let tabVC = BaseTabBar()
-//        let tabVC = BaseNavBar()
+        let tabVC = BaseTabBar(dataProvider: dataProvider, dataPersistant: dataPersistant)
 
-        
         window.rootViewController = tabVC
         self.window = window
         window.makeKeyAndVisible()
-        
-        
         
     }
 
@@ -62,7 +58,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
 
         // Save changes in the application's managed object context when the application transitions to the background.
-//        coreData.saveContext()
+        dataPersistant.saveContext()
     }
 
 
