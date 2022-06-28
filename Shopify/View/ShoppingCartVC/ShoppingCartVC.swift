@@ -53,9 +53,17 @@ class ShoppingCartVC: UIViewController
 // MARK: - IBActions
     @IBAction func proccedToChechoutBtnPressed(_ sender: Any)
     {
+        if sum == 0 {
+        
+        let alert = Alerts.instance.showAlert(title: "No Products", message: "Please Add Products To be able to check out")
+            self.present(alert, animated: true, completion: nil)
+        }
+        else
+        {
         let checkOutVC = CheckoutVC()
         checkOutVC.checkOutViewModel = CheckOutVM(total: "\(sum)")
         self.navigationController?.pushViewController(checkOutVC, animated: true)
+        }
     }
 }
 
@@ -64,7 +72,7 @@ class ShoppingCartVC: UIViewController
 extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
     //Number of Rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return products.count ?? 0
+        return products.count
     }
     //Cell For Row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -87,11 +95,11 @@ extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
     // Function For Adding Qty Btn's
     @objc func PlusBtnPressed(sender : UIButton) {
         let buttonRow = sender.tag
-        var qty = products[buttonRow].qty!
+        let qty = products[buttonRow].qty!
         let id = products[buttonRow].id!
         ShoppingCartVM.instance.updateData(qty: qty + 1, id: id)
         products = ShoppingCartVM.instance.getData()
-        let intPrice = (products[buttonRow].price as! NSString).integerValue
+        let intPrice = (products[buttonRow].price! as NSString).integerValue
         sum += intPrice
         subTotalLabel.text = "\(sum)"
         cartTableView.reloadData()
@@ -107,7 +115,7 @@ extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
         qty -= 1
         ShoppingCartVM.instance.updateData(qty: qty, id: id)
         products = ShoppingCartVM.instance.getData()
-        let intPrice = (products[buttonRow].price as! NSString).integerValue
+        let intPrice = (products[buttonRow].price! as NSString).integerValue
         sum -= intPrice
         subTotalLabel.text = "\(sum)"
         
