@@ -44,10 +44,11 @@ class ShoppingCartVC: UIViewController
         subTotalLabel.text = "\(sum)"
         cartTableView.reloadData()
     }
-
+// MARK: - IBActions
     @IBAction func proccedToChechoutBtnPressed(_ sender: Any)
     {
-        
+        let checkOutVC = CheckoutVC()
+        self.navigationController?.pushViewController(checkOutVC, animated: true)
     }
 }
 
