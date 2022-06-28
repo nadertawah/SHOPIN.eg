@@ -154,7 +154,8 @@ class MeVC: UIViewController
     
     @objc func navigateToSettings()
     {
-
+        let settingVc = SettingVC()
+        self.navigationController?.pushViewController(settingVc, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool)

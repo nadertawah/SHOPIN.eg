@@ -19,10 +19,14 @@ class ShoppingCartVC: UIViewController
     var products = [CoreDataProdutc]()
     
     var sum : Int = 0
-    var result : Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //Title for Screen
+        title = "Shopping Cart"
+        
+        //Confirm Delegate and DataSource Protocols
         cartTableView.delegate = self
         cartTableView.dataSource = self
         
@@ -36,6 +40,7 @@ class ShoppingCartVC: UIViewController
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        sum = 0
         products.removeAll()
         products = ShoppingCartVM.instance.getData()
         for product in products {
@@ -44,10 +49,21 @@ class ShoppingCartVC: UIViewController
         subTotalLabel.text = "\(sum)"
         cartTableView.reloadData()
     }
-
+    
+// MARK: - IBActions
     @IBAction func proccedToChechoutBtnPressed(_ sender: Any)
     {
-        
+        if sum == 0
+        {
+        let alert = Alerts.instance.showAlert(title: "No Products", message: "Please Add Products To be able to check out")
+            self.present(alert, animated: true, completion: nil)
+        }
+        else
+        {
+        let checkOutVC = CheckoutVC()
+        checkOutVC.checkOutViewModel = CheckOutVM(total: "\(sum)")
+        self.navigationController?.pushViewController(checkOutVC, animated: true)
+        }
     }
 }
 
@@ -56,7 +72,7 @@ class ShoppingCartVC: UIViewController
 extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
     //Number of Rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return products.count ?? 0
+        return products.count
     }
     //Cell For Row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -73,29 +89,22 @@ extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
         cell.plusBtn.addTarget(self, action: #selector(PlusBtnPressed), for: .touchUpInside)
         cell.minusBtn.addTarget(self, action: #selector(MinusBtnPressed), for: .touchUpInside)
         
-//        subTotalLabel.text = cell.priceLabel.text
-//
-//        subTotalLabel.text = "\(sum)"
-//        let intPrice = (products[indexPath.row].price as! NSString).integerValue
-//        let qty = products[indexPath.row].qty!
-//        subTotalLabel.text = "\(intPrice * qty)"
-        
         return cell
     }
     
-    // Function For Adding Minus Qty Btn's
+    // Function For Adding Qty Btn's
     @objc func PlusBtnPressed(sender : UIButton) {
         let buttonRow = sender.tag
-        var qty = products[buttonRow].qty!
+        let qty = products[buttonRow].qty!
         let id = products[buttonRow].id!
         ShoppingCartVM.instance.updateData(qty: qty + 1, id: id)
         products = ShoppingCartVM.instance.getData()
-        let intPrice = (products[buttonRow].price as! NSString).integerValue
+        let intPrice = (products[buttonRow].price! as NSString).integerValue
         sum += intPrice
         subTotalLabel.text = "\(sum)"
         cartTableView.reloadData()
     }
-    
+    // Function For Minus Qty Btn's
     @objc func MinusBtnPressed(sender : UIButton) {
         let buttonRow = sender.tag
         var qty = products[buttonRow].qty!
@@ -106,7 +115,7 @@ extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
         qty -= 1
         ShoppingCartVM.instance.updateData(qty: qty, id: id)
         products = ShoppingCartVM.instance.getData()
-        let intPrice = (products[buttonRow].price as! NSString).integerValue
+        let intPrice = (products[buttonRow].price! as NSString).integerValue
         sum -= intPrice
         subTotalLabel.text = "\(sum)"
         
