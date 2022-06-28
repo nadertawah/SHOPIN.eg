@@ -46,5 +46,13 @@ extension SettingVC: UITableViewDelegate , UITableViewDataSource {
         return 100
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            let addressVC = AddressVC()
+            self.navigationController?.pushViewController(addressVC, animated: true)
+        default:
+            return
+        }
+    }
 }

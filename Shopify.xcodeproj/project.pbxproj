@@ -103,6 +103,10 @@
 		8D6CC57C286B51ED00310313 /* SettingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D6CC57A286B51ED00310313 /* SettingVC.xib */; };
 		8D6CC580286B52D100310313 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6CC57E286B52D100310313 /* SettingCell.swift */; };
 		8D6CC581286B52D100310313 /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D6CC57F286B52D100310313 /* SettingCell.xib */; };
+		8D6CC585286B7E8700310313 /* AddAddressVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6CC583286B7E8700310313 /* AddAddressVC.swift */; };
+		8D6CC586286B7E8700310313 /* AddAddressVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D6CC584286B7E8700310313 /* AddAddressVC.xib */; };
+		8D6CC58A286B866300310313 /* AddressVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6CC588286B866300310313 /* AddressVC.swift */; };
+		8D6CC58B286B866300310313 /* AddressVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D6CC589286B866300310313 /* AddressVC.xib */; };
 		8D75C25D28648EA600ADC31A /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D75C25C28648EA600ADC31A /* Alerts.swift */; };
 		8D9663192865DB86006188C9 /* ShoppingCartVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9663182865DB86006188C9 /* ShoppingCartVM.swift */; };
 		8D9854F12866E354004FF7F8 /* CoreDataProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9854F02866E354004FF7F8 /* CoreDataProduct.swift */; };
@@ -208,6 +212,10 @@
 		8D6CC57A286B51ED00310313 /* SettingVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingVC.xib; sourceTree = "<group>"; };
 		8D6CC57E286B52D100310313 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		8D6CC57F286B52D100310313 /* SettingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingCell.xib; sourceTree = "<group>"; };
+		8D6CC583286B7E8700310313 /* AddAddressVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAddressVC.swift; sourceTree = "<group>"; };
+		8D6CC584286B7E8700310313 /* AddAddressVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddAddressVC.xib; sourceTree = "<group>"; };
+		8D6CC588286B866300310313 /* AddressVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressVC.swift; sourceTree = "<group>"; };
+		8D6CC589286B866300310313 /* AddressVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressVC.xib; sourceTree = "<group>"; };
 		8D75C25C28648EA600ADC31A /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		8D9663182865DB86006188C9 /* ShoppingCartVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCartVM.swift; sourceTree = "<group>"; };
 		8D9854F02866E354004FF7F8 /* CoreDataProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProduct.swift; sourceTree = "<group>"; };
@@ -386,6 +394,8 @@
 		755C4687285E3935005C4208 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8D6CC587286B863300310313 /* Add Address */,
+				8D6CC582286B7E6A00310313 /* Address */,
 				8D6CC578286B51CC00310313 /* Setting */,
 				755C468F285E46F9005C4208 /* Base */,
 				752796262860E64900381C89 /* Home */,
@@ -570,6 +580,24 @@
 			path = SettingCell;
 			sourceTree = "<group>";
 		};
+		8D6CC582286B7E6A00310313 /* Address */ = {
+			isa = PBXGroup;
+			children = (
+				8D6CC588286B866300310313 /* AddressVC.swift */,
+				8D6CC589286B866300310313 /* AddressVC.xib */,
+			);
+			path = Address;
+			sourceTree = "<group>";
+		};
+		8D6CC587286B863300310313 /* Add Address */ = {
+			isa = PBXGroup;
+			children = (
+				8D6CC583286B7E8700310313 /* AddAddressVC.swift */,
+				8D6CC584286B7E8700310313 /* AddAddressVC.xib */,
+			);
+			path = "Add Address";
+			sourceTree = "<group>";
+		};
 		8DE87154286147C300D239CF /* ShoppingCartVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -741,6 +769,7 @@
 			files = (
 				7527962F2861106D00381C89 /* ProductDetailsVC.xib in Resources */,
 				759B531928627E790061474E /* ReviewsTableViewCell.xib in Resources */,
+				8D6CC586286B7E8700310313 /* AddAddressVC.xib in Resources */,
 				76A3EF5B286381D500A1DED7 /* ProductsVC.xib in Resources */,
 				8D6CC57C286B51ED00310313 /* SettingVC.xib in Resources */,
 				755C4662285E38F2005C4208 /* LaunchScreen.storyboard in Resources */,
@@ -749,6 +778,7 @@
 				76A3EF1E286353D400A1DED7 /* CategoryVC.xib in Resources */,
 				7593F00428623A8C000BF315 /* MeVC.xib in Resources */,
 				76A3EF2F2863542500A1DED7 /* MainCategoryCell.xib in Resources */,
+				8D6CC58B286B866300310313 /* AddressVC.xib in Resources */,
 				76A3EF3A2863543100A1DED7 /* SubCategoryCell.xib in Resources */,
 				76A3EF482863550600A1DED7 /* BrandCell.xib in Resources */,
 				7576E2252862B63900022E69 /* LoginRegisterVC.xib in Resources */,
@@ -939,7 +969,9 @@
 				7527963328612B1600381C89 /* ImageCollectionViewCell.swift in Sources */,
 				8DE8716228614F4D00D239CF /* UIButton.swift in Sources */,
 				75FE22982861F0270071039C /* ProductDetailsVM.swift in Sources */,
+				8D6CC585286B7E8700310313 /* AddAddressVC.swift in Sources */,
 				76A3EF58286381D500A1DED7 /* ProductsVC.swift in Sources */,
+				8D6CC58A286B866300310313 /* AddressVC.swift in Sources */,
 				76A3EF322863542500A1DED7 /* MainCategoryCell.swift in Sources */,
 				7593F0082862503D000BF315 /* LabelTableViewCell.swift in Sources */,
 				76A3EF672865EA1D00A1DED7 /* Categories.swift in Sources */,
