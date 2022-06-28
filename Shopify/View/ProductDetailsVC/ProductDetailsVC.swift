@@ -49,10 +49,13 @@ class ProductDetailsVC: UIViewController
             moreReviewsBtn.shopifyBtn(title: "MORE REVIEWS")
         }
     }
+    
+    @IBOutlet weak var toggleWishlistBtn: UIButton!
+    
     //MARK: - IBAction(s)
-    @IBAction func toggleWishListBtn(_ sender: Any)
+    @IBAction func toggleWishListBtnPressed(_ sender: Any)
     {
-        
+        VM.toogleWishlist()
     }
     
     @IBAction func addToShoppingCartBtnPressed(_ sender: Any)
@@ -128,6 +131,24 @@ class ProductDetailsVC: UIViewController
                 self.priceLabel.text = product.variants?[0].price
             
             }
+        }
+        
+        //bind wishlist button image
+        VM.isAddedToWishlist.bind
+        {
+            [weak self] isAddedToWishlist in
+            DispatchQueue.main.async
+            {
+                if isAddedToWishlist == true
+                {
+                    self?.toggleWishlistBtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                }
+                else if isAddedToWishlist == false
+                {
+                    self?.toggleWishlistBtn.setImage(UIImage(systemName: "heart"), for: .normal)
+                }
+            }
+           
         }
         
     }

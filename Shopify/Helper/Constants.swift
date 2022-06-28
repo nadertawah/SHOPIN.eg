@@ -31,4 +31,6 @@ struct Constants
     static let mainCategoryCellReuseIdentifier = "mainCategoryCell"
     static let subCategoryCellReuseIdentifier = "subCategoryCell"
     static let discountCodesUrl = "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/price_rules.json"
+    
+    static let productCoreDataEntityName = "ProductCoreData"
 }

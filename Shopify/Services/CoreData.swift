@@ -15,7 +15,7 @@ class CoreData : DataPersistantProtocol
     {
         context =
         {
-            let container = NSPersistentContainer(name: "Shopify")
+            let container = NSPersistentContainer(name: "ShopifyCoreData")
             container.loadPersistentStores
             { (_ , error) in
                 if let error = error as NSError?
