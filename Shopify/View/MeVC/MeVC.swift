@@ -52,7 +52,7 @@ class MeVC: UIViewController
     }
     
     //MARK: - Var(s)
-    var VM = MeViewModel(dataProvider: API())
+    var VM : MeViewModel!
     private let labelCellIdentfier = "LabelTableViewCell"
     
     //MARK: - Helper Funcs
@@ -106,6 +106,7 @@ class MeVC: UIViewController
     @IBAction func loginRegisterBtnPressed(_ sender: Any)
     {
         let vc = LoginRegisterVC()
+        vc.VM = LoginRegisterVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

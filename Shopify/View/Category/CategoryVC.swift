@@ -7,8 +7,8 @@
 
 import UIKit
 
-class CategoryVC: UIViewController {
-
+class CategoryVC: UIViewController
+{
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,8 +26,8 @@ class CategoryVC: UIViewController {
     @IBOutlet weak var productsCollectionView: UICollectionView!
     
     //MARK: - IBAction(s)
-    @IBAction func shoppingCartBtn(_ sender: UIButton) {
-        
+    @IBAction func shoppingCartBtn(_ sender: UIButton)
+    {
         let shopingCartVC = ShoppingCartVC()
         self.navigationController?.pushViewController(shopingCartVC, animated: true)
 
@@ -41,14 +41,11 @@ class CategoryVC: UIViewController {
     }
     
     //MARK: - Variable(s)
-    let categoryVM = CategoryViewModel(dataProvider: API())
+    var VM : CategoryViewModel!
 
     //MARK: - Helper functions
     func setUI()
     {
-        
-        // Hide BaseNAvBar
-        self.navigationController?.navigationBar.isHidden = true
         
         // Registering Cells
         mainCategoriesCollectionView.register(UINib(nibName: "MainCategoryCell", bundle: nil), forCellWithReuseIdentifier: Constants.mainCategoryCellReuseIdentifier)
@@ -70,11 +67,11 @@ class CategoryVC: UIViewController {
         productSearch.delegate = self
         
         // Fetching products from API and Updating Collection View
-        let mainCategory = categoryVM.mainCategoriesList.value?.custom_collections[categoryVM.productsVM.selectedMainCategory].id
-        let subCategory = categoryVM.subCategoriesList[1]
-        categoryVM.productsVM.getProducts(with: subCategory, and: mainCategory)
+        let mainCategory = VM.mainCategoriesList.value?.custom_collections[VM.productsVM.selectedMainCategory].id
+        let subCategory = VM.subCategoriesList[1]
+        VM.productsVM.getProducts(with: subCategory, and: mainCategory)
         
-        categoryVM.filteredProducts.bind { [weak self] _ in
+        VM.filteredProducts.bind { [weak self] _ in
             DispatchQueue.main.async {
                 self?.productsCollectionView.reloadData()
             }
@@ -90,9 +87,9 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         // Set number of items in mainCategories and products collection views
         if collectionView == mainCategoriesCollectionView {
-            return categoryVM.mainCategoriesList.value?.custom_collections.count ?? 0
+            return VM.mainCategoriesList.value?.custom_collections.count ?? 0
         } else {
-            return categoryVM.filteredProducts.value?.count ?? 0
+            return VM.filteredProducts.value?.count ?? 0
         }
         
     }
@@ -109,7 +106,7 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
             }
             
             // Set main categories
-            cell.mainCategoryLabel.text = categoryVM.mainCategoriesList.value?.custom_collections[indexPath.item].title
+            cell.mainCategoryLabel.text = VM.mainCategoriesList.value?.custom_collections[indexPath.item].title
             
             return cell
             
@@ -117,7 +114,7 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
             
             guard let cell = productsCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.productCellReuseIdentifier, for: indexPath) as? ProductCell else { return UICollectionViewCell() }
             
-            let product = categoryVM.filteredProducts.value?[indexPath.item]
+            let product = VM.filteredProducts.value?[indexPath.item]
             
             // Configure product cell
             cell.priceLabel.text = "\(product?.variants?[0].price ?? "N/A")$"
@@ -135,7 +132,7 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
         if collectionView == mainCategoriesCollectionView {
             
             // Set selected subCategory
-            categoryVM.productsVM.selectedMainCategory = indexPath.item
+            VM.productsVM.selectedMainCategory = indexPath.item
             
             // Deselect all cells
             for cell in collectionView.visibleCells {
@@ -150,14 +147,22 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
             }
             
             // View Products of this mainCategory and selected subCategory
-            let subCategory = categoryVM.subCategoriesList[categoryVM.productsVM.selectedSubCategory]
-            let mainCategoryID = categoryVM.mainCategoriesList.value?.custom_collections[indexPath.item].id
-            categoryVM.productsVM.getProducts(with: subCategory, and: mainCategoryID)
-            categoryVM.productsVM.productsList.bind { [weak self] _ in
+            let subCategory = VM.subCategoriesList[VM.productsVM.selectedSubCategory]
+            let mainCategoryID = VM.mainCategoriesList.value?.custom_collections[indexPath.item].id
+            VM.productsVM.getProducts(with: subCategory, and: mainCategoryID)
+            VM.productsVM.productsList.bind { [weak self] _ in
                 DispatchQueue.main.async {
                     self?.productsCollectionView.reloadData()
                 }
             }
+        }
+        else if collectionView == productsCollectionView
+        {
+            let product = VM.filteredProducts.value?[indexPath.item]
+            let vc = ProductDetailsVC()
+            vc.VM = ProductDetailsVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant, productID: "\(product?.id ?? 0)")
+            
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     
@@ -200,7 +205,7 @@ extension CategoryVC: UICollectionViewDelegateFlowLayout {
 extension CategoryVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categoryVM.subCategoriesList.count
+        return VM.subCategoriesList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -214,7 +219,7 @@ extension CategoryVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         // get subCategories from API
-        cell.subCategoryLabel.text = categoryVM.subCategoriesList[indexPath.row]
+        cell.subCategoryLabel.text = VM.subCategoriesList[indexPath.row]
         
         return cell
     }
@@ -222,7 +227,7 @@ extension CategoryVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         // Set selected subCategory
-        categoryVM.productsVM.selectedSubCategory = indexPath.row
+        VM.productsVM.selectedSubCategory = indexPath.row
         
         // Deselect all cells
         for cell in tableView.visibleCells {
@@ -239,9 +244,9 @@ extension CategoryVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         // View Products of this subCategory and selected mainCategory
-        let mainCategory = categoryVM.mainCategoriesList.value?.custom_collections[categoryVM.productsVM.selectedMainCategory].id
-        categoryVM.productsVM.getProducts(with: categoryVM.subCategoriesList[indexPath.row], and: mainCategory)
-        categoryVM.productsVM.productsList.bind { [weak self] _ in
+        let mainCategory = VM.mainCategoriesList.value?.custom_collections[VM.productsVM.selectedMainCategory].id
+        VM.productsVM.getProducts(with: VM.subCategoriesList[indexPath.row], and: mainCategory)
+        VM.productsVM.productsList.bind { [weak self] _ in
             DispatchQueue.main.async {
                 self?.productsCollectionView.reloadData()
             }
@@ -256,6 +261,6 @@ extension CategoryVC : UISearchBarDelegate
 {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
     {
-        categoryVM.searchProducts(searchStr: searchBar.text ?? "")
+        VM.searchProducts(searchStr: searchBar.text ?? "")
     }
 }

@@ -25,9 +25,9 @@ class BaseNavBar : UINavigationController
 //        let vc = ProductDetailsVC.init(nibName: "ProductDetailsVC", bundle: nil)
 
 //        let vc = ShoppingCartVC.init(nibName: "ShoppingCartVC", bundle: nil)
-        let vc = ProductDetailsVC.init(nibName: "ProductDetailsVC", bundle: nil)
+ //      let vc = ProductDetailsVC.init(nibName: "ProductDetailsVC", bundle: nil)
 //        let vc = LoginRegisterVC.init(nibName: "LoginRegisterVC", bundle: nil)
 //        let vc = BaseTabBar()
-        self.viewControllers = [vc]
+  //      self.viewControllers = [vc]
     }
 }

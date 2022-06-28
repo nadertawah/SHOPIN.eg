@@ -9,13 +9,16 @@ import Foundation
 
 class MeViewModel
 {
-    init(dataProvider : DataProviderProtocol)
+    init(dataProvider : DataProviderProtocol,dataPersistant: DataPersistantProtocol)
     {
         self.dataProvider = dataProvider
+        self.dataPersistant = dataPersistant
     }
     
     //MARK: - Var(s)
-    private var dataProvider : DataProviderProtocol
+    var dataProvider : DataProviderProtocol
+    var dataPersistant: DataPersistantProtocol
+
     private(set) var isLoggedIn = Observable<Bool>(UserDefaults.standard.bool(forKey: "isLoggedIn"))
     private(set) var customer = Observable<Customer>(nil)
     

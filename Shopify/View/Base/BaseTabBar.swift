@@ -13,10 +13,27 @@ class BaseTabBar:  UITabBarController
     {
         super.viewDidLoad()
         
-        //TODO: - initiate tabBar VC(s)
-        let vc1 = BaseNavBar.init(rootViewController: HomeVC())
-        let vc2 = BaseNavBar.init(rootViewController: CategoryVC())
-        let vc3 = BaseNavBar.init(rootViewController: MeVC())
+        let dataProvider = API()
+        let dataPersistant = CoreData()
+        
+        //initiate tabBar VC(s)
+        
+        //home screen
+        let homeVC = HomeVC()
+        homeVC.VM = HomeViewModel(dataProvider: dataProvider, dataPersistant: dataPersistant)
+        
+        //category Screen
+        let categoryVC = CategoryVC()
+        categoryVC.VM = CategoryViewModel(dataProvider: dataProvider, dataPersistant: dataPersistant)
+        
+        //me screen
+        let meVC = MeVC()
+        meVC.VM = MeViewModel(dataProvider: dataProvider, dataPersistant: dataPersistant)
+        
+        
+        let vc1 = BaseNavBar.init(rootViewController: homeVC)
+        let vc2 = BaseNavBar.init(rootViewController: categoryVC)
+        let vc3 = BaseNavBar.init(rootViewController: meVC)
         
         //TODO: - set tabBar title(s)
         vc1.title = "Home"
@@ -36,6 +53,6 @@ class BaseTabBar:  UITabBarController
         //TODO: - set default selected index
         
         //TODO: - set tabBar attributes
-        
+        self.tabBar.tintColor = .black
     }
 }

@@ -79,7 +79,7 @@ class ProductDetailsVC: UIViewController
     
     //MARK: - Var(s)
     private let productsCellReuseIdentifier = "ImageCollectionViewCell"
-    private let VM = ProductDetailsVM(dataProvider: API(), productID: "7358110662827")
+    var VM : ProductDetailsVM!
     
     //MARK: - Helper Funcs
     func setUI()

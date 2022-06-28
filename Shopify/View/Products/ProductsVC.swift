@@ -34,7 +34,7 @@ class ProductsVC: UIViewController {
     }
     
     //MARK: - Variable(s)
-    var productsVM: ProductsViewModel?
+    var VM: ProductsViewModel!
     
     //MARK: - Helper Function(s)
     func setUI() {
@@ -54,7 +54,7 @@ class ProductsVC: UIViewController {
         productsSearch.delegate = self
         
         // Fetching data from API and Updating Collection View
-        productsVM?.filteredProductList.bind({ [weak self] _ in
+        VM.filteredProductList.bind({ [weak self] _ in
             DispatchQueue.main.async {
                 self?.productsCollectionView.reloadData()
             }
@@ -80,20 +80,30 @@ extension ProductsVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // Set number of products
-        return productsVM?.filteredProductList.value?.count ?? 0
+        return VM.filteredProductList.value?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = productsCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.productCellReuseIdentifier, for: indexPath) as? ProductCell else { return UICollectionViewCell() }
         
-        let product = productsVM?.filteredProductList.value?[indexPath.item]
+        let product = VM.filteredProductList.value?[indexPath.item]
         
         // Configure cell
         cell.priceLabel.text = "\(product?.variants?[0].price ?? "N/A")$"
         cell.productNameLabel.text = product?.title
         cell.productImgView.sd_setImage(with: URL(string: product?.images?[0].src ?? ""), placeholderImage: UIImage(named: "placeHolder"))
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    {
+        let product = VM.filteredProductList.value?[indexPath.item]
+        let vc = ProductDetailsVC()
+        vc.VM = ProductDetailsVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant, productID: "\(product?.id ?? 0)")
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+
     }
 }
 
@@ -120,6 +130,6 @@ extension ProductsVC : UISearchBarDelegate
 {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
     {
-        productsVM?.searchProducts(searchStr: searchBar.text ?? "" )
+        VM.searchProducts(searchStr: searchBar.text ?? "" )
     }
 }

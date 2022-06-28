@@ -33,7 +33,7 @@ class HomeVC: UIViewController {
     @IBOutlet weak var brandsCollectionView: UICollectionView!
     
     //MARK: - Variable(s)
-    private let homeViewModel = HomeViewModel(dataProvider: API())
+    var VM : HomeViewModel!
     
     //MARK: - Helper functions
     func setUI()
@@ -61,7 +61,7 @@ class HomeVC: UIViewController {
         brandsSearchBar.delegate = self
         
         // Fetching data from API and Updating Collection View
-        homeViewModel.filtereBrandsList.bind { [weak self] _ in
+        VM.filtereBrandsList.bind { [weak self] _ in
             DispatchQueue.main.async {
                 self?.brandsCollectionView.reloadData()
             }
@@ -95,13 +95,13 @@ class HomeVC: UIViewController {
 }
 
 //MARK: - CollectionView Datasource Methods
-extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
-    
+extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource
+{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         // Set number of items in ads and brands collection views
         if collectionView == brandsCollectionView {
-            return homeViewModel.filtereBrandsList.value?.count ?? 0
+            return VM.filtereBrandsList.value?.count ?? 0
         } else {
             //TODO: set number of ads
             return 3
@@ -115,7 +115,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             
             guard let cell = brandsCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.brandCellReuseIdentifier, for: indexPath) as? BrandCell else { return UICollectionViewCell() }
             
-            let brand = homeViewModel.filtereBrandsList.value?[indexPath.item]
+            let brand = VM.filtereBrandsList.value?[indexPath.item]
             
             // Set brands using API
             cell.brandNameLabel.text = brand?.title
@@ -140,10 +140,10 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         if collectionView == brandsCollectionView {
             
-            let brand = homeViewModel.filtereBrandsList.value?[indexPath.item].title
+            let brand = VM.filtereBrandsList.value?[indexPath.item].title
             
             let destinationVC = ProductsVC()
-            destinationVC.productsVM = ProductsViewModel(dataProvider: API(), brand: brand ?? "")
+            destinationVC.VM = ProductsViewModel(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant, brand: brand ?? "")
             navigationController?.pushViewController(destinationVC, animated: true)
             
         } else {
@@ -187,6 +187,6 @@ extension HomeVC : UISearchBarDelegate
 {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
     {
-        homeViewModel.searchBrands(searchStr: searchBar.text ?? "" )
+        VM.searchBrands(searchStr: searchBar.text ?? "" )
     }
 }

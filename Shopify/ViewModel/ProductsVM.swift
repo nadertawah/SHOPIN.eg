@@ -10,15 +10,17 @@ import Foundation
 class ProductsViewModel
 {
     
-    init(dataProvider: DataProviderProtocol, brand: String) {
+    init(dataProvider: DataProviderProtocol,dataPersistant: DataPersistantProtocol, brand: String) {
         self.dataProvider = dataProvider
+        self.dataPersistant = dataPersistant
         getProducts(from: brand)
         
         productsList.bind {[weak self] in self?.filteredProductList.value = $0?.products}
     }
     
-    init(dataProvider: DataProviderProtocol) {
+    init(dataProvider: DataProviderProtocol,dataPersistant: DataPersistantProtocol) {
         self.dataProvider = dataProvider
+        self.dataPersistant = dataPersistant
         getProducts()
     }
     
@@ -26,7 +28,8 @@ class ProductsViewModel
     var productsList: Observable<Products> = Observable(Products(products: []))
     var filteredProductList : Observable<[Product]> = Observable([])
     var dataProvider: DataProviderProtocol
-
+    var dataPersistant: DataPersistantProtocol
+    
     //MARK: - intent(s)
     func searchProducts(searchStr:String)
     {

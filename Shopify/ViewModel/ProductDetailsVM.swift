@@ -9,16 +9,18 @@ import Foundation
 
 class ProductDetailsVM
 {
-    init(dataProvider : DataProviderProtocol, productID : String)
+    init(dataProvider : DataProviderProtocol,dataPersistant: DataPersistantProtocol, productID : String)
     {
         self.dataProvider = dataProvider
+        self.dataPersistant = dataPersistant
         getProductDetails(productID: productID)
     }
     
     //MARK: - Var(s)
     //data provider service
     var dataProvider : DataProviderProtocol
-    
+    var dataPersistant: DataPersistantProtocol
+
     //VC binding closure
     var bind : (() -> ())?
 
