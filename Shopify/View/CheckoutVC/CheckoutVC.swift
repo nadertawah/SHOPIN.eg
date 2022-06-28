@@ -36,6 +36,9 @@ class CheckoutVC: UIViewController {
         
         getDiscountCodes()
         
+        //Title for Screen
+        title = "Check Out"
+        
         // Confirm DataSource & Delegate for TableView
         paymentMethodTabelView.dataSource = self
         paymentMethodTabelView.delegate = self

@@ -19,10 +19,14 @@ class ShoppingCartVC: UIViewController
     var products = [CoreDataProdutc]()
     
     var sum : Int = 0
-    var result : Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //Title for Screen
+        title = "Shopping Cart"
+        
+        //Confirm Delegate and DataSource Protocols
         cartTableView.delegate = self
         cartTableView.dataSource = self
         
@@ -44,6 +48,7 @@ class ShoppingCartVC: UIViewController
         subTotalLabel.text = "\(sum)"
         cartTableView.reloadData()
     }
+    
 // MARK: - IBActions
     @IBAction func proccedToChechoutBtnPressed(_ sender: Any)
     {
@@ -74,17 +79,10 @@ extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
         cell.plusBtn.addTarget(self, action: #selector(PlusBtnPressed), for: .touchUpInside)
         cell.minusBtn.addTarget(self, action: #selector(MinusBtnPressed), for: .touchUpInside)
         
-//        subTotalLabel.text = cell.priceLabel.text
-//
-//        subTotalLabel.text = "\(sum)"
-//        let intPrice = (products[indexPath.row].price as! NSString).integerValue
-//        let qty = products[indexPath.row].qty!
-//        subTotalLabel.text = "\(intPrice * qty)"
-        
         return cell
     }
     
-    // Function For Adding Minus Qty Btn's
+    // Function For Adding Qty Btn's
     @objc func PlusBtnPressed(sender : UIButton) {
         let buttonRow = sender.tag
         var qty = products[buttonRow].qty!
@@ -96,7 +94,7 @@ extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
         subTotalLabel.text = "\(sum)"
         cartTableView.reloadData()
     }
-    
+    // Function For Minus Qty Btn's
     @objc func MinusBtnPressed(sender : UIButton) {
         let buttonRow = sender.tag
         var qty = products[buttonRow].qty!
