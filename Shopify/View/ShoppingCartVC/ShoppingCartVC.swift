@@ -53,8 +53,8 @@ class ShoppingCartVC: UIViewController
 // MARK: - IBActions
     @IBAction func proccedToChechoutBtnPressed(_ sender: Any)
     {
-        if sum == 0 {
-        
+        if sum == 0
+        {
         let alert = Alerts.instance.showAlert(title: "No Products", message: "Please Add Products To be able to check out")
             self.present(alert, animated: true, completion: nil)
         }

@@ -18,6 +18,8 @@ class CheckoutVC: UIViewController {
     @IBOutlet weak var applyCouponBtn: UIButton!
     @IBOutlet weak var paymentMethodTabelView: UITableView!
     @IBOutlet weak var placeOrderBtn: UIButton!
+    @IBOutlet weak var counteryTF: UITextField!
+    @IBOutlet weak var governmentTF: UITextField!
     
     private let checkOutVM = CheckOutVM(dataProvider: API())
     var discountList = [PriceRule]()
@@ -60,6 +62,8 @@ class CheckoutVC: UIViewController {
         
         // Configration Of TextField
         couponTF.shopifyTF(placeholder: "Apply Coupon")
+        counteryTF.shopifyTF(placeholder: "Select Your Country")
+        governmentTF.shopifyTF(placeholder: "Select Your Government")
     }
     
 

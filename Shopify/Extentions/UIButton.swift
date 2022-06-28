@@ -12,7 +12,7 @@ extension UIButton
 {
     func shopifyBtn (title : String)
     {
-        self.layer.cornerRadius = 15
+        self.layer.cornerRadius = 5
         self.backgroundColor = .black
         self.tintColor = .white
         self.setAttributedTitle(NSAttributedString(string: title,attributes:[NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 18)]), for: .normal)
