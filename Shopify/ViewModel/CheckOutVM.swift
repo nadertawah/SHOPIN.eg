@@ -13,10 +13,20 @@ class CheckOutVM {
     var BindingParsingclouser : () -> Void = {}
     var discountList = [PriceRule]()
     var dataProvider : DataProviderProtocol!
+    var subTotal = ""
     
     init(dataProvider : DataProviderProtocol)
     {
         self.dataProvider = dataProvider
+    }
+    
+    init(total : String)
+    {
+        subTotal = total
+    }
+    
+    func getSubTotalPrice ( total : Int ) -> String {
+        return "\(total)"
     }
     
     func getDiscountCodes() {

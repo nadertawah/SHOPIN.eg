@@ -40,6 +40,7 @@ class ShoppingCartVC: UIViewController
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        sum = 0
         products.removeAll()
         products = ShoppingCartVM.instance.getData()
         for product in products {
@@ -53,6 +54,7 @@ class ShoppingCartVC: UIViewController
     @IBAction func proccedToChechoutBtnPressed(_ sender: Any)
     {
         let checkOutVC = CheckoutVC()
+        checkOutVC.checkOutViewModel = CheckOutVM(total: "\(sum)")
         self.navigationController?.pushViewController(checkOutVC, animated: true)
     }
 }

@@ -22,7 +22,9 @@ class CheckoutVC: UIViewController {
     private let checkOutVM = CheckOutVM(dataProvider: API())
     var discountList = [PriceRule]()
     
-    var subtotal = 100
+    var checkOutViewModel: CheckOutVM?
+
+    var subTotal = 0
     var shippingFees = 50
     var discount = 0
     var total = 0
@@ -46,11 +48,11 @@ class CheckoutVC: UIViewController {
         // Registration of Payment Method Cell
         paymentMethodTabelView.register(UINib(nibName: "PaymentMethodCell", bundle: nil), forCellReuseIdentifier: "PaymentMethodCell")
         
-        
-        subTotalLabel.text = "L.E \(subtotal)"
+        subTotal = Int(checkOutViewModel?.subTotal ?? "0") ?? 0
+        subTotalLabel.text = "L.E \(checkOutViewModel?.subTotal ?? "")"
         shippingFeesLabel.text = "L.E \(shippingFees)"
         discountLabel.text = "L.E \(discount)"
-        totalLabel.text = "L.E \((subtotal + shippingFees) - discount )"
+        totalLabel.text = "L.E \((subTotal + shippingFees) - discount )"
         
         // Configration Of Buttons
         placeOrderBtn.shopifyBtn(title: "PLACE ORDER")
@@ -58,19 +60,17 @@ class CheckoutVC: UIViewController {
         
         // Configration Of TextField
         couponTF.shopifyTF(placeholder: "Apply Coupon")
-
-        
     }
     
-    
-    
+
 // MARK: - IBActions
     @IBAction func applyCopounBtnPressed(_ sender: Any) {
         for discountCode in discountList {
             if couponTF.text == discountCode.title {
                 discount = (discountCode.value! as NSString).integerValue
+                subTotal = Int(checkOutViewModel?.subTotal ?? "0") ?? 0
                 discountLabel.text = "L.E \(discountCode.value!)"
-                totalLabel.text = "L.E \((subtotal + shippingFees) + discount )"
+                totalLabel.text = "L.E \((subTotal + shippingFees) + discount )"
                 break
             }
             else
