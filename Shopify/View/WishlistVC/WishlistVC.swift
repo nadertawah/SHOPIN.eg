@@ -74,15 +74,19 @@ extension WishlistVC: UICollectionViewDelegate, UICollectionViewDataSource
         let varients = [Variant(price: coreDataProduct?.price ?? "")]
         
         let product = Product(id: Int(coreDataProduct?.id ?? 0 ) , title: coreDataProduct?.title ?? "", variants: varients,image: image)
-        
+        if let price = product.variants?[0].price, let currency = UserDefaults.standard.string(forKey: "Currency") {
+            let rate = Constants.rates[currency]
+            let actualPrice = ( price as NSString).floatValue * (rate ?? 0.0)
         // Configure cell
         
         cell.VM = ProductsCellVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant, product: product)
         cell.configureCellVM()
         
-        cell.priceLabel.text = "\(coreDataProduct?.price ?? "")"
+        cell.priceLabel.text = String(format: "%.2f", actualPrice) + " " + currency
         cell.productNameLabel.text = coreDataProduct?.title
         cell.productImgView.sd_setImage(with: URL(string: coreDataProduct?.image ?? ""), placeholderImage: UIImage(named: "placeHolder"))
+        }
+        
         return cell
     }
     
