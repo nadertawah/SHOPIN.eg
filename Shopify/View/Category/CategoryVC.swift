@@ -11,11 +11,11 @@ class CategoryVC: UIViewController
 {
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setUI()
-
+        
     }
-
+    
     //MARK: - IBOutlet(s)
     @IBOutlet weak var productSearch: UISearchBar!
     
@@ -30,7 +30,7 @@ class CategoryVC: UIViewController
     {
         let shopingCartVC = ShoppingCartVC()
         self.navigationController?.pushViewController(shopingCartVC, animated: true)
-
+        
     }
     
     @IBAction func wishListBtn(_ sender: UIButton) {
@@ -39,12 +39,12 @@ class CategoryVC: UIViewController
         let vc = WishlistVC()
         vc.VM = WishlistVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant)
         self.navigationController?.pushViewController(vc, animated: true)
-
+        
     }
     
     //MARK: - Variable(s)
     var VM : CategoryViewModel!
-
+    
     //MARK: - Helper functions
     func setUI()
     {
@@ -121,14 +121,18 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
             guard let cell = productsCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.productCellReuseIdentifier, for: indexPath) as? ProductCell else { return UICollectionViewCell() }
             
             let product = VM.filteredProducts.value?[indexPath.item]
-            
-            // Configure product cell
-            cell.VM = ProductsCellVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant, product: product ?? Product())
-            cell.configureCellVM()
-            
-            cell.priceLabel.text = "\(product?.variants?[0].price ?? "N/A")$"
-            cell.productNameLabel.text = product?.title
-            cell.productImgView.sd_setImage(with: URL(string: product?.images?[0].src ?? ""), placeholderImage: UIImage(named: "placeHolder"))
+            if let price = product?.variants?[0].price, let currency = UserDefaults.standard.string(forKey: "Currency") {
+                let rate = Constants.rates[currency]
+                let actualPrice = ( price as NSString).floatValue * (rate ?? 0.0)
+                
+                // Configure product cell
+                cell.VM = ProductsCellVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant, product: product ?? Product())
+                cell.configureCellVM()
+                
+                cell.priceLabel.text = String(format: "%.2f", actualPrice) + " " + currency
+                cell.productNameLabel.text = product?.title
+                cell.productImgView.sd_setImage(with: URL(string: product?.images?[0].src ?? ""), placeholderImage: UIImage(named: "placeHolder"))
+            }
             
             return cell
             
@@ -190,7 +194,7 @@ extension CategoryVC: UICollectionViewDelegateFlowLayout {
             
         } else {
             
-            return CGSize(width: productsCollectionView.frame.width/3, height: productsCollectionView.frame.height/5)
+            return CGSize(width: productsCollectionView.frame.width/2, height: productsCollectionView.frame.height/5)
             
         }
         
@@ -251,7 +255,7 @@ extension CategoryVC: UITableViewDelegate, UITableViewDataSource {
         // View Products of this subCategory and selected mainCategory
         let mainCategory = VM.mainCategoriesList.value?.custom_collections[VM.productsVM.selectedMainCategory].id
         VM.productsVM.getProducts(with: VM.subCategoriesList[indexPath.row], and: mainCategory)
-       
+        
         
     }
     
