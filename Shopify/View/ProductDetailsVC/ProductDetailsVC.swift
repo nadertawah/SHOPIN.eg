@@ -19,6 +19,10 @@ class ProductDetailsVC: UIViewController
         setUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        setPrice()
+    }
+    
     //MARK: - IBOutlet(s)
     @IBOutlet weak var productImgCollectionView: UICollectionView!
     
@@ -126,7 +130,7 @@ class ProductDetailsVC: UIViewController
                 self.descriptionLabel.text = product.body_html
                 
                 //set price
-                self.priceLabel.text = product.variants?[0].price
+                self.setPrice()
             
             }
         }
@@ -149,6 +153,15 @@ class ProductDetailsVC: UIViewController
            
         }
         
+    }
+    
+    func setPrice() {
+        let product = self.VM.product.value
+        if let price = product?.variants?[0].price, let currency = UserDefaults.standard.string(forKey: "Currency") {
+            let rate = Constants.rates[currency]
+            let actualPrice = ( price as NSString).floatValue * (rate ?? 0.0)
+            priceLabel.text = String(format: "%.2f", actualPrice) + " " + currency
+        }
     }
     
     func setRatingView()
