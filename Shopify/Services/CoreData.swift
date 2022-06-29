@@ -102,6 +102,11 @@ class CoreData : DataPersistantProtocol
         
         saveContext()
     }
+    
+    
+    func setCurrency(currency: String) {
+        UserDefaults.standard.set(currency, forKey: "Currency")
+    }
 
 }
 

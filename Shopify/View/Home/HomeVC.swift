@@ -45,6 +45,9 @@ class HomeVC: UIViewController {
         //set navbar wishlist and settings buttons
         setNavBarBtns()
         
+        //Set default currency
+        setDefaultCurrency()
+        
         // Registering CollectionViews' Cells
         brandsCollectionView.register(UINib(nibName: "BrandCell", bundle: nil), forCellWithReuseIdentifier: Constants.brandCellReuseIdentifier)
         
@@ -65,6 +68,13 @@ class HomeVC: UIViewController {
             DispatchQueue.main.async {
                 self?.brandsCollectionView.reloadData()
             }
+        }
+    }
+    
+    // Set Default Currency
+    func setDefaultCurrency() {
+        if UserDefaults.standard.string(forKey: "Currency") == nil {
+            VM.dataPersistant.setCurrency(currency: "USD")
         }
     }
     

@@ -72,7 +72,6 @@ class CategoryVC: UIViewController
         let mainCategory = VM.mainCategoriesList.value?.custom_collections[VM.productsVM.selectedMainCategory].id
         let subCategory = VM.subCategoriesList[1]
         VM.productsVM.getProducts(with: subCategory, and: mainCategory)
-        
         VM.filteredProducts.bind { [weak self] _ in
             DispatchQueue.main.async {
                 self?.productsCollectionView.reloadData()
