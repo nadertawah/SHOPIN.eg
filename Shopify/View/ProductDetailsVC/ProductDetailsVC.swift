@@ -60,15 +60,15 @@ class ProductDetailsVC: UIViewController
     
     @IBAction func addToShoppingCartBtnPressed(_ sender: Any)
     {
-        let product = self.VM.product
+        let product = self.VM.product.value
         
         let cartProducts = ShoppingCartVM.instance.getData()
-        let filtered = cartProducts.filter({$0.id == product.id})
+        let filtered = cartProducts.filter({$0.id == product?.id})
 
         if filtered.isEmpty {
-            ShoppingCartVM.instance.addDataToCoreData(title: product.title ?? "", image:product.images?[0].src ?? "" , price: product.variants?[0].price ?? "" , id: product.id ?? 0 , qty: 1  , isCheckOut: false )
+            ShoppingCartVM.instance.addDataToCoreData(title: product?.title ?? "", image:product?.images?[0].src ?? "" , price: product?.variants?[0].price ?? "" , id: product?.id ?? 0 , qty: 1  , isCheckOut: false )
         } else {
-            ShoppingCartVM.instance.updateData(qty: filtered.map({$0.qty!}).first! + 1, id: product.id ?? 0)
+            ShoppingCartVM.instance.updateData(qty: filtered.map({$0.qty!}).first! + 1, id: product?.id ?? 0)
         }
         
         let shopingCartVC = ShoppingCartVC()
@@ -103,15 +103,13 @@ class ProductDetailsVC: UIViewController
             //TODO: - set page control count, size segment control, rating, wishlist
         
         
-        VM.bind =
+        VM.product.bind
         {
-            [weak self] in
-            guard let self = self else {return}
+            [weak self] product in
+            guard let self = self , let product = product else {return}
             
             DispatchQueue.main.async
             {
-                let product = self.VM.product
-
                 //set number of pages of the page control
                 self.imgPageControl.numberOfPages = product.images?.count ?? 1
                 
@@ -165,9 +163,9 @@ class ProductDetailsVC: UIViewController
     
     func setSizesSegmentedControl()
     {
-        let product = self.VM.product
+        let product = self.VM.product.value
 
-        if let productSizeOption = product.options?.first(where: {Option in Option.name == "Size"})
+        if let productSizeOption = product?.options?.first(where: {Option in Option.name == "Size"})
         {
             if let productSizes = productSizeOption.values
             {
@@ -192,7 +190,7 @@ extension ProductDetailsVC : UICollectionViewDelegate , UICollectionViewDataSour
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return VM.product.images?.count ?? 0
+        return VM.product.value?.images?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -200,7 +198,7 @@ extension ProductDetailsVC : UICollectionViewDelegate , UICollectionViewDataSour
         guard let cell = productImgCollectionView.dequeueReusableCell(withReuseIdentifier: productsCellReuseIdentifier, for: indexPath) as? ImageCollectionViewCell
         else {return UICollectionViewCell()}
         
-        cell.imgView.sd_setImage(with: URL(string: VM.product.images?[indexPath.row].src ?? ""), placeholderImage: UIImage(named: "placeHolder"))
+        cell.imgView.sd_setImage(with: URL(string: VM.product.value?.images?[indexPath.row].src ?? ""), placeholderImage: UIImage(named: "placeHolder"))
         
         return cell
     }

@@ -77,7 +77,7 @@ extension WishlistVC: UICollectionViewDelegate, UICollectionViewDataSource
         
         // Configure cell
         
-        cell.VM = ProductsCellVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant, product: product)
+        cell.VM = ProductCellVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant, product: product)
         cell.configureCellVM()
         
         cell.priceLabel.text = "\(coreDataProduct?.price ?? "")"

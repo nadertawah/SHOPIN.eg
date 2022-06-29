@@ -31,7 +31,7 @@ class ProductCell: UICollectionViewCell {
     }
     
     //MARK: - VAR(s)
-    var VM : ProductsCellVM?
+    var VM : ProductCellVM?
     
     
     //MARK: - Helper Funcs

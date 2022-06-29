@@ -124,7 +124,7 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
             let product = VM.filteredProducts.value?[indexPath.item]
             
             // Configure product cell
-            cell.VM = ProductsCellVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant, product: product ?? Product())
+            cell.VM = ProductCellVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant, product: product ?? Product())
             cell.configureCellVM()
             
             cell.priceLabel.text = "\(product?.variants?[0].price ?? "N/A")$"

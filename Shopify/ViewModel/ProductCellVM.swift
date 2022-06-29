@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ProductsCellVM
+class ProductCellVM
 {
     //MARK: - Init
     init(dataProvider: DataProviderProtocol,dataPersistant: DataPersistantProtocol,product:Product)
