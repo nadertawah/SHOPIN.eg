@@ -25,29 +25,17 @@ class CategoryVC: UIViewController
     
     @IBOutlet weak var productsCollectionView: UICollectionView!
     
-    //MARK: - IBAction(s)
-    @IBAction func shoppingCartBtn(_ sender: UIButton)
-    {
-        let shopingCartVC = ShoppingCartVC()
-        self.navigationController?.pushViewController(shopingCartVC, animated: true)
-        
-    }
-    
-    @IBAction func wishListBtn(_ sender: UIButton) {
-        
-        //Navigation to wishlist
-        let vc = WishlistVC()
-        vc.VM = WishlistVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant)
-        self.navigationController?.pushViewController(vc, animated: true)
-        
-    }
-    
     //MARK: - Variable(s)
     var VM : CategoryViewModel!
     
     //MARK: - Helper functions
     func setUI()
     {
+        //set title
+        title = "Category"
+        
+        //set navbar wishlist and settings buttons
+        setNavBarBtns()
         
         // Registering Cells
         mainCategoriesCollectionView.register(UINib(nibName: "MainCategoryCell", bundle: nil), forCellWithReuseIdentifier: Constants.mainCategoryCellReuseIdentifier)
@@ -82,6 +70,34 @@ class CategoryVC: UIViewController
     override func viewWillAppear(_ animated: Bool)
     {
         productsCollectionView.reloadData()
+    }
+    
+    // Setting Navigation Bar Buttons
+    func setNavBarBtns() {
+        
+        // Left Button - Navigation to WishList
+        let wishlistNavBtn = UIBarButtonItem(image: UIImage(systemName: "heart")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(navigateToWishlist))
+        self.navigationController?.navigationBar.topItem?.setLeftBarButtonItems([wishlistNavBtn], animated: true)
+        
+        // Right Button - Navigation to ShoppingCart
+        let shoppingCartNavBtn = UIBarButtonItem(image: UIImage(systemName: "cart")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(navigateToShoppingCart))
+        self.navigationController?.navigationBar.topItem?.setRightBarButtonItems([shoppingCartNavBtn], animated: true)
+        
+        
+    }
+    
+    @objc func navigateToWishlist()
+    {
+        //Navigation to wishlist
+        let vc = WishlistVC()
+        vc.VM = WishlistVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func navigateToShoppingCart()
+    {
+        let shopingCartVC = ShoppingCartVC()
+        self.navigationController?.pushViewController(shopingCartVC, animated: true)
     }
     
 }

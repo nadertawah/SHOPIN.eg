@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="Cca-1N-IxO">
-                    <rect key="frame" x="36" y="44" width="340" height="51"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="51"/>
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="cf8-yM-pd5">
@@ -70,51 +70,25 @@
                         <constraint firstItem="7Fu-Vc-Eb7" firstAttribute="leading" secondItem="Ual-9w-Y4Z" secondAttribute="leading" id="lkz-rl-1hS"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="62z-h4-LUK">
-                    <rect key="frame" x="376" y="44" width="23" height="51"/>
-                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" image="cart" catalog="system"/>
-                    <connections>
-                        <action selector="shoppingCartBtn:" destination="-1" eventType="touchUpInside" id="90c-nF-QTf"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qfY-aj-u2D">
-                    <rect key="frame" x="15" y="44" width="21" height="51"/>
-                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" image="heart" catalog="system"/>
-                    <connections>
-                        <action selector="wishListBtn:" destination="-1" eventType="touchUpInside" id="ajl-dZ-R8D"/>
-                    </connections>
-                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="62z-h4-LUK" firstAttribute="leading" secondItem="Cca-1N-IxO" secondAttribute="trailing" id="5GV-Qn-KGK"/>
-                <constraint firstItem="qfY-aj-u2D" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="5xm-XG-g0E"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Cca-1N-IxO" secondAttribute="trailing" id="2XY-MH-Vvm"/>
                 <constraint firstItem="cf8-yM-pd5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="7Vu-mw-WJL"/>
                 <constraint firstItem="Cca-1N-IxO" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="9nj-Zp-sp4"/>
-                <constraint firstItem="cf8-yM-pd5" firstAttribute="top" secondItem="qfY-aj-u2D" secondAttribute="bottom" id="FD8-qq-GJc"/>
                 <constraint firstItem="Ual-9w-Y4Z" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Ju7-Vh-uIX"/>
-                <constraint firstItem="qfY-aj-u2D" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="Kll-Nq-EXo"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cf8-yM-pd5" secondAttribute="trailing" id="Tqj-AM-36z"/>
                 <constraint firstItem="Ual-9w-Y4Z" firstAttribute="top" secondItem="cf8-yM-pd5" secondAttribute="bottom" id="Wed-lV-R3E"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="62z-h4-LUK" secondAttribute="trailing" constant="15" id="ZBG-fy-2jT"/>
-                <constraint firstItem="Cca-1N-IxO" firstAttribute="leading" secondItem="qfY-aj-u2D" secondAttribute="trailing" id="dsx-pg-MoG"/>
+                <constraint firstItem="Cca-1N-IxO" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="asq-V4-d8z"/>
                 <constraint firstItem="cf8-yM-pd5" firstAttribute="top" secondItem="Cca-1N-IxO" secondAttribute="bottom" id="e4u-kB-7KD"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Ual-9w-Y4Z" secondAttribute="trailing" id="kC2-Vr-Vye"/>
-                <constraint firstItem="62z-h4-LUK" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="kPT-8j-2i0"/>
-                <constraint firstItem="cf8-yM-pd5" firstAttribute="top" secondItem="62z-h4-LUK" secondAttribute="bottom" id="pnd-Np-22p"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Ual-9w-Y4Z" secondAttribute="bottom" id="te1-jH-5Bc"/>
             </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="99.776785714285708"/>
         </view>
     </objects>
     <resources>
-        <image name="cart" catalog="system" width="128" height="102"/>
-        <image name="heart" catalog="system" width="128" height="109"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
