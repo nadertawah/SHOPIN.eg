@@ -29,7 +29,9 @@ class ProductsVC: UIViewController
     //MARK: - IBAction(s)
     @IBAction func priceSlider(_ sender: UISlider) {
         
-        priceLabel.text = String(format: "%.0f", sender.value)
+        let price = String(format: "%.0f", sender.value)
+        priceLabel.text = price
+        VM.filterProducts(price: sender.value)
         
     }
     
@@ -42,7 +44,7 @@ class ProductsVC: UIViewController
         
         // Setting Navigation Bar
         title = "Products"
-        setNavBarBtns()
+//        setNavBarBtns()
         
         // Registering CollectionView Cell
         productsCollectionView.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: Constants.productCellReuseIdentifier)
@@ -63,16 +65,16 @@ class ProductsVC: UIViewController
         
     }
     
-    func setNavBarBtns() {
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3.decrease")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(filterProducts))
-        
-    }
-    
-    @objc func filterProducts() {
-        //TODO: filter products by (price, best seller...)
-        debugPrint("filterProducts")
-    }
+//    func setNavBarBtns() {
+//
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3.decrease")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(filterProducts))
+//
+//    }
+//
+//    @objc func filterProducts() {
+//        //TODO: filter products by (price, best seller...)
+//        debugPrint("filterProducts")
+//    }
     
     override func viewWillAppear(_ animated: Bool)
     {
