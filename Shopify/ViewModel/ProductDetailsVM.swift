@@ -9,27 +9,38 @@ import Foundation
 
 class ProductDetailsVM
 {
-    init(dataProvider : DataProviderProtocol, productID : String)
+    init(dataProvider : DataProviderProtocol,dataPersistant: DataPersistantProtocol, productID : String)
     {
         self.dataProvider = dataProvider
+        self.dataPersistant = dataPersistant
         getProductDetails(productID: productID)
     }
     
     //MARK: - Var(s)
-    //data provider service
-    var dataProvider : DataProviderProtocol
-    
-    //VC binding closure
-    var bind : (() -> ())?
+    //data provider data persitance services
+    private(set) var dataProvider : DataProviderProtocol
+    private(set) var dataPersistant: DataPersistantProtocol
 
     //VM model
-    private(set) var product = Product() { didSet{bind?()} }
-    
+    private(set) var product = Observable<Product>(Product())
+    private(set) var isAddedToWishlist = Observable<Bool>(false)
     
     //MARK: - intent(s)
-    func addToWishlist()
+    func toggleWishlist()
     {
-        
+        if isAddedToWishlist.value == true
+        {
+            let predicate = NSPredicate(format: "id == \(product.value?.id ?? 0)")
+            dataPersistant.deleteObj(type: ProductCoreData.self, predicate: predicate)
+            isAddedToWishlist.value = false
+        }
+        else if isAddedToWishlist.value == false
+        {
+            let dict = ["id":product.value?.id ?? 0,"image" : product.value?.image?.src ?? "","title":product.value?.title ?? "" ,"price" : product.value?.variants?[0].price ?? ""] as [String : Any]
+            
+            dataPersistant.insertObject(entityName: Constants.productCoreDataEntityName, valuesForKeys: dict)
+            isAddedToWishlist.value = true
+        }
     }
     
     //MARK: - Helper Funcs
@@ -39,7 +50,17 @@ class ProductDetailsVM
         dataProvider.get(urlStr: productDetailsURL, type: ProductModel.self)
         {
             [weak self] in
-            self?.product = $0?.product ?? Product()
+            self?.product.value = $0?.product ?? Product()
+            self?.getAddedToWishlistStatus()
+        }
+    }
+    
+    func getAddedToWishlistStatus()
+    {
+        let predicate = NSPredicate(format: "id == \(product.value?.id ?? 0)")
+        dataPersistant.get(type: ProductCoreData.self, predicate: predicate)
+        { [weak self] in
+            self?.isAddedToWishlist.value = !$0.isEmpty
         }
     }
     

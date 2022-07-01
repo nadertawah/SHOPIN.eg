@@ -9,16 +9,20 @@ import Foundation
 
 class MeViewModel
 {
-    init(dataProvider : DataProviderProtocol)
+    init(dataProvider : DataProviderProtocol,dataPersistant: DataPersistantProtocol)
     {
         self.dataProvider = dataProvider
+        self.dataPersistant = dataPersistant
     }
     
     //MARK: - Var(s)
-    private var dataProvider : DataProviderProtocol
+    var dataProvider : DataProviderProtocol
+    var dataPersistant: DataPersistantProtocol
+
     private(set) var isLoggedIn = Observable<Bool>(UserDefaults.standard.bool(forKey: "isLoggedIn"))
     private(set) var customer = Observable<Customer>(nil)
-    
+    private(set) var wishlistProducts = Observable<[ProductCoreData]>([])
+
     //MARK: - intent(s)
     func getLoginState()
     {
@@ -45,6 +49,15 @@ class MeViewModel
             customerModel in
             guard let customer = customerModel?.customer else { return }
             self?.customer.value = customer
+        }
+    }
+    
+    func getWishlistProducts()
+    {
+        dataPersistant.get(type: ProductCoreData.self, predicate: nil)
+        {
+            [weak self] in
+            self?.wishlistProducts.value = $0
         }
     }
 }

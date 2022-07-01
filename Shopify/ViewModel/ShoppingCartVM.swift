@@ -8,108 +8,102 @@
 import UIKit
 import CoreData
 
-class ShoppingCartVM {
+class ShoppingCartVM
+{
+    //MARK: - Init
+    init(dataPersistant: DataPersistantProtocol)
+    {
+        self.dataPersistant = dataPersistant
+        getData()
+    }
     
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    var product: NSManagedObject?
-    var productList = [CoreDataProdutc]()
-    var productQty = 0
+    init(dataPersistant: DataPersistantProtocol,product:Product)
+    {
+        self.dataPersistant = dataPersistant
+        getData()
+        
+        //if the product already exists
+        if let productIndex = productList.value?.firstIndex(where:  { Int($0.id) == product.id})
+        {
+            let predicate = NSPredicate(format: "id == \(product.id ?? 0)")
+            dataPersistant.editObject(type: CartProducts.self, predicate: predicate, valuesForKeys: ["qty" : productList.value?[productIndex].qty ?? 0 + 1])
+        }
+        else
+        {
+            addDataToCoreData(title: product.title ?? "", image: product.image?.src ?? "", price: product.variants?[0].price ?? "", id: product.id ?? 0, qty: 1, isCheckOut: false)
+        }
+        
+        
+    }
     
-    static let instance = ShoppingCartVM()
+    //MARK: - Var(s)
+    var dataPersistant: DataPersistantProtocol
+    var productList = Observable<[CartProducts]>([])
+    var priceSum = Observable<Float>(0)
     
     // MARK: - Add Data to Data-Base using CoreData
-    
-    func addDataToCoreData (title: String ,image: String ,price: String , id: Int , qty: Int , isCheckOut: Bool) {
-        let viewContext = appDelegate.persistentContainer.viewContext
-        
-        guard let entity = NSEntityDescription.entity(forEntityName:"CartProducts",in: viewContext) else { return }
-        
-        let product = NSManagedObject(entity: entity,insertInto: viewContext)
-        
-        product.setValue(title, forKey: "title")
-        product.setValue(image, forKey: "image")
-        product.setValue(price, forKey: "price")
-        product.setValue(id, forKey: "id")
-        product.setValue(qty, forKey: "qty")
-        product.setValue(isCheckOut, forKey: "isCheckedOut")
-       
-        appDelegate.saveContext()
-        
-        do {
-            try viewContext.save()
-        } catch let error {
-            print(error.localizedDescription)
-        }
-        //       print("Done")
+    func addDataToCoreData (title: String ,image: String ,price: String , id: Int , qty: Int , isCheckOut: Bool)
+    {
+        let dict = ["title": title, "image": image, "price": price, "id": id,"qty": qty,"isCheckedOut": isCheckOut] as [String : Any]
+        dataPersistant.insertObject(entityName: "CartProducts", valuesForKeys: dict)
+        getData()
     }
     
     
-   // MARK: - Load Data form Data-Base ( CoreData )
-       
-       func getData () -> [CoreDataProdutc] {
-           productList.removeAll()
-           let viewContext = appDelegate.persistentContainer.viewContext
-           let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CartProducts")
-           
-           do {
-               let products = try viewContext.fetch(fetchRequest)
-               
-               for product in products {
-      
-                   let cartProductModel = CoreDataProdutc.init(product: product)
-                   productList.append(cartProductModel)
-               }
-               
-               return productList
-               
-           } catch let error {
-               print(error.localizedDescription)
-               return []
-           }
-       }
+    // MARK: - Load Data form Data-Base ( CoreData )
+    
+    func getData ()
+    {
+        dataPersistant.get(type: CartProducts.self, predicate: nil)
+        {
+            [weak self] products in
+            self?.productList.value = products
+            calculateSum()
+        }
+    }
     
     
     
     // MARK: - updateData form Data-Base ( CoreData )
         
-    func updateData (qty : Int , id : Int)  {
-            productList.removeAll()
-            let viewContext = appDelegate.persistentContainer.viewContext
-            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CartProducts")
-            
-            fetchRequest.predicate = NSPredicate(format: "id == %@", "\(id)")
-            do {
-                
-                let products = try viewContext.fetch(fetchRequest)
-                for product in products {
-                    product.setValue(qty, forKey: "qty")
-                    appDelegate.saveContext()
-//                    let cartProductModel = CoreDataProdutc.init(product: product)
-//                    productList.append(cartProductModel)
-                }
-                
-            } catch let error {
-                print(error.localizedDescription)
-            }
+    func updateQty (isIncreasing : Bool , index : Int)
+    {
+        guard let product = productList.value?[index] else {return}
+        
+        var qty = Int(product.qty)
+        if isIncreasing
+        {
+            qty += 1
         }
+        else
+        {
+            if product.qty == 0{return}
+            else {qty -= 1 }
+        }
+        
+        let predicate = NSPredicate(format: "id == \(product.id)")
+        dataPersistant.editObject(type: CartProducts.self, predicate: predicate, valuesForKeys: ["qty":qty])
+        
+        calculateSum()
+    }
      
     
     // MARK: - Delete Data form Data-Base
-        func deletLeague (index : Int) {
-            let viewContext = appDelegate.persistentContainer.viewContext
-            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CartProducts")
-            do {
-                let products = try viewContext.fetch(fetchRequest)
-          
-                product = products[index]
-            }
-            catch let error {
-                print(error.localizedDescription)
-            }
-            viewContext.delete(product!)
-            appDelegate.saveContext()
-            //        print("Delete")
+        func deleteProduct (index : Int)
+    {
+        if let product = productList.value?[index]
+        {
+            dataPersistant.deleteObj(obj: product)
+            productList.value?.remove(at: index)
+            calculateSum()
         }
 
+    }
     
+    func calculateSum()
+    {
+        priceSum.value = productList.value?.map({Float($0.qty) * (Float($0.price ?? "") ?? 0)})
+            .reduce(Float(0),+)
+        
+    }
 }

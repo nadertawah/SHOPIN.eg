@@ -43,7 +43,9 @@ class MeVC: UIViewController
     
     @IBAction func moreWishlistBtnPressed(_ sender: Any)
     {
-        
+        let vc = WishlistVC()
+        vc.VM = WishlistVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func logoutBtnPressed(_ sender: Any)
@@ -52,16 +54,12 @@ class MeVC: UIViewController
     }
     
     //MARK: - Var(s)
-    var VM = MeViewModel(dataProvider: API())
+    var VM : MeViewModel!
     private let labelCellIdentfier = "LabelTableViewCell"
     
     //MARK: - Helper Funcs
     func setUI()
     {
-        //TODO: - get customer info and use customer id as a password
-        
-        
-        
         //set title
         title = "Me"
         
@@ -99,6 +97,21 @@ class MeVC: UIViewController
             }
         }
         
+        //bind wishlist products
+        VM.wishlistProducts.bind
+        {
+            [weak self] in
+            if $0?.count ?? 0 > 4
+            {
+                self?.moreWishlistBtn.isEnabled = true
+            }
+            else
+            {
+                self?.moreWishlistBtn.isEnabled = false
+            }
+            self?.wishlistTableView.reloadData()
+        }
+        
         //TODO: - get wishlist items (if > 4, enable more btn)
         //TODO: - get order history (if > 2, enable more btn)
     }
@@ -106,6 +119,7 @@ class MeVC: UIViewController
     @IBAction func loginRegisterBtnPressed(_ sender: Any)
     {
         let vc = LoginRegisterVC()
+        vc.VM = LoginRegisterVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -148,6 +162,7 @@ class MeVC: UIViewController
     @objc func navigateToShoppingCart()
     {
         let shopingCartVC = ShoppingCartVC()
+        shopingCartVC.VM = ShoppingCartVM(dataPersistant: VM.dataPersistant)
         self.navigationController?.pushViewController(shopingCartVC, animated: true)
     }
     
@@ -160,6 +175,7 @@ class MeVC: UIViewController
     override func viewWillAppear(_ animated: Bool)
     {
         VM.getLoginState()
+        VM.getWishlistProducts()
     }
 }
 
@@ -176,7 +192,8 @@ extension MeVC : UITableViewDelegate, UITableViewDataSource
             }
             else if tableView == wishlistTableView
             {
-                return 4
+                let count = VM.wishlistProducts.value?.count ?? 0
+                return count < 4 ? count : 4
             }
                 
         }
@@ -209,29 +226,8 @@ extension MeVC : UITableViewDelegate, UITableViewDataSource
         else if tableView == wishlistTableView
         {
             guard let cell = wishlistTableView.dequeueReusableCell(withIdentifier: labelCellIdentfier) as? LabelTableViewCell else {return UITableViewCell()}
-            
-            switch indexPath.row
-            {
-                case 0 :
-                    cell.label.text = "Price: 555\nCreated At: \(Date())"
-                    break
-                
-                case 1 :
-                    cell.label.text = "Price: 444\nCreated At: \(Date())"
-                    break
-                
-                case 2 :
-                    cell.label.text = "Price: 555\nCreated At: \(Date())"
-                    break
-                
-                    
-                case 3 :
-                    cell.label.text = "Price: 444\nCreated At: \(Date())"
-                    break
-                
-                default:
-                    break
-            }
+            let product = VM.wishlistProducts.value?[indexPath.row]
+            cell.label.text = "\(product?.title ?? "")\n\(product?.price ?? "")"
             return cell
         }
         

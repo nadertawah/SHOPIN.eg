@@ -10,8 +10,10 @@ import Foundation
 class HomeViewModel
 {
     // Init
-    init(dataProvider: DataProviderProtocol) {
+    init(dataProvider: DataProviderProtocol,dataPersistant: DataPersistantProtocol)
+    {
         self.dataProvider = dataProvider
+        self.dataPersistant = dataPersistant
         getBrands()
         brandsList.bind {[weak self] in self?.filtereBrandsList.value = $0?.smart_collections}
     }
@@ -20,7 +22,8 @@ class HomeViewModel
     var brandsList: Observable<BrandsModel> = Observable(nil)
     var filtereBrandsList: Observable<[Brand]> = Observable([Brand]())
     var dataProvider: DataProviderProtocol
-
+    var dataPersistant: DataPersistantProtocol
+    
     //MARK: - intent(s)
     func searchBrands(searchStr:String)
     {

@@ -10,15 +10,14 @@ import SDWebImage
 
 class ShoppingCartVC: UIViewController
 {
-    //OutLets
+    //MARK: - IBOutlet(s)
     @IBOutlet weak var cartTableView: UITableView!
     @IBOutlet weak var subTotalLabel: UILabel!
     @IBOutlet weak var proccedToChechoutBtn: UIButton!
     
-    var shoppingcartVM : ShoppingCartVM?
-    var products = [CoreDataProdutc]()
     
-    var sum : Int = 0
+    //MARK: - Var(s)
+    var VM : ShoppingCartVM!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,33 +35,44 @@ class ShoppingCartVC: UIViewController
         //CheckOut Btn Configrations
         proccedToChechoutBtn.shopifyBtn(title: "PROCCED TO CHECKOUT")
         
+        //bind to VM
+        VM.productList.bind
+        { [weak self] _ in
+            DispatchQueue.main.async
+            {
+                self?.cartTableView.reloadData()
+            }
+        }
+        
+        //bind sum label
+        VM.priceSum.bind
+        { [weak self] sum in
+            DispatchQueue.main.async
+            {
+                self?.subTotalLabel.text = "\(sum ?? 0)"
+                self?.cartTableView.reloadData()
+            }
+        }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        sum = 0
-        products.removeAll()
-        products = ShoppingCartVM.instance.getData()
-        for product in products {
-            sum += (product.qty ?? 0) * (product.price! as NSString).integerValue
-        }
-        subTotalLabel.text = "\(sum)"
-        cartTableView.reloadData()
+    override func viewWillAppear(_ animated: Bool)
+    {
+        VM.getData()
     }
     
 // MARK: - IBActions
     @IBAction func proccedToChechoutBtnPressed(_ sender: Any)
     {
-        if sum == 0
+        if VM.productList.value?.isEmpty == true
         {
-        let alert = Alerts.instance.showAlert(title: "No Products", message: "Please Add Products To be able to check out")
+            let alert = Alerts.instance.showAlert(title: "No Products", message: "Please Add Products To be able to check out")
             self.present(alert, animated: true, completion: nil)
         }
         else
         {
-        let checkOutVC = CheckoutVC()
-        checkOutVC.checkOutViewModel = CheckOutVM(total: "\(sum)")
-        self.navigationController?.pushViewController(checkOutVC, animated: true)
+            let checkOutVC = CheckoutVC()
+            checkOutVC.checkOutViewModel = CheckOutVM(total: "\(VM.priceSum.value ?? 0)")
+            self.navigationController?.pushViewController(checkOutVC, animated: true)
         }
     }
 }
@@ -72,16 +82,19 @@ class ShoppingCartVC: UIViewController
 extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
     //Number of Rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return products.count
+        return VM.productList.value?.count ?? 0
     }
     //Cell For Row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = cartTableView.dequeueReusableCell(withIdentifier: "cartCell", for: indexPath) as! ShoppingCartCell
         
-        cell.titleLabel.text = products[indexPath.row].title
-        cell.priceLabel.text = products[indexPath.row].price
-        cell.productImageView.sd_setImage(with: URL(string: products[indexPath.row].image ?? ""), placeholderImage: UIImage(named: "placeHolder"))
-        cell.qtyLabel.text = "\(products[indexPath.row].qty!)"
+        guard let product = VM.productList.value?[indexPath.row]
+        else{return UITableViewCell()}
+        
+        cell.titleLabel.text = product.title
+        cell.priceLabel.text = product.price
+        cell.productImageView.sd_setImage(with: URL(string: product.image ?? ""), placeholderImage: UIImage(named: "placeHolder"))
+        cell.qtyLabel.text = "\(product.qty)"
         
         cell.minusBtn.tag = indexPath.row
         cell.plusBtn.tag = indexPath.row
@@ -93,33 +106,14 @@ extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
     }
     
     // Function For Adding Qty Btn's
-    @objc func PlusBtnPressed(sender : UIButton) {
-        let buttonRow = sender.tag
-        let qty = products[buttonRow].qty!
-        let id = products[buttonRow].id!
-        ShoppingCartVM.instance.updateData(qty: qty + 1, id: id)
-        products = ShoppingCartVM.instance.getData()
-        let intPrice = (products[buttonRow].price! as NSString).integerValue
-        sum += intPrice
-        subTotalLabel.text = "\(sum)"
-        cartTableView.reloadData()
+    @objc func PlusBtnPressed(sender : UIButton)
+    {
+        VM.updateQty(isIncreasing: true, index: sender.tag)
     }
     // Function For Minus Qty Btn's
-    @objc func MinusBtnPressed(sender : UIButton) {
-        let buttonRow = sender.tag
-        var qty = products[buttonRow].qty!
-        let id = products[buttonRow].id!
-        if qty == 0 {
-            return
-        }
-        qty -= 1
-        ShoppingCartVM.instance.updateData(qty: qty, id: id)
-        products = ShoppingCartVM.instance.getData()
-        let intPrice = (products[buttonRow].price! as NSString).integerValue
-        sum -= intPrice
-        subTotalLabel.text = "\(sum)"
-        
-        cartTableView.reloadData()
+    @objc func MinusBtnPressed(sender : UIButton)
+    {
+        VM.updateQty(isIncreasing: false, index: sender.tag)
     }
     
     //Row Height
@@ -129,12 +123,10 @@ extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
     
     // Delete Row Method
         internal func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-            if editingStyle == .delete {
-                print("Delete")
+            if editingStyle == .delete
+            {
+                VM.deleteProduct(index: indexPath.row)
             }
-            ShoppingCartVM.instance.deletLeague(index: indexPath.row)
-            products.remove(at: indexPath.row)
-            self.cartTableView.deleteRows(at: [indexPath], with: .right)
-            self.cartTableView.reloadData()
+            
         }
 }

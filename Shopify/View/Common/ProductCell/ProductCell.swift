@@ -9,7 +9,8 @@ import UIKit
 
 class ProductCell: UICollectionViewCell {
 
-    override func awakeFromNib() {
+    override func awakeFromNib()
+    {
         super.awakeFromNib()
         // Initialization code
     }
@@ -21,10 +22,33 @@ class ProductCell: UICollectionViewCell {
         
     @IBOutlet weak var productNameLabel: UILabel!
     
+    @IBOutlet weak var isAddedTowishlistBtn: UIButton!
+    
     //MARK: - IBAction(s)
-    @IBAction func wishListBtn(_ sender: UIButton) {
-        
-        // TODO: Set add to wish list
-        debugPrint("Add to wishList Btn Pressed!")
+    @IBAction func wishListBtnPressed(_ sender: UIButton)
+    {
+        VM?.toggleWishlist()
+    }
+    
+    //MARK: - VAR(s)
+    var VM : ProductCellVM?
+    
+    
+    //MARK: - Helper Funcs
+    func configureCellVM()
+    {
+        VM?.isAddedToWishlist.bind
+        {
+            [weak self] isAdded in
+            if isAdded == true
+            {
+                self?.isAddedTowishlistBtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            }
+            else if isAdded == false
+            {
+                self?.isAddedTowishlistBtn.setImage(UIImage(systemName: "heart"), for: .normal)
+            }
+            
+        }
     }
 }

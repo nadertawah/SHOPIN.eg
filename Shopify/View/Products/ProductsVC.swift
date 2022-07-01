@@ -8,8 +8,8 @@
 import UIKit
 import SDWebImage
 
-class ProductsVC: UIViewController {
-
+class ProductsVC: UIViewController
+{
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,22 +26,25 @@ class ProductsVC: UIViewController {
     
     @IBOutlet weak var productsCollectionView: UICollectionView!
     
+    @IBOutlet weak var priceSlider: UISlider!
+    
     //MARK: - IBAction(s)
-    @IBAction func priceSlider(_ sender: UISlider) {
-        
-        priceLabel.text = String(format: "%.0f", sender.value)
+    @IBAction func priceSlider(_ sender: UISlider)
+    {
+        let price = String(format: "%.0f", sender.value)
+        priceLabel.text = price
+        VM.filterProducts(price: priceSlider.value, searchStr: productsSearch.text ?? "")
         
     }
     
     //MARK: - Variable(s)
-    var productsVM: ProductsViewModel?
+    var VM: ProductsViewModel!
     
     //MARK: - Helper Function(s)
-    func setUI() {
-        
+    func setUI()
+    {
         // Setting Navigation Bar
         title = "Products"
-        setNavBarBtns()
         
         // Registering CollectionView Cell
         productsCollectionView.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: Constants.productCellReuseIdentifier)
@@ -54,25 +57,30 @@ class ProductsVC: UIViewController {
         productsSearch.delegate = self
         
         // Fetching data from API and Updating Collection View
-        productsVM?.filteredProductList.bind({ [weak self] _ in
+        VM.filteredProductList.bind({ [weak self] products in
             DispatchQueue.main.async {
-                self?.productsCollectionView.reloadData()
+                guard let self = self else{return}
+                self.productsCollectionView.reloadData()
             }
         })
         
+        //bind price slider
+        VM.maxPrice.bind
+        {[weak self] maxPrice in
+            DispatchQueue.main.async
+            {
+                guard let maxPrice = maxPrice else {return}
+                self?.priceSlider.maximumValue =  maxPrice
+                self?.priceSlider.value = maxPrice
+                let price = String(format: "%.0f", maxPrice)
+                self?.priceLabel.text = price
+            }
+        }
     }
-    
-    func setNavBarBtns() {
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3.decrease")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .done, target: self, action: #selector(filterProducts))
-        
+    override func viewWillAppear(_ animated: Bool)
+    {
+        productsCollectionView.reloadData()
     }
-    
-    @objc func filterProducts() {
-        //TODO: filter products by (price, best seller...)
-        debugPrint("filterProducts")
-    }
-    
 }
 
 //MARK: - CollectionView Delegate and DataSource Methods
@@ -80,20 +88,38 @@ extension ProductsVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // Set number of products
-        return productsVM?.filteredProductList.value?.count ?? 0
+        return VM.filteredProductList.value?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = productsCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.productCellReuseIdentifier, for: indexPath) as? ProductCell else { return UICollectionViewCell() }
         
-        let product = productsVM?.filteredProductList.value?[indexPath.item]
+        let product = VM.filteredProductList.value?[indexPath.item]
+        if let price = product?.variants?[0].price, let currency = UserDefaults.standard.string(forKey: "Currency") {
+            let rate = Constants.rates[currency]
+            let actualPrice = ( price as NSString).floatValue * (rate ?? 0.0)
         
         // Configure cell
-        cell.priceLabel.text = "\(product?.variants?[0].price ?? "N/A")$"
+        cell.VM = ProductCellVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant, product: product ?? Product())
+        cell.configureCellVM()
+        
+        cell.priceLabel.text = String(format: "%.2f", actualPrice) + " " + currency
         cell.productNameLabel.text = product?.title
         cell.productImgView.sd_setImage(with: URL(string: product?.images?[0].src ?? ""), placeholderImage: UIImage(named: "placeHolder"))
+        }
+        
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    {
+        let product = VM.filteredProductList.value?[indexPath.item]
+        let vc = ProductDetailsVC()
+        vc.VM = ProductDetailsVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant, productID: "\(product?.id ?? 0)")
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+
     }
 }
 
@@ -120,6 +146,6 @@ extension ProductsVC : UISearchBarDelegate
 {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
     {
-        productsVM?.searchProducts(searchStr: searchBar.text ?? "" )
+        VM.filterProducts(price: priceSlider.value, searchStr: searchBar.text ?? "")
     }
 }

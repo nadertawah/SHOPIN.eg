@@ -13,9 +13,6 @@ class LoginRegisterVC: UIViewController
     {
         super.viewDidLoad()
         
-        //VM init
-        VM = LoginRegisterVM(dataProvider: API())
-        
         //set UI
         setUpUI()
     }

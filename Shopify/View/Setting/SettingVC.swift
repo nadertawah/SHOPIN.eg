@@ -24,9 +24,16 @@ class SettingVC: UIViewController {
         // Registration of setting Cell
         settingTableView.register(UINib(nibName: "SettingCell", bundle: nil), forCellReuseIdentifier: "SettingCell")
         
-        setting = [ "Address" , "Curncy" , "About us" , "Contact us" ]
+        setting = [ "Address" , "Currency" , "About us" , "Contact us" ]
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        settingTableView.reloadData()
+    }
+    
 }
+
+
 
 // MARK: - SettingVC DataSource & Delegate Methods
 extension SettingVC: UITableViewDelegate , UITableViewDataSource {
@@ -36,8 +43,13 @@ extension SettingVC: UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = settingTableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as! SettingCell
-        
-        cell.settingLabel.text = setting[indexPath.row]
+        if indexPath.row == 1 {
+            if let currency = UserDefaults.standard.string(forKey: "Currency") {
+                cell.settingLabel.text = "\(setting[indexPath.row]):  \(currency)"
+            }
+        } else {
+            cell.settingLabel.text = setting[indexPath.row]
+        }
         
         return cell
     }
@@ -47,10 +59,14 @@ extension SettingVC: UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.section {
+
+        switch indexPath.row {
         case 0:
             let addressVC = AddressVC()
             self.navigationController?.pushViewController(addressVC, animated: true)
+        case 1:
+            let vc = CurrenciesTableView()
+            self.navigationController?.pushViewController(vc, animated: true)
         default:
             return
         }

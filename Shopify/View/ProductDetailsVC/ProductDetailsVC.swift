@@ -19,6 +19,10 @@ class ProductDetailsVC: UIViewController
         setUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        setPrice()
+    }
+    
     //MARK: - IBOutlet(s)
     @IBOutlet weak var productImgCollectionView: UICollectionView!
     
@@ -49,26 +53,19 @@ class ProductDetailsVC: UIViewController
             moreReviewsBtn.shopifyBtn(title: "MORE REVIEWS")
         }
     }
+    
+    @IBOutlet weak var toggleWishlistBtn: UIButton!
+    
     //MARK: - IBAction(s)
-    @IBAction func toggleWishListBtn(_ sender: Any)
+    @IBAction func toggleWishListBtnPressed(_ sender: Any)
     {
-        
+        VM.toggleWishlist()
     }
     
     @IBAction func addToShoppingCartBtnPressed(_ sender: Any)
     {
-        let product = self.VM.product
-        
-        let cartProducts = ShoppingCartVM.instance.getData()
-        let filtered = cartProducts.filter({$0.id == product.id})
-
-        if filtered.isEmpty {
-            ShoppingCartVM.instance.addDataToCoreData(title: product.title ?? "", image:product.images?[0].src ?? "" , price: product.variants?[0].price ?? "" , id: product.id ?? 0 , qty: 1  , isCheckOut: false )
-        } else {
-            ShoppingCartVM.instance.updateData(qty: filtered.map({$0.qty!}).first! + 1, id: product.id ?? 0)
-        }
-        
         let shopingCartVC = ShoppingCartVC()
+        shopingCartVC.VM = ShoppingCartVM(dataPersistant: VM.dataPersistant,product: VM.product.value ?? Product())
         self.navigationController?.pushViewController(shopingCartVC, animated: true)
     }
     @IBAction func moreReviewsBtnPressed(_ sender: Any)
@@ -79,7 +76,7 @@ class ProductDetailsVC: UIViewController
     
     //MARK: - Var(s)
     private let productsCellReuseIdentifier = "ImageCollectionViewCell"
-    private let VM = ProductDetailsVM(dataProvider: API(), productID: "7358110662827")
+    var VM : ProductDetailsVM!
     
     //MARK: - Helper Funcs
     func setUI()
@@ -100,15 +97,13 @@ class ProductDetailsVC: UIViewController
             //TODO: - set page control count, size segment control, rating, wishlist
         
         
-        VM.bind =
+        VM.product.bind
         {
-            [weak self] in
-            guard let self = self else {return}
+            [weak self] product in
+            guard let self = self , let product = product else {return}
             
             DispatchQueue.main.async
             {
-                let product = self.VM.product
-
                 //set number of pages of the page control
                 self.imgPageControl.numberOfPages = product.images?.count ?? 1
                 
@@ -125,11 +120,38 @@ class ProductDetailsVC: UIViewController
                 self.descriptionLabel.text = product.body_html
                 
                 //set price
-                self.priceLabel.text = product.variants?[0].price
+                self.setPrice()
             
             }
         }
         
+        //bind wishlist button image
+        VM.isAddedToWishlist.bind
+        {
+            [weak self] isAddedToWishlist in
+            DispatchQueue.main.async
+            {
+                if isAddedToWishlist == true
+                {
+                    self?.toggleWishlistBtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                }
+                else if isAddedToWishlist == false
+                {
+                    self?.toggleWishlistBtn.setImage(UIImage(systemName: "heart"), for: .normal)
+                }
+            }
+           
+        }
+        
+    }
+    
+    func setPrice() {
+        let product = self.VM.product.value
+        if let price = product?.variants?[0].price, let currency = UserDefaults.standard.string(forKey: "Currency") {
+            let rate = Constants.rates[currency]
+            let actualPrice = ( price as NSString).floatValue * (rate ?? 0.0)
+            priceLabel.text = String(format: "%.2f", actualPrice) + " " + currency
+        }
     }
     
     func setRatingView()
@@ -144,9 +166,9 @@ class ProductDetailsVC: UIViewController
     
     func setSizesSegmentedControl()
     {
-        let product = self.VM.product
+        let product = self.VM.product.value
 
-        if let productSizeOption = product.options?.first(where: {Option in Option.name == "Size"})
+        if let productSizeOption = product?.options?.first(where: {Option in Option.name == "Size"})
         {
             if let productSizes = productSizeOption.values
             {
@@ -171,7 +193,7 @@ extension ProductDetailsVC : UICollectionViewDelegate , UICollectionViewDataSour
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return VM.product.images?.count ?? 0
+        return VM.product.value?.images?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -179,7 +201,7 @@ extension ProductDetailsVC : UICollectionViewDelegate , UICollectionViewDataSour
         guard let cell = productImgCollectionView.dequeueReusableCell(withReuseIdentifier: productsCellReuseIdentifier, for: indexPath) as? ImageCollectionViewCell
         else {return UICollectionViewCell()}
         
-        cell.imgView.sd_setImage(with: URL(string: VM.product.images?[indexPath.row].src ?? ""), placeholderImage: UIImage(named: "placeHolder"))
+        cell.imgView.sd_setImage(with: URL(string: VM.product.value?.images?[indexPath.row].src ?? ""), placeholderImage: UIImage(named: "placeHolder"))
         
         return cell
     }

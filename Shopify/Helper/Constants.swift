@@ -16,6 +16,9 @@ struct Constants
     static let productsAPIUrl = "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/products.json"
     static let customersAPIUrl = "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/customers.json"
     static let shopifyHeader = ["X-Shopify-Access-Token":"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","Content-Type": "application/json"]
+    
+    // Currency ExchangeRates
+    static let rates: [String : Float] = ["EGP" : 18.8, "USD" : 1, "EUR" : 0.95]
 
     //MARK: - ProductsVC Constants
     static let productCellReuseIdentifier = "productCell"
@@ -32,10 +35,17 @@ struct Constants
     static let subCategoryCellReuseIdentifier = "subCategoryCell"
     //MARK: - CheckOutVC Constants
     static let discountCodesUrl = "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/price_rules.json"
+
     //MARK: - AddressVC Constants
     static let AddressUrl = "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/customers/customerID/addresses.json"
     //MARK: - AddAddressVC Constants
     static let countryUrl = "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/countries.json"
     static let addAddressUrl =
     "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/customers/customerID/addresses.json"
+
+    
+    static let productCoreDataEntityName = "ProductCoreData"
+    
+    static var currency : String = "USD"
+
 }

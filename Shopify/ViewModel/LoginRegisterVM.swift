@@ -9,14 +9,16 @@ import Foundation
 
 class LoginRegisterVM
 {
-    init(dataProvider : DataProviderProtocol)
+    init(dataProvider : DataProviderProtocol,dataPersistant: DataPersistantProtocol)
     {
         self.dataProvider = dataProvider
+        self.dataPersistant = dataPersistant
     }
     
     //MARK: - Var(s)
     //data provider service
     var dataProvider : DataProviderProtocol
+    var dataPersistant: DataPersistantProtocol
     
     //MARK: - intent(s)
     func login(email:String, password:String,completionHandler : @escaping (String,Bool)->())
