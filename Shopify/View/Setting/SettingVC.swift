@@ -62,10 +62,16 @@ extension SettingVC: UITableViewDelegate , UITableViewDataSource {
 
         switch indexPath.row {
         case 0:
-            let addressVC = AddressVC()
-            self.navigationController?.pushViewController(addressVC, animated: true)
+            let vc = AddressVC()
+            self.navigationController?.pushViewController(vc, animated: true)
         case 1:
             let vc = CurrenciesTableView()
+            self.navigationController?.pushViewController(vc, animated: true)
+        case 2:
+            let vc = AboutUsVC()
+            self.navigationController?.pushViewController(vc, animated: true)
+        case 3:
+            let vc = ContactUsVC()
             self.navigationController?.pushViewController(vc, animated: true)
         default:
             return
