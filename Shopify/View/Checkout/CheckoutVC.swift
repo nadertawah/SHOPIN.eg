@@ -18,8 +18,10 @@ class CheckoutVC: UIViewController {
     @IBOutlet weak var applyCouponBtn: UIButton!
     @IBOutlet weak var paymentMethodTabelView: UITableView!
     @IBOutlet weak var placeOrderBtn: UIButton!
-    @IBOutlet weak var counteryTF: UITextField!
-    @IBOutlet weak var governmentTF: UITextField!
+    @IBOutlet weak var countryLabel: UILabel!
+    @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    
     
     private let checkOutVM = CheckOutVM(dataProvider: API())
     var discountList = [PriceRule]()
@@ -30,6 +32,7 @@ class CheckoutVC: UIViewController {
     var shippingFees = 50
     var discount = 0
     var total = 0
+    var counntry = ""
     
     var PaymentMethodArrText = ["Cash On Delivery" , "Credit/Debit Cart"]
     var PaymentMethodArrIcon = ["cash","online"]
@@ -38,6 +41,12 @@ class CheckoutVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUI()
+    }
+    
+    func setUI () {
+        
+        //Load Discount Codes
         getDiscountCodes()
         
         //Title for Screen
@@ -62,8 +71,16 @@ class CheckoutVC: UIViewController {
         
         // Configration Of TextField
         couponTF.shopifyTF(placeholder: "Apply Coupon")
-        counteryTF.shopifyTF(placeholder: "Select Your Country")
-        governmentTF.shopifyTF(placeholder: "Select Your Government")
+        
+        // Address
+        checkOutVM.BindingParsingclosure = { [weak self] in
+            DispatchQueue.main.sync {
+                self?.countryLabel.text = self?.checkOutVM.country[0]
+                self?.cityLabel.text =  self?.checkOutVM.city[0]
+                self?.addressLabel.text = self?.checkOutVM.addresss[0]
+            }
+            
+        }
     }
     
 

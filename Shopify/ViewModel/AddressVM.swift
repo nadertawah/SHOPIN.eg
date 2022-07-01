@@ -34,9 +34,9 @@ class AddressVM {
     
     func get() {
         for address in self.AddressList {
-                    country.append(address.country ?? "")
-                    city.append(address.city ?? "")
-                    addresss.append(address.address1 ?? "")
-            }
+            country.append(address.country ?? "")
+            city.append(address.city ?? "")
+            addresss.append(address.address1 ?? "")
         }
+    }
 }
