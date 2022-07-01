@@ -32,6 +32,9 @@ class HomeVC: UIViewController {
     
     @IBOutlet weak var brandsCollectionView: UICollectionView!
     
+    @IBOutlet weak var adsPageControler: UIPageControl!
+    
+    
     //MARK: - Variable(s)
     var VM : HomeViewModel!
     
@@ -44,6 +47,9 @@ class HomeVC: UIViewController {
         
         //set navbar wishlist and settings buttons
         setNavBarBtns()
+        
+        // Set Timer To Ads collectionView
+        startTimer()
         
         //Set default currency
         setDefaultCurrency()
@@ -92,6 +98,22 @@ class HomeVC: UIViewController {
         
     }
     
+        @objc func scrollToNextCell(){
+
+            let cellSize = CGSize(width: self.view.frame.width, height: self.view.frame.height)
+            let contentOffset = adsCollectionView.contentOffset;
+            adsCollectionView.scrollRectToVisible(CGRect(x: contentOffset.x + cellSize.width, y: contentOffset.y, width: cellSize.width, height: cellSize.height), animated: true)
+            }
+
+        func startTimer() {
+
+            _ = Timer.scheduledTimer(timeInterval: 3.0,
+            target: self,
+            selector: #selector(scrollToNextCell),
+            userInfo: nil,
+            repeats: true)
+        }
+    
     @objc func navigateToWishlist()
     {
         let vc = WishlistVC()
@@ -116,8 +138,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource
         if collectionView == brandsCollectionView {
             return VM.filtereBrandsList.value?.count ?? 0
         } else {
-            //TODO: set number of ads
-            return 3
+            return VM.ads.count
         }
         
     }
@@ -141,7 +162,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource
             guard let cell = adsCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.adCellReuseIdentifier, for: indexPath) as? AdCell else { return UICollectionViewCell() }
             
             // TODO: Set Ads
-            cell.adImgView.sd_setImage(with: URL(string: "https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png"), placeholderImage: UIImage(named: "placeHolder"))
+            cell.adImgView.image = UIImage(named: VM.ads[indexPath.row])
             
             return cell
             
@@ -165,6 +186,13 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource
             
         }
         
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
+    {
+        if collectionView == adsCollectionView {
+        adsPageControler.currentPage = indexPath.row
+        }
     }
     
 }
@@ -203,3 +231,4 @@ extension HomeVC : UISearchBarDelegate
         VM.searchBrands(searchStr: searchBar.text ?? "" )
     }
 }
+

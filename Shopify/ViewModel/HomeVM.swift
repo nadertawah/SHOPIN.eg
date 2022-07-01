@@ -23,7 +23,8 @@ class HomeViewModel
     var filtereBrandsList: Observable<[Brand]> = Observable([Brand]())
     var dataProvider: DataProviderProtocol
     var dataPersistant: DataPersistantProtocol
-    
+    //Ades Images Array
+    let ads = ["addidas","puma","lacoste"]
     //MARK: - intent(s)
     func searchBrands(searchStr:String)
     {
