@@ -15,7 +15,17 @@ class ProductsViewModel
         self.dataPersistant = dataPersistant
         getProducts(from: brand)
         
-        productsList.bind {[weak self] in self?.filteredProductList.value = $0?.products}
+        productsList.bind {
+            [weak self] in
+            guard let productsList = $0?.products else {return}
+            self?.filteredProductList.value = productsList
+            
+            
+            let rate = Constants.rates[Constants.currency]!
+            
+            self?.maxPrice.value = productsList.map(
+                {(Float($0.variants?[0].price ?? "") ?? 0)  * rate } ).max() ?? 0
+        }
     }
     
     init(dataProvider: DataProviderProtocol,dataPersistant: DataPersistantProtocol) {
@@ -27,15 +37,10 @@ class ProductsViewModel
     //MARK: - Variable(s)
     var productsList: Observable<Products> = Observable(Products(products: []))
     var filteredProductList : Observable<[Product]> = Observable([])
+    var maxPrice = Observable<Float>(0)
     var dataProvider: DataProviderProtocol
     var dataPersistant: DataPersistantProtocol
-    
     //MARK: - intent(s)
-    func searchProducts(searchStr:String)
-    {
-       
-    }
-    
     func filterProducts(price: Float,searchStr:String)
     {
         filteredProductList.value = productsList.value?.products
@@ -52,7 +57,11 @@ class ProductsViewModel
         let actualPrice = price / (rate ?? 0.0)
         if actualPrice > 0
         {
-            filteredProductList.value = filteredProductList.value?.filter{(($0.variants?[0].price ?? "") as NSString).floatValue <= actualPrice}
+            filteredProductList.value = filteredProductList.value?.filter
+            {
+                (($0.variants?[0].price ?? "") as NSString).floatValue <= actualPrice
+                
+            }
         }
         
     }

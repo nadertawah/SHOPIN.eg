@@ -36,4 +36,6 @@ struct Constants
     static let discountCodesUrl = "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/price_rules.json"
     
     static let productCoreDataEntityName = "ProductCoreData"
+    
+    static var currency : String = "USD"
 }

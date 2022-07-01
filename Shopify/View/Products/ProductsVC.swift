@@ -26,12 +26,14 @@ class ProductsVC: UIViewController
     
     @IBOutlet weak var productsCollectionView: UICollectionView!
     
+    @IBOutlet weak var priceSlider: UISlider!
+    
     //MARK: - IBAction(s)
-    @IBAction func priceSlider(_ sender: UISlider) {
-        
+    @IBAction func priceSlider(_ sender: UISlider)
+    {
         let price = String(format: "%.0f", sender.value)
         priceLabel.text = price
-        VM.filterProducts(price: sender.value)
+        VM.filterProducts(price: priceSlider.value, searchStr: productsSearch.text ?? "")
         
     }
     
@@ -55,12 +57,25 @@ class ProductsVC: UIViewController
         productsSearch.delegate = self
         
         // Fetching data from API and Updating Collection View
-        VM.filteredProductList.bind({ [weak self] _ in
+        VM.filteredProductList.bind({ [weak self] products in
             DispatchQueue.main.async {
-                self?.productsCollectionView.reloadData()
+                guard let self = self else{return}
+                self.productsCollectionView.reloadData()
             }
         })
         
+        //bind price slider
+        VM.maxPrice.bind
+        {[weak self] maxPrice in
+            DispatchQueue.main.async
+            {
+                guard let maxPrice = maxPrice else {return}
+                self?.priceSlider.maximumValue =  maxPrice
+                self?.priceSlider.value = maxPrice
+                let price = String(format: "%.0f", maxPrice)
+                self?.priceLabel.text = price
+            }
+        }
     }
     override func viewWillAppear(_ animated: Bool)
     {
@@ -131,6 +146,6 @@ extension ProductsVC : UISearchBarDelegate
 {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
     {
-        VM.searchProducts(searchStr: searchBar.text ?? "" )
+        VM.filterProducts(price: priceSlider.value, searchStr: searchBar.text ?? "")
     }
 }
