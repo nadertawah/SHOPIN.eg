@@ -78,8 +78,13 @@ class CheckoutVC: UIViewController {
                 self?.countryLabel.text = self?.checkOutVM.country[0]
                 self?.cityLabel.text =  self?.checkOutVM.city[0]
                 self?.addressLabel.text = self?.checkOutVM.addresss[0]
+                
+                if self?.checkOutVM.country[0] == "Egypt" {
+                    self?.shippingFees = 0
+                } else {
+                    self?.shippingFees = 100
+                }
             }
-            
         }
     }
     
@@ -103,6 +108,7 @@ class CheckoutVC: UIViewController {
     }
     
     @IBAction func placeOrderBtnPressed(_ sender: Any) {
+        
     }
     
 }
