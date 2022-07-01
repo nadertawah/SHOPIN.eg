@@ -47,9 +47,6 @@ class CategoryVC: UIViewController {
     func setUI()
     {
         
-        // Hide BaseNAvBar
-        self.navigationController?.navigationBar.isHidden = true
-        
         // Registering Cells
         mainCategoriesCollectionView.register(UINib(nibName: "MainCategoryCell", bundle: nil), forCellWithReuseIdentifier: Constants.mainCategoryCellReuseIdentifier)
         
