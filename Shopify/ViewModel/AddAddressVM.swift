@@ -53,6 +53,5 @@ class AddAddressVM {
                 self.BindingParsingclosureError()
             }
         }
-        
     }
 }

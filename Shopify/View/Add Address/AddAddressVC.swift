@@ -23,7 +23,6 @@ class AddAddressVC: UIViewController {
         super.viewDidLoad()
 
         print(UserDefaults.standard.integer(forKey: "customerID"))
-//        "6076680863915"
         
         cityTF.isEnabled = false
         
