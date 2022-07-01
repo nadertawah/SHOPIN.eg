@@ -37,5 +37,4 @@ struct Constants
     
     static let productCoreDataEntityName = "ProductCoreData"
     
-    static var currency : String = "USD"
 }

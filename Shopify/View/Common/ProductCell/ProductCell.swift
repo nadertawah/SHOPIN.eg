@@ -27,7 +27,20 @@ class ProductCell: UICollectionViewCell {
     //MARK: - IBAction(s)
     @IBAction func wishListBtnPressed(_ sender: UIButton)
     {
-        VM?.toggleWishlist()
+        let customerID = UserDefaults.standard.integer(forKey: "customerID")
+        if customerID == 0
+        {
+            let alert = UIAlertController(title: "", message: "You must login first!", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Ok", style: .default)
+            alert.addAction(action)
+
+            window?.rootViewController?.present(alert, animated: true)
+
+        }
+        else
+        {
+            VM?.toggleWishlist()
+        }
     }
     
     //MARK: - VAR(s)

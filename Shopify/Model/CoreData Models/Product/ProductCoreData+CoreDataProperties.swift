@@ -17,6 +17,7 @@ extension ProductCoreData {
     }
 
     @NSManaged public var id: Int64
+    @NSManaged public var customerID: Int64
     @NSManaged public var image: String?
     @NSManaged public var title: String?
     @NSManaged public var price: String?

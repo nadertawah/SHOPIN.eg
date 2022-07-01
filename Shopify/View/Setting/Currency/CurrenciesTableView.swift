@@ -41,7 +41,6 @@ class CurrenciesTableView: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         defaults.set(currencies[indexPath.row], forKey: "Currency")
-        Constants.currency = currencies[indexPath.row]
         navigationController?.popViewController(animated: true)
     }
     

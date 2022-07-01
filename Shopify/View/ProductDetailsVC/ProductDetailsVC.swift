@@ -59,7 +59,18 @@ class ProductDetailsVC: UIViewController
     //MARK: - IBAction(s)
     @IBAction func toggleWishListBtnPressed(_ sender: Any)
     {
-        VM.toggleWishlist()
+        let customerID = UserDefaults.standard.integer(forKey: "customerID")
+        if customerID == 0
+        {
+            let alert = UIAlertController(title: "", message: "You must login first!", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Ok", style: .default)
+            alert.addAction(action)
+            self.present(alert, animated: true)
+        }
+        else
+        {
+            VM.toggleWishlist()
+        }
     }
     
     @IBAction func addToShoppingCartBtnPressed(_ sender: Any)

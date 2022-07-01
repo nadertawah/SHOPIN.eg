@@ -30,7 +30,9 @@ class WishlistVM
     //MARK: - Helper Funcs
     func getWishlistProducts()
     {
-        dataPersistant.get(type: ProductCoreData.self, predicate: nil)
+        let customerID = UserDefaults.standard.integer(forKey: "customerID")
+        let predicate = NSPredicate(format: "customerID == \(customerID)")
+        dataPersistant.get(type: ProductCoreData.self, predicate: predicate)
         {
             [weak self] in
             self?.wishlistProducts.value = $0

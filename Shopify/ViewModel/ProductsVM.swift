@@ -39,6 +39,7 @@ class ProductsViewModel
     var maxPriceWithCurrentCurrency = Observable<Float>(0)
     var dataProvider: DataProviderProtocol
     var dataPersistant: DataPersistantProtocol
+    
     //MARK: - intent(s)
     func filterProducts(price: Float,searchStr:String)
     {
@@ -113,7 +114,7 @@ class ProductsViewModel
     
     func getMaxPriceWithCurrentCurrency()
     {
-        let rate = Constants.rates[Constants.currency]!
+        let rate = Constants.rates[UserDefaults.standard.string(forKey: "Currency") ?? "USD"]!
         maxPriceWithCurrentCurrency.value = maxPriceUSD * rate
     }
 }

@@ -27,18 +27,22 @@ class ProductCellVM
     //MARK: - intent(s)
     func toggleWishlist()
     {
-        if isAddedToWishlist.value == true
+        let customerID = UserDefaults.standard.integer(forKey: "customerID")
+        if customerID != 0
         {
-            let predicate = NSPredicate(format: "id == \(product.id ?? 0)")
-            dataPersistant.deleteObj(type: ProductCoreData.self, predicate: predicate)
-            isAddedToWishlist.value = false
-        }
-        else if isAddedToWishlist.value == false
-        {
-            let dict = ["id":product.id ?? 0,"image" : product.image?.src ?? "","title":product.title ?? "" ,"price" : product.variants?[0].price ?? ""] as [String : Any]
-            
-            dataPersistant.insertObject(entityName: Constants.productCoreDataEntityName, valuesForKeys: dict)
-            isAddedToWishlist.value = true
+            if isAddedToWishlist.value == true
+            {
+                let predicate = NSPredicate(format: "id == \(product.id ?? 0) && customerID == \(customerID)")
+                dataPersistant.deleteObj(type: ProductCoreData.self, predicate: predicate)
+                isAddedToWishlist.value = false
+            }
+            else if isAddedToWishlist.value == false
+            {
+                let dict = ["id":product.id ?? 0,"image" : product.image?.src ?? "","title":product.title ?? "" ,"price" : product.variants?[0].price ?? "","customerID":customerID] as [String : Any]
+                
+                dataPersistant.insertObject(entityName: Constants.productCoreDataEntityName, valuesForKeys: dict)
+                isAddedToWishlist.value = true
+            }
         }
     }
     
@@ -46,11 +50,16 @@ class ProductCellVM
     //MARK: - Helper Funcs
     func getAddedToWishlistStatus()
     {
-        let predicate = NSPredicate(format: "id == \(product.id ?? 0)")
-        dataPersistant.get(type: ProductCoreData.self, predicate: predicate)
-        { [weak self] in
-            self?.isAddedToWishlist.value = !$0.isEmpty
+        let customerID = UserDefaults.standard.integer(forKey: "customerID")
+        if customerID != 0
+        {
+            let predicate = NSPredicate(format: "id == \(product.id ?? 0) && customerID == \(customerID)")
+            dataPersistant.get(type: ProductCoreData.self, predicate: predicate)
+            { [weak self] in
+                self?.isAddedToWishlist.value = !$0.isEmpty
+            }
         }
+        
     }
     
 }
