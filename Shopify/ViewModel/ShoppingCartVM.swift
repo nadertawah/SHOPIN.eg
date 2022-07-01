@@ -97,6 +97,7 @@ class ShoppingCartVM
             productList.value?.remove(at: index)
             calculateSum()
         }
+
     }
     
     func calculateSum()

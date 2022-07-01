@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Alamofire
 
 class CheckOutVM {
     
@@ -23,10 +22,6 @@ class CheckOutVM {
     init(total : String)
     {
         subTotal = total
-    }
-    
-    func getSubTotalPrice ( total : Int ) -> String {
-        return "\(total)"
     }
     
     func getDiscountCodes() {

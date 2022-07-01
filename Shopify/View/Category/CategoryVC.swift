@@ -34,9 +34,10 @@ class CategoryVC: UIViewController
         //set title
         title = "Category"
         
+
         //set navbar wishlist and settings buttons
         setNavBarBtns()
-        
+
         // Registering Cells
         mainCategoriesCollectionView.register(UINib(nibName: "MainCategoryCell", bundle: nil), forCellWithReuseIdentifier: Constants.mainCategoryCellReuseIdentifier)
         

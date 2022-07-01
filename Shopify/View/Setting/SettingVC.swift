@@ -59,16 +59,16 @@ extension SettingVC: UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            //TODO: navigate to address setting screen
-            
-        } else if indexPath.row == 1 {
-            //TODO: navigate to currency setting screen
-            let vc = CurrenciesTableView()
-            navigationController?.pushViewController(vc, animated: true)
 
+        switch indexPath.row {
+        case 0:
+            let addressVC = AddressVC()
+            self.navigationController?.pushViewController(addressVC, animated: true)
+        case 1:
+            let vc = CurrenciesTableView()
+            self.navigationController?.pushViewController(vc, animated: true)
+        default:
+            return
         }
     }
-    
-    
 }
