@@ -18,8 +18,8 @@ class ProductDetailsVM
     
     //MARK: - Var(s)
     //data provider data persitance services
-    private var dataProvider : DataProviderProtocol
-    private var dataPersistant: DataPersistantProtocol
+    private(set) var dataProvider : DataProviderProtocol
+    private(set) var dataPersistant: DataPersistantProtocol
 
     //VM model
     private(set) var product = Observable<Product>(Product())

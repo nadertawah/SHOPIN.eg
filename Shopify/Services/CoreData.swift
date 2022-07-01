@@ -92,6 +92,11 @@ class CoreData : DataPersistantProtocol
        
     }
     
+    func deleteObj(obj : NSManagedObject)
+    {
+        context.delete(obj)
+        saveContext()
+    }
     func insertObject(entityName : String,valuesForKeys: [String:Any])
     {
         guard let entity = NSEntityDescription.entity(forEntityName: entityName, in: context)
@@ -103,6 +108,30 @@ class CoreData : DataPersistantProtocol
         saveContext()
     }
     
+    func editObject<T:NSManagedObject>(type : T.Type,predicate:NSPredicate,valuesForKeys: [String:Any])
+    {
+        do
+        {
+            var items = [T]()
+            let fetchReq = T.fetchRequest() as! NSFetchRequest<T>
+            fetchReq.predicate = predicate
+            items = try context.fetch(fetchReq)
+            
+            if !items.isEmpty
+            {
+                for item in valuesForKeys
+                {
+                    items.first?.setValue(item.value, forKey: item.key)
+                }
+            }
+            
+            saveContext()
+        }
+        catch
+        {
+            print("Error editing data\n")
+        }
+    }
     
     func setCurrency(currency: String) {
         UserDefaults.standard.set(currency, forKey: "Currency")

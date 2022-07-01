@@ -33,17 +33,28 @@ class ProductsViewModel
     //MARK: - intent(s)
     func searchProducts(searchStr:String)
     {
-        filteredProductList.value = searchStr == "" ?
-        productsList.value?.products : productsList.value?.products.filter{$0.title?.uppercased().contains(searchStr.uppercased()) ?? false}
+       
     }
     
-    func filterProducts(price: Float)
+    func filterProducts(price: Float,searchStr:String)
     {
+        filteredProductList.value = productsList.value?.products
+        
+        //filter by search string
+        if searchStr != ""
+        {
+            filteredProductList.value = filteredProductList.value?.filter{$0.title?.uppercased().contains(searchStr.uppercased()) ?? false}
+        }
+        
+        //filter by price
         let currency = UserDefaults.standard.string(forKey: "Currency") ?? ""
         let rate = Constants.rates[currency]
         let actualPrice = price / (rate ?? 0.0)
-        filteredProductList.value = actualPrice == 0 ?
-        productsList.value?.products : productsList.value?.products.filter{(($0.variants?[0].price ?? "") as NSString).floatValue <= actualPrice}
+        if actualPrice > 0
+        {
+            filteredProductList.value = filteredProductList.value?.filter{(($0.variants?[0].price ?? "") as NSString).floatValue <= actualPrice}
+        }
+        
     }
 
     var selectedSubCategory = 1

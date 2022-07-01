@@ -64,18 +64,8 @@ class ProductDetailsVC: UIViewController
     
     @IBAction func addToShoppingCartBtnPressed(_ sender: Any)
     {
-        let product = self.VM.product.value
-        
-        let cartProducts = ShoppingCartVM.instance.getData()
-        let filtered = cartProducts.filter({$0.id == product?.id})
-
-        if filtered.isEmpty {
-            ShoppingCartVM.instance.addDataToCoreData(title: product?.title ?? "", image:product?.images?[0].src ?? "" , price: product?.variants?[0].price ?? "" , id: product?.id ?? 0 , qty: 1  , isCheckOut: false )
-        } else {
-            ShoppingCartVM.instance.updateData(qty: filtered.map({$0.qty!}).first! + 1, id: product?.id ?? 0)
-        }
-        
         let shopingCartVC = ShoppingCartVC()
+        shopingCartVC.VM = ShoppingCartVM(dataPersistant: VM.dataPersistant,product: VM.product.value ?? Product())
         self.navigationController?.pushViewController(shopingCartVC, animated: true)
     }
     @IBAction func moreReviewsBtnPressed(_ sender: Any)

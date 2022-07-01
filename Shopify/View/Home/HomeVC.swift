@@ -101,6 +101,7 @@ class HomeVC: UIViewController {
     
     @objc func navigateToShoppingCart() {
         let shopingCartVC = ShoppingCartVC()
+        shopingCartVC.VM = ShoppingCartVM(dataPersistant: VM.dataPersistant)
         self.navigationController?.pushViewController(shopingCartVC, animated: true)
     }
     
