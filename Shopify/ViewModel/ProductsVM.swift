@@ -20,11 +20,9 @@ class ProductsViewModel
             guard let productsList = $0?.products else {return}
             self?.filteredProductList.value = productsList
             
-            
-            let rate = Constants.rates[Constants.currency]!
-            
-            self?.maxPrice.value = productsList.map(
-                {(Float($0.variants?[0].price ?? "") ?? 0)  * rate } ).max() ?? 0
+            self?.maxPriceUSD = productsList.map(
+                {Float($0.variants?[0].price ?? "") ?? 0 } ).max() ?? 0
+            self?.getMaxPriceWithCurrentCurrency()
         }
     }
     
@@ -37,7 +35,8 @@ class ProductsViewModel
     //MARK: - Variable(s)
     var productsList: Observable<Products> = Observable(Products(products: []))
     var filteredProductList : Observable<[Product]> = Observable([])
-    var maxPrice = Observable<Float>(0)
+    var maxPriceUSD : Float = 0
+    var maxPriceWithCurrentCurrency = Observable<Float>(0)
     var dataProvider: DataProviderProtocol
     var dataPersistant: DataPersistantProtocol
     //MARK: - intent(s)
@@ -112,4 +111,9 @@ class ProductsViewModel
         
     }
     
+    func getMaxPriceWithCurrentCurrency()
+    {
+        let rate = Constants.rates[Constants.currency]!
+        maxPriceWithCurrentCurrency.value = maxPriceUSD * rate
+    }
 }

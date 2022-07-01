@@ -65,7 +65,7 @@ class ProductsVC: UIViewController
         })
         
         //bind price slider
-        VM.maxPrice.bind
+        VM.maxPriceWithCurrentCurrency.bind
         {[weak self] maxPrice in
             DispatchQueue.main.async
             {
@@ -80,6 +80,7 @@ class ProductsVC: UIViewController
     override func viewWillAppear(_ animated: Bool)
     {
         productsCollectionView.reloadData()
+        VM.getMaxPriceWithCurrentCurrency()
     }
 }
 
