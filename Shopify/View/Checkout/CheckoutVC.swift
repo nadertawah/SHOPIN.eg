@@ -42,6 +42,7 @@ class CheckoutVC: UIViewController {
         super.viewDidLoad()
         
         setUI()
+        
     }
     
     func setUI () {
@@ -61,7 +62,6 @@ class CheckoutVC: UIViewController {
         
         subTotal = Int(checkOutViewModel?.subTotal ?? "0") ?? 0
         subTotalLabel.text = "L.E \(checkOutViewModel?.subTotal ?? "")"
-        shippingFeesLabel.text = "L.E \(shippingFees)"
         discountLabel.text = "L.E \(discount)"
         totalLabel.text = "L.E \((subTotal + shippingFees) - discount )"
         
@@ -79,13 +79,19 @@ class CheckoutVC: UIViewController {
                 self?.cityLabel.text =  self?.checkOutVM.city[0]
                 self?.addressLabel.text = self?.checkOutVM.addresss[0]
                 
-                if self?.checkOutVM.country[0] == "Egypt" {
+                self?.counntry = self?.checkOutVM.country[0] ?? ""
+                
+                if self?.counntry == "Egypt" {
                     self?.shippingFees = 0
+                    self?.shippingFeesLabel.text = "\(self?.shippingFees ?? 0)"
                 } else {
                     self?.shippingFees = 100
+                    self?.shippingFeesLabel.text = "\(self?.shippingFees ?? 0)"
                 }
             }
+
         }
+        
     }
     
 
