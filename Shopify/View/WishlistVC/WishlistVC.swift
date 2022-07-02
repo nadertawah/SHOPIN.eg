@@ -99,3 +99,12 @@ extension WishlistVC: UICollectionViewDelegate, UICollectionViewDataSource
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
+
+extension WishlistVC : UICollectionViewDelegateFlowLayout
+{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
+    {
+        let collFrameWidth = wishlistCollectionView.frame.width
+        return CGSize(width: collFrameWidth / 2, height: collFrameWidth / 2)
+    }
+}
