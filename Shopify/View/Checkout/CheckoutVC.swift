@@ -23,16 +23,15 @@ class CheckoutVC: UIViewController {
     @IBOutlet weak var addressLabel: UILabel!
     
     
-    private let checkOutVM = CheckOutVM(dataProvider: API())
+    var checkOutVM : CheckOutVM!
     var discountList = [PriceRule]()
     
-    var checkOutViewModel: CheckOutVM?
 
-    var subTotal = 0
+    
     var shippingFees = 50
     var discount = 0
-    var total = 0
     var counntry = ""
+
     
     var PaymentMethodArrText = ["Cash On Delivery" , "Credit/Debit Cart"]
     var PaymentMethodArrIcon = ["cash","online"]
@@ -60,10 +59,9 @@ class CheckoutVC: UIViewController {
         // Registration of Payment Method Cell
         paymentMethodTabelView.register(UINib(nibName: "PaymentMethodCell", bundle: nil), forCellReuseIdentifier: "PaymentMethodCell")
         
-        subTotal = Int(checkOutViewModel?.subTotal ?? "0") ?? 0
-        subTotalLabel.text = "L.E \(checkOutViewModel?.subTotal ?? "")"
-        discountLabel.text = "L.E \(discount)"
-        totalLabel.text = "L.E \((subTotal + shippingFees) - discount )"
+        // label configrations
+        subTotalLabel.text = checkOutVM.subTotal
+        discountLabel.text = "0"
         
         // Configration Of Buttons
         placeOrderBtn.shopifyBtn(title: "PLACE ORDER")
@@ -88,6 +86,10 @@ class CheckoutVC: UIViewController {
                     self?.shippingFees = 100
                     self?.shippingFeesLabel.text = "\(self?.shippingFees ?? 0)"
                 }
+                let subtotal = Float(self?.checkOutVM.subTotal ?? "0") ?? 0
+                let shippingFees = Float(self?.shippingFees ?? 0)
+                
+                self?.totalLabel.text = "\(subtotal + shippingFees)"
             }
 
         }
@@ -97,19 +99,23 @@ class CheckoutVC: UIViewController {
 
 // MARK: - IBActions
     @IBAction func applyCopounBtnPressed(_ sender: Any) {
-        for discountCode in discountList {
-            if couponTF.text == discountCode.title {
-                discount = (discountCode.value! as NSString).integerValue
-                subTotal = Int(checkOutViewModel?.subTotal ?? "0") ?? 0
-                discountLabel.text = "L.E \(discountCode.value!)"
-                totalLabel.text = "L.E \((subTotal + shippingFees) + discount )"
+        var discountCodeindex = -1
+        for i in 0..<discountList.count {
+            if couponTF.text == discountList[i].title {
+                discountCodeindex = i
                 break
             }
-            else
-            {
-                let alert = Alerts.instance.showAlert(title: "Invalid Code", message: "Please Enter Correct Discount Code to Get Your Discount")
-                self.present(alert, animated: true, completion: nil)
-            }
+        }
+        if discountCodeindex != -1 {
+            discount = (discountList[discountCodeindex].value! as NSString).integerValue
+            let subTotal = Int(checkOutVM?.subTotal ?? "0") ?? 0
+            discountLabel.text = "\(discountList[discountCodeindex].value!)"
+            totalLabel.text = "\((subTotal + shippingFees) + discount )"
+        }
+        else
+        {
+            let alert = Alerts.instance.showAlert(title: "Invalid Code", message: "Please Enter Correct Discount Code to Get Your Discount")
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
