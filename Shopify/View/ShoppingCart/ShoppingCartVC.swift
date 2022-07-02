@@ -49,7 +49,10 @@ class ShoppingCartVC: UIViewController
         { [weak self] sum in
             DispatchQueue.main.async
             {
-                self?.subTotalLabel.text = "\(sum ?? 0)"
+                let currency = UserDefaults.standard.string(forKey: "Currency") ?? ""
+                let rate = Constants.rates[currency]
+                let actualSum =  (sum ?? 0) * (rate ?? 0)
+                self?.subTotalLabel.text = String(format: "%.2f", actualSum) + " " + currency
                 self?.cartTableView.reloadData()
             }
         }
@@ -92,7 +95,10 @@ extension ShoppingCartVC : UITableViewDelegate , UITableViewDataSource {
         else{return UITableViewCell()}
         
         cell.titleLabel.text = product.title
-        cell.priceLabel.text = product.price
+        let currency = UserDefaults.standard.string(forKey: "Currency") ?? ""
+        let rate = Constants.rates[currency]
+        let actualPrice = ((product.price ?? "") as NSString).floatValue * (rate ?? 0.0)
+        cell.priceLabel.text = String(format: "%.2f", actualPrice) + " " + currency
         cell.productImageView.sd_setImage(with: URL(string: product.image ?? ""), placeholderImage: UIImage(named: "placeHolder"))
         cell.qtyLabel.text = "\(product.qty)"
         

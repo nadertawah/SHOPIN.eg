@@ -26,8 +26,6 @@ class CheckoutVC: UIViewController {
     var checkOutVM : CheckOutVM!
     var discountList = [PriceRule]()
     
-
-    
     var shippingFees = 50
     var discount = 0
     var counntry = ""
@@ -59,10 +57,12 @@ class CheckoutVC: UIViewController {
         // Registration of Payment Method Cell
         paymentMethodTabelView.register(UINib(nibName: "PaymentMethodCell", bundle: nil), forCellReuseIdentifier: "PaymentMethodCell")
         
+
         // label configrations
         subTotalLabel.text = checkOutVM.subTotal
         discountLabel.text = "0"
         
+
         // Configration Of Buttons
         placeOrderBtn.shopifyBtn(title: "PLACE ORDER")
         applyCouponBtn.shopifyBtn(title: "APPLY")
@@ -96,9 +96,26 @@ class CheckoutVC: UIViewController {
         
     }
     
-
-// MARK: - IBActions
+    override func viewWillAppear(_ animated: Bool) {
+        subTotal = Float(checkOutViewModel?.subTotal ?? "0") ?? 0
+        subTotalLabel.text = adjustAmount(amount: subTotal)
+        shippingFeesLabel.text = adjustAmount(amount: shippingFees)
+        discountLabel.text = adjustAmount(amount: discount)
+        totalLabel.text = adjustAmount(amount: ((subTotal + shippingFees) - discount ))
+    }
+    
+    func adjustAmount(amount: Float) -> String
+    {
+        let currency = UserDefaults.standard.string(forKey: "Currency") ?? ""
+        let rate = Constants.rates[currency]
+        let adjustedAmount =  amount * (rate ?? 0)
+        return String(format: "%.2f", adjustedAmount) + " " + currency
+    }
+    
+    
+    // MARK: - IBActions
     @IBAction func applyCopounBtnPressed(_ sender: Any) {
+
         var discountCodeindex = -1
         for i in 0..<discountList.count {
             if couponTF.text == discountList[i].title {
@@ -137,7 +154,7 @@ extension CheckoutVC : UITableViewDelegate , UITableViewDataSource {
         
         cell.paymentLabel.text = PaymentMethodArrText[indexPath.row]
         cell.PaymentImage.image = UIImage(named: PaymentMethodArrIcon[indexPath.row])
-
+        
         if selectedPaymentOptionIndex == indexPath.row {
             cell.checkPaymentBtn.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
         }
@@ -153,7 +170,7 @@ extension CheckoutVC : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedPaymentOptionIndex = indexPath.row
         
-        print(PaymentMethodArrText[selectedPaymentOptionIndex]) 
+        print(PaymentMethodArrText[selectedPaymentOptionIndex])
         
         paymentMethodTabelView.reloadData()
     }
