@@ -20,16 +20,14 @@ class CheckOutVM {
     
     var dataProvider : DataProviderProtocol!
     
-    init(dataProvider : DataProviderProtocol)
+    init(dataProvider : DataProviderProtocol , total : String)
     {
         self.dataProvider = dataProvider
         getAddresses()
-    }
-    
-    init(total : String)
-    {
         subTotal = total
     }
+    
+    
     
     func getAddresses() {
         let customerID =  UserDefaults.standard.integer(forKey: "customerID")
