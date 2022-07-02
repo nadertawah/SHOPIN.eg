@@ -97,11 +97,11 @@ class CheckoutVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        subTotal = Float(checkOutViewModel?.subTotal ?? "0") ?? 0
+        let subTotal = Float(checkOutVM?.subTotal ?? "0") ?? 0
         subTotalLabel.text = adjustAmount(amount: subTotal)
-        shippingFeesLabel.text = adjustAmount(amount: shippingFees)
-        discountLabel.text = adjustAmount(amount: discount)
-        totalLabel.text = adjustAmount(amount: ((subTotal + shippingFees) - discount ))
+        shippingFeesLabel.text = adjustAmount(amount: Float(shippingFees))
+        discountLabel.text = adjustAmount(amount: Float(discount))
+        totalLabel.text = adjustAmount(amount: ((subTotal + Float(shippingFees)) - Float(discount) ))
     }
     
     func adjustAmount(amount: Float) -> String
