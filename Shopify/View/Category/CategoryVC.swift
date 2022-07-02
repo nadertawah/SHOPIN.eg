@@ -203,16 +203,16 @@ extension CategoryVC: UICollectionViewDelegateFlowLayout {
         if collectionView == mainCategoriesCollectionView {
             
             if indexPath.item == 0 {
-                return CGSize(width: mainCategoriesCollectionView.frame.width/3.5, height: mainCategoriesCollectionView.frame.height)
+                return CGSize(width: mainCategoriesCollectionView.frame.width/3.05, height: mainCategoriesCollectionView.frame.height)
             } else if indexPath.item == 4 {
-                return CGSize(width: mainCategoriesCollectionView.frame.width/4, height: mainCategoriesCollectionView.frame.height)
+                return CGSize(width: mainCategoriesCollectionView.frame.width/3.5, height: mainCategoriesCollectionView.frame.height)
             } else {
-                return CGSize(width: mainCategoriesCollectionView.frame.width/6, height: mainCategoriesCollectionView.frame.height)
+                return CGSize(width: mainCategoriesCollectionView.frame.width/5.5, height: mainCategoriesCollectionView.frame.height)
             }
             
         } else {
             
-            return CGSize(width: productsCollectionView.frame.width/2, height: productsCollectionView.frame.height/5)
+            return CGSize(width: productsCollectionView.frame.width/2, height: productsCollectionView.frame.height/4)
             
         }
         

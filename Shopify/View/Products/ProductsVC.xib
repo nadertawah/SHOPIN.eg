@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -31,22 +31,19 @@
                     <rect key="frame" x="0.0" y="95" width="414" height="40"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V5n-1J-q7X">
-                            <rect key="frame" x="10" y="5" width="51.5" height="30"/>
+                            <rect key="frame" x="10" y="0.0" width="51.5" height="40"/>
                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jxJ-1j-DQl">
-                            <rect key="frame" x="71.5" y="5" width="10.5" height="30"/>
+                            <rect key="frame" x="71.5" y="0.0" width="10.5" height="40"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="5000" translatesAutoresizingMaskIntoConstraints="NO" id="a4H-3m-xZ0">
-                            <rect key="frame" x="102" y="5" width="304" height="31"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="300" id="LJh-Cp-SYq"/>
-                            </constraints>
+                            <rect key="frame" x="90" y="0.0" width="316" height="41"/>
                             <connections>
                                 <action selector="priceSlider:" destination="-1" eventType="valueChanged" id="EkB-0V-y7A"/>
                             </connections>
@@ -58,13 +55,14 @@
                         <constraint firstAttribute="trailing" secondItem="a4H-3m-xZ0" secondAttribute="trailing" constant="10" id="FUq-EQ-lN1"/>
                         <constraint firstItem="V5n-1J-q7X" firstAttribute="leading" secondItem="P6W-TO-2jp" secondAttribute="leading" constant="10" id="KKf-Gb-oZa"/>
                         <constraint firstAttribute="height" constant="40" id="Pfi-wb-RP5"/>
-                        <constraint firstAttribute="bottom" secondItem="a4H-3m-xZ0" secondAttribute="bottom" constant="5" id="Zhk-lx-5O1"/>
-                        <constraint firstAttribute="bottom" secondItem="jxJ-1j-DQl" secondAttribute="bottom" constant="5" id="jy1-wh-KzP"/>
-                        <constraint firstItem="V5n-1J-q7X" firstAttribute="top" secondItem="P6W-TO-2jp" secondAttribute="top" constant="5" id="kAQ-RP-3nB"/>
-                        <constraint firstItem="a4H-3m-xZ0" firstAttribute="top" secondItem="P6W-TO-2jp" secondAttribute="top" constant="5" id="kpm-Fi-KLc"/>
-                        <constraint firstItem="jxJ-1j-DQl" firstAttribute="top" secondItem="P6W-TO-2jp" secondAttribute="top" constant="5" id="qAR-Sz-bHg"/>
+                        <constraint firstAttribute="bottom" secondItem="a4H-3m-xZ0" secondAttribute="bottom" id="Zhk-lx-5O1"/>
+                        <constraint firstAttribute="bottom" secondItem="jxJ-1j-DQl" secondAttribute="bottom" id="jy1-wh-KzP"/>
+                        <constraint firstItem="V5n-1J-q7X" firstAttribute="top" secondItem="P6W-TO-2jp" secondAttribute="top" id="kAQ-RP-3nB"/>
+                        <constraint firstItem="a4H-3m-xZ0" firstAttribute="top" secondItem="P6W-TO-2jp" secondAttribute="top" id="kpm-Fi-KLc"/>
+                        <constraint firstItem="jxJ-1j-DQl" firstAttribute="top" secondItem="P6W-TO-2jp" secondAttribute="top" id="qAR-Sz-bHg"/>
                         <constraint firstItem="jxJ-1j-DQl" firstAttribute="leading" secondItem="V5n-1J-q7X" secondAttribute="trailing" constant="10" id="toc-uS-70J"/>
-                        <constraint firstAttribute="bottom" secondItem="V5n-1J-q7X" secondAttribute="bottom" constant="5" id="z1A-5k-ims"/>
+                        <constraint firstItem="a4H-3m-xZ0" firstAttribute="leading" secondItem="jxJ-1j-DQl" secondAttribute="trailing" constant="10" id="xUl-19-mHX"/>
+                        <constraint firstAttribute="bottom" secondItem="V5n-1J-q7X" secondAttribute="bottom" id="z1A-5k-ims"/>
                     </constraints>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Sra-9W-jUC">

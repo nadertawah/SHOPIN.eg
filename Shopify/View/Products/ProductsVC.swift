@@ -128,7 +128,7 @@ extension ProductsVC: UICollectionViewDelegate, UICollectionViewDataSource {
 extension ProductsVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.frame.width/3, height: collectionView.frame.height/5)
+        CGSize(width: collectionView.frame.width/3, height: collectionView.frame.height/4)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

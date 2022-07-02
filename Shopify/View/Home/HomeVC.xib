@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -30,10 +30,10 @@
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="DEe-ZO-ptp">
-                    <rect key="frame" x="0.0" y="84" width="414" height="200"/>
+                    <rect key="frame" x="0.0" y="79" width="414" height="200"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="200" id="IWe-dj-EAH"/>
+                        <constraint firstAttribute="height" constant="200" id="aEK-Vc-aZ6"/>
                     </constraints>
                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="kah-n2-tAT">
                         <size key="itemSize" width="128" height="128"/>
@@ -43,7 +43,7 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9dC-R3-XVf">
-                    <rect key="frame" x="0.0" y="334" width="414" height="528"/>
+                    <rect key="frame" x="0.0" y="315" width="414" height="547"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brands" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9aL-lA-Cni">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="29"/>
@@ -52,7 +52,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Ls0-M5-nNm">
-                            <rect key="frame" x="0.0" y="39" width="414" height="489"/>
+                            <rect key="frame" x="0.0" y="34" width="414" height="513"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="BsS-10-yFX">
                                 <size key="itemSize" width="128" height="128"/>
@@ -67,13 +67,13 @@
                         <constraint firstAttribute="bottom" secondItem="Ls0-M5-nNm" secondAttribute="bottom" id="1Nh-Bl-uKq"/>
                         <constraint firstAttribute="trailing" secondItem="Ls0-M5-nNm" secondAttribute="trailing" id="OhT-uT-0e0"/>
                         <constraint firstItem="Ls0-M5-nNm" firstAttribute="leading" secondItem="9dC-R3-XVf" secondAttribute="leading" id="UEB-Rg-Bhz"/>
-                        <constraint firstItem="Ls0-M5-nNm" firstAttribute="top" secondItem="9aL-lA-Cni" secondAttribute="bottom" constant="10" id="hgu-sw-eyN"/>
+                        <constraint firstItem="Ls0-M5-nNm" firstAttribute="top" secondItem="9aL-lA-Cni" secondAttribute="bottom" constant="5" id="hgu-sw-eyN"/>
                         <constraint firstItem="9aL-lA-Cni" firstAttribute="top" secondItem="9dC-R3-XVf" secondAttribute="top" id="j4Y-q6-oWL"/>
                         <constraint firstItem="9aL-lA-Cni" firstAttribute="leading" secondItem="9dC-R3-XVf" secondAttribute="leading" id="suI-MK-zk0"/>
                     </constraints>
                 </view>
                 <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="qCz-Lz-c1V">
-                    <rect key="frame" x="149.5" y="292" width="115.5" height="26"/>
+                    <rect key="frame" x="149.5" y="284" width="115.5" height="26"/>
                     <color key="pageIndicatorTintColor" systemColor="systemGray3Color"/>
                     <color key="currentPageIndicatorTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <connections>
@@ -91,10 +91,10 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="DEe-ZO-ptp" secondAttribute="trailing" id="IQd-Ec-cyG"/>
                 <constraint firstItem="qCz-Lz-c1V" firstAttribute="centerX" secondItem="DEe-ZO-ptp" secondAttribute="centerX" id="MOQ-gC-uZF"/>
                 <constraint firstItem="9dC-R3-XVf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Nwh-Qc-GRz"/>
-                <constraint firstItem="9dC-R3-XVf" firstAttribute="top" secondItem="DEe-ZO-ptp" secondAttribute="bottom" constant="50" id="R2u-IG-rWu"/>
+                <constraint firstItem="9dC-R3-XVf" firstAttribute="top" secondItem="qCz-Lz-c1V" secondAttribute="bottom" constant="5" id="R2u-IG-rWu"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="9dC-R3-XVf" secondAttribute="trailing" id="eNT-TG-Hjb"/>
-                <constraint firstItem="qCz-Lz-c1V" firstAttribute="top" secondItem="DEe-ZO-ptp" secondAttribute="bottom" constant="8" id="fIr-LV-9OG"/>
-                <constraint firstItem="DEe-ZO-ptp" firstAttribute="top" secondItem="HOC-w2-AsY" secondAttribute="bottom" constant="10" id="liJ-Aq-ElI"/>
+                <constraint firstItem="qCz-Lz-c1V" firstAttribute="top" secondItem="DEe-ZO-ptp" secondAttribute="bottom" constant="5" id="fIr-LV-9OG"/>
+                <constraint firstItem="DEe-ZO-ptp" firstAttribute="top" secondItem="HOC-w2-AsY" secondAttribute="bottom" constant="5" id="liJ-Aq-ElI"/>
                 <constraint firstItem="HOC-w2-AsY" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="pwp-gX-qD7"/>
             </constraints>
             <point key="canvasLocation" x="132" y="126"/>
