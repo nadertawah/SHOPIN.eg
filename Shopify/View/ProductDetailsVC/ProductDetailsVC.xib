@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -25,22 +25,22 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="1089"/>
+            <rect key="frame" x="0.0" y="0.0" width="428" height="1127"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fE2-ow-S3u">
-                    <rect key="frame" x="0.0" y="44" width="414" height="950"/>
+                    <rect key="frame" x="0.0" y="43.999999999999943" width="428" height="983.66666666666652"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gxg-cr-CnS" userLabel="Content View">
-                            <rect key="frame" x="0.0" y="4" width="414" height="1000"/>
+                            <rect key="frame" x="0.0" y="4" width="428" height="1000"/>
                             <subviews>
                                 <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" currentPage="1" translatesAutoresizingMaskIntoConstraints="NO" id="unn-LK-TV0">
-                                    <rect key="frame" x="129.5" y="414" width="155.5" height="26"/>
+                                    <rect key="frame" x="136.33333333333331" y="428" width="155.33333333333331" height="25"/>
                                     <color key="pageIndicatorTintColor" systemColor="systemGray3Color"/>
                                     <color key="currentPageIndicatorTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </pageControl>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ICB-Vs-A7q">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="428" height="428"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="ICB-Vs-A7q" secondAttribute="height" multiplier="1:1" id="9ay-44-Dut"/>
@@ -53,16 +53,16 @@
                                     </collectionViewFlowLayout>
                                 </collectionView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q1C-Sa-LWz" userLabel="Description View">
-                                    <rect key="frame" x="0.0" y="636" width="414" height="344"/>
+                                    <rect key="frame" x="0.0" y="649" width="428" height="331"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E7S-KY-5ic">
-                                            <rect key="frame" x="5" y="5" width="404" height="29"/>
+                                            <rect key="frame" x="5" y="5" width="418" height="29"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="eQ1-wZ-Woo">
-                                            <rect key="frame" x="10" y="44" width="394" height="101.5"/>
+                                            <rect key="frame" x="10" y="43.999999999999993" width="408" height="81.333333333333314"/>
                                             <string key="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -82,22 +82,22 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="STf-kY-Ywh">
-                                    <rect key="frame" x="0.0" y="450" width="414" height="176"/>
+                                    <rect key="frame" x="0.0" y="463" width="428" height="176"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="productName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="RZh-qJ-DiI" userLabel="productName">
-                                            <rect key="frame" x="10" y="10" width="394" height="21"/>
+                                            <rect key="frame" x="10" y="10" width="408" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JdS-FA-Xdr" userLabel="price">
-                                            <rect key="frame" x="10" y="51" width="182" height="24"/>
+                                            <rect key="frame" x="10" y="51" width="189" height="24"/>
                                             <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ipL-z2-uJ6" userLabel="ratingView" customClass="HCSStarRatingView">
-                                            <rect key="frame" x="197" y="31" width="207" height="44"/>
+                                            <rect key="frame" x="204" y="31" width="214" height="44"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
@@ -111,7 +111,7 @@
                                             </segments>
                                         </segmentedControl>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hrJ-P1-Wjp">
-                                            <rect key="frame" x="294" y="95" width="110" height="31"/>
+                                            <rect key="frame" x="308" y="95" width="110" height="31"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="filled" title="More reviews">
                                                 <color key="baseBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -179,10 +179,10 @@
                     <viewLayoutGuide key="frameLayoutGuide" id="nh5-FF-cnk"/>
                 </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WzA-Hs-YIf">
-                    <rect key="frame" x="0.0" y="1004" width="414" height="51"/>
+                    <rect key="frame" x="0.0" y="1037.6666666666667" width="428" height="55.333333333333258"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JC9-ox-22d">
-                            <rect key="frame" x="10" y="10" width="44.5" height="31"/>
+                            <rect key="frame" x="9.9999999999999964" y="10" width="44.666666666666657" height="35.333333333333336"/>
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system"/>
@@ -191,10 +191,11 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="voD-2S-Zdv">
-                            <rect key="frame" x="64.5" y="10" width="329.5" height="31"/>
+                            <rect key="frame" x="64.666666666666657" y="10" width="343.33333333333337" height="35.333333333333336"/>
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="filled" title="Add to shopping cart">
+                                <fontDescription key="titleFontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="baseBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </buttonConfiguration>
                             <connections>
@@ -226,7 +227,7 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="WzA-Hs-YIf" secondAttribute="bottom" id="zFQ-WK-zvB"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="131.8840579710145" y="252.79017857142856"/>
+            <point key="canvasLocation" x="130.37383177570092" y="316.52267818574518"/>
         </view>
     </objects>
     <designables>

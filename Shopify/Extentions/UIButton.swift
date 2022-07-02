@@ -15,6 +15,11 @@ extension UIButton
         self.layer.cornerRadius = 5
         self.backgroundColor = .black
         self.tintColor = .white
-        self.setAttributedTitle(NSAttributedString(string: title,attributes:[NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 18)]), for: .normal)
+        
+        var fontSize : CGFloat = 18
+        if UIScreen.main.nativeBounds.height < 1700
+        {fontSize = 15}
+        
+        self.setAttributedTitle(NSAttributedString(string: title,attributes:[NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: fontSize)]), for: .normal)
     }
 }
