@@ -30,7 +30,7 @@ class CheckOutVM {
     
     
     func getAddresses() {
-        let customerID =  UserDefaults.standard.integer(forKey: "customerID")
+        let customerID =  Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0
         dataProvider.get(urlStr: Constants.AddressUrl.replacingOccurrences(of: "customerID", with: "\(customerID)") , type: Addresses.self) { [weak self] result in
             self?.AddressList = result?.addresses ?? []
             self?.get()

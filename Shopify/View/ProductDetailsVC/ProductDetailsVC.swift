@@ -59,7 +59,7 @@ class ProductDetailsVC: UIViewController
     //MARK: - IBAction(s)
     @IBAction func toggleWishListBtnPressed(_ sender: Any)
     {
-        let customerID = UserDefaults.standard.integer(forKey: "customerID")
+        let customerID = Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0")
         if customerID == 0
         {
             let alert = UIAlertController(title: "", message: "You must login first!", preferredStyle: .alert)

@@ -22,7 +22,7 @@ struct CustomerModel: Codable
 // MARK: - Customer
 struct Customer: Codable
 {
-    var id: Int?
+    var id: Int64?
     var email: String?
     var accepts_marketing: Bool?
     var created_at, updated_at: String?
@@ -51,7 +51,7 @@ struct Customer: Codable
 // MARK: - Address
 struct Address: Codable
 {
-    var id, customer_id: Int?
+    var id, customer_id: Int64?
     var first_name, last_name: String?
     var company: String?
     var address1: String?

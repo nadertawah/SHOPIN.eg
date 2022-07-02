@@ -36,7 +36,7 @@ class AddAddressVM {
     }
     
     func addAddress() {
-        let customerID =  UserDefaults.standard.integer(forKey: "customerID")
+        let customerID =  Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0
         let parameter = ["address":
                             ["address1":"\(adress ?? "")",
                              "city":"\(selectedCity?.name ?? "")",

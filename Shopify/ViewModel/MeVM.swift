@@ -29,7 +29,7 @@ class MeViewModel
         isLoggedIn.value = UserDefaults.standard.bool(forKey: "isLoggedIn")
         if isLoggedIn.value == true
         {
-            getCustomer(id: UserDefaults.standard.integer(forKey: "customerID"))
+            getCustomer(id: Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0)
         }
     }
     
@@ -42,7 +42,7 @@ class MeViewModel
     }
     
     //MARK: - Helper Funcs
-    func getCustomer(id:Int)
+    func getCustomer(id:Int64)
     {
         dataProvider.get(urlStr: Constants.customersAPIUrl.replacingOccurrences(of: ".json", with: "/\(id).json"), type: CustomerModel.self)
         { [weak self]
@@ -54,7 +54,7 @@ class MeViewModel
     
     func getWishlistProducts()
     {
-        let customerID = UserDefaults.standard.integer(forKey: "customerID")
+        let customerID = Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0
         let predicate = NSPredicate(format: "customerID == \(customerID)")
         dataPersistant.get(type: ProductCoreData.self, predicate: predicate)
         {

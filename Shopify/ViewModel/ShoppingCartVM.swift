@@ -23,7 +23,7 @@ class ShoppingCartVM
         getData()
         
         //if the product already exists
-        if let productIndex = productList.value?.firstIndex(where:  { Int($0.id) == product.id})
+        if let productIndex = productList.value?.firstIndex(where:  { $0.id == product.id})
         {
             let predicate = NSPredicate(format: "id == \(product.id ?? 0)")
             dataPersistant.editObject(type: CartProducts.self, predicate: predicate, valuesForKeys: ["qty" : productList.value?[productIndex].qty ?? 0 + 1])
@@ -42,7 +42,7 @@ class ShoppingCartVM
     var priceSum = Observable<Float>(0)
     
     // MARK: - Add Data to Data-Base using CoreData
-    func addDataToCoreData (title: String ,image: String ,price: String , id: Int , qty: Int , isCheckOut: Bool)
+    func addDataToCoreData (title: String ,image: String ,price: String , id: Int64 , qty: Int , isCheckOut: Bool)
     {
         let dict = ["title": title, "image": image, "price": price, "id": id,"qty": qty,"isCheckedOut": isCheckOut] as [String : Any]
         dataPersistant.insertObject(entityName: "CartProducts", valuesForKeys: dict)

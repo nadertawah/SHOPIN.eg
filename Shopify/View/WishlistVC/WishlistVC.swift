@@ -73,7 +73,7 @@ extension WishlistVC: UICollectionViewDelegate, UICollectionViewDataSource
         let image = Image(src: coreDataProduct?.image ?? "")
         let varients = [Variant(price: coreDataProduct?.price ?? "")]
         
-        let product = Product(id: Int(coreDataProduct?.id ?? 0 ) , title: coreDataProduct?.title ?? "", variants: varients,image: image)
+        let product = Product(id: coreDataProduct?.id ?? 0  , title: coreDataProduct?.title ?? "", variants: varients,image: image)
         if let price = product.variants?[0].price, let currency = UserDefaults.standard.string(forKey: "Currency") {
             let rate = Constants.rates[currency]
             let actualPrice = ( price as NSString).floatValue * (rate ?? 0.0)

@@ -28,7 +28,7 @@ class ProductDetailsVM
     //MARK: - intent(s)
     func toggleWishlist()
     {
-        let customerID = UserDefaults.standard.integer(forKey: "customerID")
+        let customerID = Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0
         if customerID != 0
         {
             if isAddedToWishlist.value == true
@@ -61,7 +61,7 @@ class ProductDetailsVM
     
     func getAddedToWishlistStatus()
     {
-        let customerID = UserDefaults.standard.integer(forKey: "customerID")
+        let customerID = Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0
         if customerID != 0
         {
             let predicate = NSPredicate(format: "id == \(product.value?.id ?? 0) && customerID == \(customerID)")

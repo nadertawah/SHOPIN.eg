@@ -28,7 +28,7 @@ class LoginRegisterVM
             customersModel in
             guard let customers = customersModel?.customers else { return }
             var isLoggedIn = false
-            var customerID : Int = 0
+            var customerID : Int64 = 0
             for customer in customers
             {
                 if customer.email == email && customer.multipass_identifier == password
@@ -42,7 +42,7 @@ class LoginRegisterVM
             
             if isLoggedIn
             {
-                UserDefaults.standard.set(customerID, forKey: "customerID")
+                UserDefaults.standard.set("\(customerID)", forKey: "customerID")
                 UserDefaults.standard.set(true, forKey: "isLoggedIn")
             }
             else

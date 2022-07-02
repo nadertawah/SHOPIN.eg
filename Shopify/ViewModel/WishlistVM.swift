@@ -30,7 +30,7 @@ class WishlistVM
     //MARK: - Helper Funcs
     func getWishlistProducts()
     {
-        let customerID = UserDefaults.standard.integer(forKey: "customerID")
+        let customerID = Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0
         let predicate = NSPredicate(format: "customerID == \(customerID)")
         dataPersistant.get(type: ProductCoreData.self, predicate: predicate)
         {

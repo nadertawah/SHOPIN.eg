@@ -19,7 +19,7 @@ struct Products: Codable {
 // MARK: - Product
 struct Product: Codable
 {
-    var id: Int?
+    var id: Int64?
     var title, body_html, vendor, product_type: String?
     var created_at,updated_at, published_at: String?
     var handle: String?
@@ -33,7 +33,7 @@ struct Product: Codable
 // MARK: - Variant
 struct Variant: Codable
 {
-    var id, product_id: Int?
+    var id, product_id: Int64?
     var title, price, sku: String?
     var position: Int?
     var inventory_policy: String?
@@ -54,7 +54,7 @@ struct Variant: Codable
 // MARK: - Option
 struct Option: Codable
 {
-    var id, product_id: Int?
+    var id, product_id: Int64?
     var name: String?
     var position: Int?
     var values: [String]?
@@ -65,7 +65,7 @@ struct Option: Codable
 // MARK: - Image
 struct Image: Codable
 {
-    var id, product_id, position: Int?
+    var id, product_id, position: Int64?
     var created_at, updated_at: String?
     var alt: String?
     var width, height: Int?

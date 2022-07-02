@@ -22,7 +22,7 @@ class AddAddressVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print(UserDefaults.standard.integer(forKey: "customerID"))
+        print(UserDefaults.standard.string(forKey: "customerID") ?? "")
         
         cityTF.isEnabled = false
         
