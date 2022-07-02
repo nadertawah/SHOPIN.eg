@@ -184,8 +184,6 @@ extension CheckoutVC {
         checkOutVM.BindingParsingclouser = { [weak self] in
             DispatchQueue.main.async {
                 self?.discountList = self?.checkOutVM.discountList ?? []
-                print(self?.discountList[0].title)
-                print(self?.discountList[0].value)
             }
         }
         checkOutVM.getDiscountCodes()
