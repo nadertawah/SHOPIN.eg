@@ -38,6 +38,8 @@ struct Constants
 
     //MARK: - AddressVC Constants
     static let AddressUrl = "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/customers/customerID/addresses.json"
+    static let deletAddressUrl =
+        "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/customers/customerID/addresses/addressID.json"
     //MARK: - AddAddressVC Constants
     static let countryUrl = "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/countries.json"
     static let addAddressUrl =

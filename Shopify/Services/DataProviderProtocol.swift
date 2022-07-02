@@ -11,4 +11,5 @@ protocol DataProviderProtocol
 {
     func get<T:Decodable>(urlStr: String,type: T.Type, completion: @escaping (T?) -> ())
     func post<T:Codable,E:Codable>(urlStr: String,dataType: T.Type,errorType: E.Type,params:[String: Any]? , completion: @escaping (T?,E?) -> ())
+    func delete<T:Codable,E:Codable>(urlStr: String,dataType: T.Type,errorType: E.Type , completion: @escaping (T?,E?) -> ())
 }

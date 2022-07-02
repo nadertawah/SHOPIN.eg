@@ -13,7 +13,14 @@ class AddressVM {
     var country = [String]()
     var city = [String]()
     var addresss = [String]()
+    
     var BindingParsingclosure : () -> Void = {}
+    var BindingParsingclosuresucess : () -> () = {}
+    var BindingParsingclosureError : () ->() = {}
+    
+//    var selectedCountry : Country?
+//    var selectedCity : Provinces?
+//    var adress:String?
     
     var dataProvider : DataProviderProtocol!
     
@@ -37,6 +44,22 @@ class AddressVM {
             country.append(address.country ?? "")
             city.append(address.city ?? "")
             addresss.append(address.address1 ?? "")
+        }
+    }
+    
+    func deleteAddress(addressID : Int) {
+        let customerID =  Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0
+        let url = Constants.deletAddressUrl.replacingOccurrences(of: "customerID", with: "\(customerID)")
+        let fullUrl = url.replacingOccurrences(of: "addressID", with: "\(addressID)")
+        print(fullUrl)
+        
+        dataProvider.delete(urlStr: fullUrl, dataType: Address.self, errorType: AddressErrorModel.self) { result, error in
+            if result != nil{
+                self.BindingParsingclosuresucess()
+            }
+            else{
+                self.BindingParsingclosureError()
+            }
         }
     }
 }

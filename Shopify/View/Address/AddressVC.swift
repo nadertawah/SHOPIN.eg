@@ -78,5 +78,17 @@ extension AddressVC : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
+    
+    // Delete Row Method
+        internal func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if editingStyle == .delete {
+                print("Delete")
+                VM.deleteAddress(addressID: Int(VM.AddressList[indexPath.row].id ?? 0))
+                VM.AddressList.remove(at: indexPath.row)
+                self.addressTableView.deleteRows(at: [indexPath], with: .right)
+                self.addressTableView.reloadData()
+            }
+            
+        }
 }
 
