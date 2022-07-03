@@ -22,3 +22,19 @@ MVVM
 'HCSStarRatingView'
 'SDWebImage'
 
+## Collaborators
+
+### Moataz Mohamed Ismael
+Set 1 :
+Brands , Categories , Orders , Home Design
+
+### Mohamed Ahmed Sayed
+Set 2 :
+Discount code , Shopping Cart , Payment , Ads , Settings
+
+### Nader Said Abd-almageed
+Set 3 :
+Product info , Search , Favorites , Auth
+
+
+
