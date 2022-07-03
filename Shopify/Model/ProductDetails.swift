@@ -33,7 +33,7 @@ struct Product: Codable
 // MARK: - Variant
 struct Variant: Codable
 {
-    var id, product_id: Int?
+    var id, product_id: Int64?
     var title, price, sku: String?
     var position: Int?
     var inventory_policy: String?

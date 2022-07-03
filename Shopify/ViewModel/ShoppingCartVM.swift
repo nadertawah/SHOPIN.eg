@@ -30,7 +30,7 @@ class ShoppingCartVM
         }
         else
         {
-            addDataToCoreData(title: product.title ?? "", image: product.image?.src ?? "", price: product.variants?[0].price ?? "", id: product.id ?? 0, qty: 1, isCheckOut: false)
+            addDataToCoreData(title: product.title ?? "", image: product.image?.src ?? "", price: product.variants?[0].price ?? "", id: product.id ?? 0, qty: 1, isCheckOut: false, variantID: product.variants?[0].id ?? 0)
         }
         
         
@@ -42,9 +42,9 @@ class ShoppingCartVM
     var priceSum = Observable<Float>(0)
     
     // MARK: - Add Data to Data-Base using CoreData
-    func addDataToCoreData (title: String ,image: String ,price: String , id: Int , qty: Int , isCheckOut: Bool)
+    func addDataToCoreData (title: String ,image: String ,price: String , id: Int , qty: Int , isCheckOut: Bool, variantID: Int64)
     {
-        let dict = ["title": title, "image": image, "price": price, "id": id,"qty": qty,"isCheckedOut": isCheckOut] as [String : Any]
+        let dict = ["title": title, "image": image, "price": price, "id": id,"qty": qty,"isCheckedOut": isCheckOut, "variantID": variantID] as [String : Any]
         dataPersistant.insertObject(entityName: "CartProducts", valuesForKeys: dict)
         getData()
     }
