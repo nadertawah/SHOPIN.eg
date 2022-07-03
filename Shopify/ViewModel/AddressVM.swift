@@ -49,7 +49,6 @@ class AddressVM {
         let customerID =  Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0
         let url = Constants.deletAddressUrl.replacingOccurrences(of: "customerID", with: "\(customerID)")
         let fullUrl = url.replacingOccurrences(of: "addressID", with: "\(addressID)")
-        print(fullUrl)
         
         dataProvider.delete(urlStr: fullUrl, dataType: Address.self, errorType: AddressErrorModel.self) { result, error in
             if result != nil{

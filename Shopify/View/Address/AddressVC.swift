@@ -78,7 +78,7 @@ extension AddressVC : UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let addAddressVC = AddAddressVC()
-        addAddressVC.VM = AddAddressVM(dataProvider: API(), editeAddress: true)
+        addAddressVC.VM = AddAddressVM(dataProvider: API(), editeAddress: true, country:VM.country[indexPath.row], city: VM.city[indexPath.row], address: VM.addresss[indexPath.row], addressID: VM.AddressList[indexPath.row].id ?? 0)
         self.navigationController?.pushViewController(addAddressVC, animated: true)
     }
     

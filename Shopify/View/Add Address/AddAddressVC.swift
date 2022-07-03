@@ -53,22 +53,35 @@ class AddAddressVC: UIViewController {
         print(VM.checkEditeAddress)
         if VM.checkEditeAddress == true {
             // To set TextFeilds
-            
+            countryTF.text = VM.country
+            cityTF.text = VM.city
+            addressTF.text = VM.address1
         }
     }
     
     @IBAction func addAddressBtnPressed(_ sender: UIButton) {
-        VM.adress = self.addressTF.text ?? ""
-        VM.addAddress()
         
-        VM.BindingParsingclosuresucess = { [weak self] in 
-            let alert = Alerts.instance.showAlert(title: "Address Added", message: "Address Added Succusfully")
-            self?.present(alert, animated: true, completion: nil)
-        }
-        VM.BindingParsingclosureError = { [weak self] in
-            let alert = Alerts.instance.showAlert(title: "Address Added", message: "Address Already Exists")
-            self?.present(alert, animated: true, completion: nil)
+        if VM.checkEditeAddress == false {
             
+            VM.adress = self.addressTF.text ?? ""
+            VM.addAddress()
+            
+            VM.BindingParsingclosuresucess = { [weak self] in
+                let alert = Alerts.instance.showAlert(title: "Address Added", message: "Address Added Succusfully")
+                self?.present(alert, animated: true, completion: nil)
+            }
+            VM.BindingParsingclosureError = { [weak self] in
+                let alert = Alerts.instance.showAlert(title: "Address Added", message: "Address Already Exists")
+                self?.present(alert, animated: true, completion: nil)
+            }
+        } else if VM.checkEditeAddress == true {
+            VM.adress = self.addressTF.text ?? ""
+            VM.editAddress()
+            
+            VM.BindingParsingclosuresucess = { [weak self] in
+                let alert = Alerts.instance.showAlert(title: "Edit Address", message: "Address Edited Succusfully")
+                self?.present(alert, animated: true, completion: nil)
+            }
         }
     }
     
