@@ -149,7 +149,6 @@ class MeVC: UIViewController
                 self?.welcomeLabel.alpha = 1
                 self?.logoutBtn.alpha = 1
                 self?.loginRegisterBtn.alpha = 0
-                
             }
         }
         else
@@ -160,6 +159,9 @@ class MeVC: UIViewController
                 self?.welcomeLabel.alpha = 0
                 self?.logoutBtn.alpha = 0
                 self?.loginRegisterBtn.alpha = 1
+                self?.moreOrdersBtn.isEnabled = false
+                self?.moreWishlistBtn.isEnabled = false
+
             }
         }
     }

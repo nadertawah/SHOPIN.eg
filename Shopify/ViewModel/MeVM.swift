@@ -22,7 +22,7 @@ class MeViewModel
     private(set) var isLoggedIn = Observable<Bool>(UserDefaults.standard.bool(forKey: "isLoggedIn"))
     private(set) var customer = Observable<Customer>(nil)
     private(set) var wishlistProducts = Observable<[ProductCoreData]>([])
-    var ordersList = Observable<[Order]>([])
+    private(set) var ordersList = Observable<[Order]>([])
 
 
     //MARK: - intent(s)
@@ -70,10 +70,10 @@ class MeViewModel
     
     func getOrdersHistory()
     {
-        let customerID = UserDefaults.standard.string(forKey: "customerID") ?? ""
+        let customerID = Helper.getCustomerID()
         dataProvider.get(urlStr: Constants.ordersHistoryURL, type: Orders.self) { result in
             for order in (result?.orders ?? []) {
-                if order.customer?.id == Int64(customerID) {
+                if order.customer?.id == customerID {
                     self.ordersList.value?.append(order)
                 }
             }

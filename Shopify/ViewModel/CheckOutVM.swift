@@ -65,10 +65,10 @@ class CheckOutVM {
     
     func postOrder(completionHandler : @escaping (String)->())
     {
-        let customerID = UserDefaults.standard.string(forKey: "customerID") ?? ""
+        let customerID = Helper.getCustomerID()
         let currency = UserDefaults.standard.string(forKey: "Currency") ?? ""
         var lineItems = [[String: Any]]()
-        dataProvider.get(urlStr: Constants.customersAPIUrl.replacingOccurrences(of: "customers.json", with: "customers/\(customerID).json"), type: CustomerModel.self) { [weak self] result in
+        dataProvider.get(urlStr: Constants.customersAPIUrl.replacingOccurrences(of: ".json", with: "/\(customerID).json"), type: CustomerModel.self) { [weak self] result in
             self?.customerEMail = result?.customer?.email ?? ""
             
             for product in (self?.productList.value ?? [])
