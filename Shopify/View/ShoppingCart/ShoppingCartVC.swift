@@ -8,8 +8,17 @@
 import UIKit
 import SDWebImage
 
-class ShoppingCartVC: UIViewController
-{
+class ShoppingCartVC: UIViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setUI()
+    }
+    override func viewWillAppear(_ animated: Bool)
+    {
+        VM.getData()
+    }
+    
     //MARK: - IBOutlet(s)
     @IBOutlet weak var cartTableView: UITableView!
     @IBOutlet weak var subTotalLabel: UILabel!
@@ -19,9 +28,25 @@ class ShoppingCartVC: UIViewController
     //MARK: - Var(s)
     var VM : ShoppingCartVM!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    // MARK: - IBActions
+        @IBAction func proccedToChechoutBtnPressed(_ sender: Any)
+        {
+            if VM.productList.value?.isEmpty == true
+            {
+                let alert = Alerts.instance.showAlert(title: "No Products", message: "Please Add Products To be able to check out")
+                self.present(alert, animated: true, completion: nil)
+            }
+            else
+            {
+                let checkOutVC = CheckoutVC()
+                checkOutVC.checkOutVM = CheckOutVM(dataProvider: API(), total: "\(VM.priceSum.value ?? 0)")
+                self.navigationController?.pushViewController(checkOutVC, animated: true)
+            }
+        }
+    
+    //MARK: - Helper functions
+    func setUI()
+    {
         //Title for Screen
         title = "Shopping Cart"
         
@@ -55,27 +80,6 @@ class ShoppingCartVC: UIViewController
                 self?.subTotalLabel.text = String(format: "%.2f", actualSum) + " " + currency
                 self?.cartTableView.reloadData()
             }
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool)
-    {
-        VM.getData()
-    }
-    
-// MARK: - IBActions
-    @IBAction func proccedToChechoutBtnPressed(_ sender: Any)
-    {
-        if VM.productList.value?.isEmpty == true
-        {
-            let alert = Alerts.instance.showAlert(title: "No Products", message: "Please Add Products To be able to check out")
-            self.present(alert, animated: true, completion: nil)
-        }
-        else
-        {
-            let checkOutVC = CheckoutVC()
-            checkOutVC.checkOutVM = CheckOutVM(dataProvider: API(), total: "\(VM.priceSum.value ?? 0)")
-            self.navigationController?.pushViewController(checkOutVC, animated: true)
         }
     }
 }

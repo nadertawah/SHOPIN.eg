@@ -15,9 +15,8 @@ class ContactUsVC: UIViewController {
         setUI ()
     }
 
-
+    //MARK: - Helper functions
     func setUI () {
-        
         //title
         title = "Contact Us"
     }

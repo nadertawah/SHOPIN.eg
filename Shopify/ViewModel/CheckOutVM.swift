@@ -9,6 +9,7 @@ import Foundation
 
 class CheckOutVM {
     
+    //MARK: - Var(s)
     var BindingParsingclouser : () -> Void = {}
     var discountList = [PriceRule]()
     var subTotal = ""
@@ -17,9 +18,9 @@ class CheckOutVM {
     var city = [String]()
     var addresss = [String]()
     var BindingParsingclosure : () -> Void = {}
-    
     var dataProvider : DataProviderProtocol!
     
+    //MARK: - Init
     init(dataProvider : DataProviderProtocol , total : String)
     {
         self.dataProvider = dataProvider
@@ -28,7 +29,7 @@ class CheckOutVM {
     }
     
     
-    
+    //MARK: - Helper Funcs
     func getAddresses() {
         let customerID =  Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0
         dataProvider.get(urlStr: Constants.AddressUrl.replacingOccurrences(of: "customerID", with: "\(customerID)") , type: Addresses.self) { [weak self] result in

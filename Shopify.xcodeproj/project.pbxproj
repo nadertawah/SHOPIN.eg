@@ -441,10 +441,6 @@
 		755C4687285E3935005C4208 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8D2A1D4E286FAB7200B0902A /* About Us */,
-				8D2A1D49286FA94300B0902A /* Contact Us */,
-				8D6CC587286B863300310313 /* Add Address */,
-				8D6CC582286B7E6A00310313 /* Address */,
 				75B75F4E286B76C600E18277 /* WishlistVC */,
 				8D6CC578286B51CC00310313 /* Setting */,
 				755C468F285E46F9005C4208 /* Base */,
@@ -681,6 +677,9 @@
 				8D6CC579286B51ED00310313 /* SettingVC.swift */,
 				8D6CC57A286B51ED00310313 /* SettingVC.xib */,
 				8D6CC57D286B52B200310313 /* SettingCell */,
+				8D6CC582286B7E6A00310313 /* Address */,
+				8D2A1D4E286FAB7200B0902A /* About Us */,
+				8D2A1D49286FA94300B0902A /* Contact Us */,
 				76A3EF6A286C6B1000A1DED7 /* Currency */,
 			);
 			path = Setting;
@@ -698,6 +697,7 @@
 		8D6CC582286B7E6A00310313 /* Address */ = {
 			isa = PBXGroup;
 			children = (
+				8D6CC587286B863300310313 /* Add Address */,
 				8D6CC588286B866300310313 /* AddressVC.swift */,
 				8D6CC589286B866300310313 /* AddressVC.xib */,
 				8D6CC592286B8D5600310313 /* AddressCell */,
