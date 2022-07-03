@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CheckoutVC" customModule="Shopify" customModuleProvider="target">
             <connections>
+                <outlet property="addShippingAddress" destination="B7e-Fy-S1f" id="9xU-6S-NVX"/>
                 <outlet property="addressLabel" destination="8OW-ep-sEP" id="7Xb-LN-KCa"/>
                 <outlet property="applyCouponBtn" destination="GF7-kW-Ywf" id="0i5-Sw-puh"/>
                 <outlet property="cityLabel" destination="VGp-rN-iWq" id="Dc5-2O-heN"/>
@@ -155,13 +156,13 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VGp-rN-iWq">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VGp-rN-iWq">
                             <rect key="frame" x="0.0" y="21" width="280" height="16"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8OW-ep-sEP">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8OW-ep-sEP">
                             <rect key="frame" x="0.0" y="40" width="280" height="17"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <nil key="textColor"/>
@@ -170,6 +171,20 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B7e-Fy-S1f">
+                    <rect key="frame" x="35" y="223" width="250" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="29m-KK-rPd"/>
+                        <constraint firstAttribute="width" constant="250" id="pKu-Cn-Nwe"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Add Shipping Address">
+                        <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="addShippingAdress:" destination="-1" eventType="touchUpInside" id="aOL-JL-rdH"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -181,6 +196,7 @@
                 <constraint firstItem="ULA-nq-vj3" firstAttribute="top" secondItem="iQ2-UL-C9A" secondAttribute="bottom" constant="20" id="6YR-Qi-gsl"/>
                 <constraint firstItem="ByH-uA-ymu" firstAttribute="trailing" secondItem="A2E-16-F0C" secondAttribute="trailing" id="76p-v7-Vf4"/>
                 <constraint firstItem="6ac-o2-s2Z" firstAttribute="leading" secondItem="FKb-IN-qKR" secondAttribute="leading" id="7lR-qu-uLw"/>
+                <constraint firstItem="B7e-Fy-S1f" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="894-ga-vk7"/>
                 <constraint firstItem="ULA-nq-vj3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="9MI-mo-slN"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="BCX-K0-6gp" secondAttribute="trailing" constant="20" id="Flg-2s-xzY"/>
                 <constraint firstItem="yvH-Dc-5UQ" firstAttribute="top" secondItem="33E-NY-gLl" secondAttribute="bottom" constant="15" id="GBa-3A-i4E"/>
@@ -192,14 +208,17 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ULA-nq-vj3" secondAttribute="trailing" constant="20" id="Taf-aI-Bjb"/>
                 <constraint firstItem="ULA-nq-vj3" firstAttribute="leading" secondItem="iQ2-UL-C9A" secondAttribute="leading" id="WCh-G8-kLS"/>
                 <constraint firstItem="BCX-K0-6gp" firstAttribute="top" secondItem="iQ2-UL-C9A" secondAttribute="top" id="YWW-VE-6sh"/>
+                <constraint firstItem="B7e-Fy-S1f" firstAttribute="centerY" secondItem="33E-NY-gLl" secondAttribute="centerY" id="Yay-u2-s3x"/>
                 <constraint firstItem="A2E-16-F0C" firstAttribute="trailing" secondItem="ULA-nq-vj3" secondAttribute="trailing" id="YdC-cX-Xgm"/>
                 <constraint firstItem="33E-NY-gLl" firstAttribute="top" secondItem="6ac-o2-s2Z" secondAttribute="bottom" constant="15" id="YnK-8m-jKz"/>
+                <constraint firstItem="B7e-Fy-S1f" firstAttribute="top" secondItem="6ac-o2-s2Z" secondAttribute="bottom" constant="23.5" id="aiK-D9-pAc"/>
                 <constraint firstItem="ByH-uA-ymu" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="aoY-QE-U1N"/>
                 <constraint firstItem="A2E-16-F0C" firstAttribute="centerY" secondItem="FKb-IN-qKR" secondAttribute="centerY" id="bUZ-7s-Sg5"/>
                 <constraint firstItem="2C2-wU-Oa5" firstAttribute="top" secondItem="GAO-Qg-Ku0" secondAttribute="bottom" constant="20" id="fWJ-XC-3N4"/>
                 <constraint firstItem="yvH-Dc-5UQ" firstAttribute="leading" secondItem="FKb-IN-qKR" secondAttribute="leading" id="fhP-dX-orR"/>
                 <constraint firstItem="GAO-Qg-Ku0" firstAttribute="trailing" secondItem="2C2-wU-Oa5" secondAttribute="trailing" id="jsj-AC-Csg"/>
                 <constraint firstItem="6ac-o2-s2Z" firstAttribute="top" secondItem="FKb-IN-qKR" secondAttribute="bottom" constant="15" id="nQ1-aq-QRK"/>
+                <constraint firstItem="yvH-Dc-5UQ" firstAttribute="top" secondItem="B7e-Fy-S1f" secondAttribute="bottom" constant="23.5" id="qpW-Ia-iJA"/>
                 <constraint firstItem="iQ2-UL-C9A" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="twI-s6-ee3"/>
                 <constraint firstItem="FKb-IN-qKR" firstAttribute="leading" secondItem="ULA-nq-vj3" secondAttribute="leading" id="tyw-Zn-Ric"/>
                 <constraint firstItem="2C2-wU-Oa5" firstAttribute="top" secondItem="8wc-Xh-0dC" secondAttribute="bottom" constant="20" id="zYo-Qf-kiU"/>
