@@ -697,10 +697,9 @@
 		8D6CC582286B7E6A00310313 /* Address */ = {
 			isa = PBXGroup;
 			children = (
-				8D6CC587286B863300310313 /* Add Address */,
 				8D6CC588286B866300310313 /* AddressVC.swift */,
 				8D6CC589286B866300310313 /* AddressVC.xib */,
-				8D6CC592286B8D5600310313 /* AddressCell */,
+				8D6CC587286B863300310313 /* Add Address */,
 			);
 			path = Address;
 			sourceTree = "<group>";
@@ -710,6 +709,7 @@
 			children = (
 				8D6CC583286B7E8700310313 /* AddAddressVC.swift */,
 				8D6CC584286B7E8700310313 /* AddAddressVC.xib */,
+				8D6CC592286B8D5600310313 /* AddressCell */,
 			);
 			path = "Add Address";
 			sourceTree = "<group>";

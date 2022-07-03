@@ -62,7 +62,7 @@ class AddAddressVC: UIViewController {
         //Btn Confirgation
         saveAddressBtn.shopifyBtn(title: "Save Address")
         
-        //TextFeilds Configrations
+        //TextFeilds Configrations/Users/azooz/Desktop/untitled folder/Shopify/Shopify/View/Setting
         countryTF.shopifyTF(placeholder: "Chose Countrt")
         cityTF.shopifyTF(placeholder: "Chose City")
         addressTF.shopifyTF(placeholder: "Enter Address")
@@ -85,6 +85,8 @@ class AddAddressVC: UIViewController {
                 let alert = Alerts.instance.showAlert(title: "Address Added", message: "Address Already Exists")
                 self?.present(alert, animated: true, completion: nil)
             }
+            let vc = SettingVC()
+            self.navigationController?.pushViewController(vc, animated: true)
         } else if VM.checkEditeAddress == true {
             VM.adress = self.addressTF.text ?? ""
             VM.editAddress()
@@ -93,6 +95,8 @@ class AddAddressVC: UIViewController {
                 let alert = Alerts.instance.showAlert(title: "Edit Address", message: "Address Edited Succusfully")
                 self?.present(alert, animated: true, completion: nil)
             }
+            let vc = SettingVC()
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     
