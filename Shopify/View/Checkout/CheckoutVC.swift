@@ -73,15 +73,20 @@ class CheckoutVC: UIViewController {
     }
     
     @IBAction func placeOrderBtnPressed(_ sender: Any) {
-
-        // Place a new order
-        checkOutVM.postOrder
-        { [weak self] resultMessage in
-            
-            DispatchQueue.main.async
-            {
-                [weak self] in
-                self?.alert(title: "", message: resultMessage)
+        
+        if selectedPaymentOptionIndex == 1 {
+            let alert = Alerts.instance.showAlert(title: "Online Payment", message: "This Service is Not Available right now!")
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            // Place a new order
+            checkOutVM.postOrder
+            { [weak self] resultMessage in
+                
+                DispatchQueue.main.async
+                {
+                    [weak self] in
+                    self?.alert(title: "", message: resultMessage)
+                }
             }
         }
     }
