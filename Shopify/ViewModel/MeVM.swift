@@ -29,7 +29,7 @@ class MeViewModel
         isLoggedIn.value = UserDefaults.standard.bool(forKey: "isLoggedIn")
         if isLoggedIn.value == true
         {
-            getCustomer(id: Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0)
+            getCustomer(id: Helper.getCustomerID())
         }
     }
     
@@ -54,12 +54,15 @@ class MeViewModel
     
     func getWishlistProducts()
     {
-        let customerID = Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0
-        let predicate = NSPredicate(format: "customerID == \(customerID)")
-        dataPersistant.get(type: ProductCoreData.self, predicate: predicate)
+        let customerID = Helper.getCustomerID()
+        if customerID != 0
         {
-            [weak self] in
-            self?.wishlistProducts.value = $0
+            let predicate = NSPredicate(format: "customerID == \(customerID)")
+            dataPersistant.get(type: ProductCoreData.self, predicate: predicate)
+            {
+                [weak self] in
+                self?.wishlistProducts.value = $0
+            }
         }
     }
 }

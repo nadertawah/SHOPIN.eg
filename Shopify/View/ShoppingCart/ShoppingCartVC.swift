@@ -12,6 +12,8 @@ class ShoppingCartVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         setUI()
     }
     override func viewWillAppear(_ animated: Bool)

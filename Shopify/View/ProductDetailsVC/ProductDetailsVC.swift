@@ -59,12 +59,9 @@ class ProductDetailsVC: UIViewController
     //MARK: - IBAction(s)
     @IBAction func toggleWishListBtnPressed(_ sender: Any)
     {
-        let customerID = Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0")
-        if customerID == 0
+        if Helper.getCustomerID() == 0
         {
-            let alert = UIAlertController(title: "", message: "You must login first!", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Ok", style: .default)
-            alert.addAction(action)
+            let alert = Alerts.instance.showAlert(title: "", message: "You must login first!")
             self.present(alert, animated: true)
         }
         else
@@ -75,9 +72,17 @@ class ProductDetailsVC: UIViewController
     
     @IBAction func addToShoppingCartBtnPressed(_ sender: Any)
     {
-        let shopingCartVC = ShoppingCartVC()
-        shopingCartVC.VM = ShoppingCartVM(dataPersistant: VM.dataPersistant,product: VM.product.value ?? Product())
-        self.navigationController?.pushViewController(shopingCartVC, animated: true)
+        if Helper.getCustomerID() == 0
+        {
+            let alert = Alerts.instance.showAlert(title: "", message: "You must login first!")
+            self.present(alert, animated: true)
+        }
+        else
+        {
+            let shopingCartVC = ShoppingCartVC()
+            shopingCartVC.VM = ShoppingCartVM(dataPersistant: VM.dataPersistant,product: VM.product.value ?? Product())
+            self.navigationController?.pushViewController(shopingCartVC, animated: true)
+        }
     }
     @IBAction func moreReviewsBtnPressed(_ sender: Any)
     {

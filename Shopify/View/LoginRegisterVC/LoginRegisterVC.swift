@@ -46,7 +46,8 @@ class LoginRegisterVC: UIViewController
             {
                 if nameTextField.text!.isEmpty && !phoneNumberTextField.text!.isEmpty
                 {
-                    alert(title: "Error", message: "All fields are required!")
+                    let alert = Alerts.instance.showAlert(title: "", message: "All fields are required!")
+                    self.present(alert, animated: true)
                 }
                 else
                 {
@@ -57,7 +58,8 @@ class LoginRegisterVC: UIViewController
                         DispatchQueue.main.async
                         {
                             [weak self] in
-                            self?.alert(title: "", message: resulMsg)
+                            let alert = Alerts.instance.showAlert(title: "", message: resulMsg)
+                            self?.present(alert, animated: true)
                         }
                     }
                 }
@@ -87,16 +89,9 @@ class LoginRegisterVC: UIViewController
         }
        else
        {
-           alert(title: "Error", message: "All fields are required!")
+           let alert = Alerts.instance.showAlert(title: "", message: "All fields are required!")
+           self.present(alert, animated: true)
        }
-    }
-    
-    func alert(title: String, message: String)
-    {
-        var alert = UIAlertController()
-        alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default))
-        self.present(alert, animated: true)
     }
     
     //MARK: - Var(s)

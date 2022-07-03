@@ -27,13 +27,9 @@ class ProductCell: UICollectionViewCell {
     //MARK: - IBAction(s)
     @IBAction func wishListBtnPressed(_ sender: UIButton)
     {
-        let customerID = UserDefaults.standard.integer(forKey: "customerID")
-        if customerID == 0
+        if Helper.getCustomerID() == 0
         {
-            let alert = UIAlertController(title: "", message: "You must login first!", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Ok", style: .default)
-            alert.addAction(action)
-
+            let alert = Alerts.instance.showAlert(title: "", message: "You must login first!")
             window?.rootViewController?.present(alert, animated: true)
 
         }

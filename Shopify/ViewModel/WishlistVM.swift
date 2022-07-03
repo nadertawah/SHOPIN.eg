@@ -23,21 +23,19 @@ class WishlistVM
     var wishlistProducts = Observable<[ProductCoreData]>([])
     private(set) var productID : Int!
 
-    //MARK: - intent(s)
-    
-    
     
     //MARK: - Helper Funcs
     func getWishlistProducts()
     {
-        let customerID = Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0
-        let predicate = NSPredicate(format: "customerID == \(customerID)")
-        dataPersistant.get(type: ProductCoreData.self, predicate: predicate)
+        let customerID = Helper.getCustomerID()
+        if customerID != 0
         {
-            [weak self] in
-            self?.wishlistProducts.value = $0
+            let predicate = NSPredicate(format: "customerID == \(customerID)")
+            dataPersistant.get(type: ProductCoreData.self, predicate: predicate)
+            {
+                [weak self] in
+                self?.wishlistProducts.value = $0
+            }
         }
     }
-    
-   
 }

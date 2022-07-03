@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+struct Helper
+{
+    static func getCustomerID() -> Int64
+    {
+        return Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0
+    }
+}

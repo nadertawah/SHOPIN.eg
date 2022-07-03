@@ -31,12 +31,16 @@ class CheckOutVM {
     
     //MARK: - Helper Funcs
     func getAddresses() {
-        let customerID =  Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0
-        dataProvider.get(urlStr: Constants.AddressUrl.replacingOccurrences(of: "customerID", with: "\(customerID)") , type: Addresses.self) { [weak self] result in
-            self?.AddressList = result?.addresses ?? []
-            self?.get()
-            self?.BindingParsingclosure()
+        let customerID =  Helper.getCustomerID()
+        if customerID != 0
+        {
+            dataProvider.get(urlStr: Constants.AddressUrl.replacingOccurrences(of: "customerID", with: "\(customerID)") , type: Addresses.self) { [weak self] result in
+                self?.AddressList = result?.addresses ?? []
+                self?.get()
+                self?.BindingParsingclosure()
+            }
         }
+        
     }
     
     func get() {

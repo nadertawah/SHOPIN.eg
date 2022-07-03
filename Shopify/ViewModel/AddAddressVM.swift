@@ -59,43 +59,50 @@ class AddAddressVM {
     }
     
     func addAddress() {
-        let customerID =  Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0
-        let parameter = ["address":
-                            ["address1":"\(adress ?? "")",
-                             "city":"\(selectedCity?.name ?? "")",
-                             "first_name":"Azooz",
-                             "country":"\(selectedCountry?.name ?? "")",
-                             "country_name":"\(selectedCountry?.name ?? "")"
-                            ]
-        ]
-        dataProvider.post(urlStr: Constants.AddressUrl.replacingOccurrences(of: "customerID", with: "\(customerID)"), dataType: Address.self, errorType: AddressErrorModel.self, params: parameter) { result, error in
-            if result != nil{
-                self.BindingParsingclosuresucess()
-            }
-            else{
-                self.BindingParsingclosureError()
+        let customerID = Helper.getCustomerID()
+        if customerID != 0
+        {
+            let parameter = ["address":
+                                ["address1":"\(adress ?? "")",
+                                 "city":"\(selectedCity?.name ?? "")",
+                                 "first_name":"Azooz",
+                                 "country":"\(selectedCountry?.name ?? "")",
+                                 "country_name":"\(selectedCountry?.name ?? "")"
+                                ]
+            ]
+            dataProvider.post(urlStr: Constants.AddressUrl.replacingOccurrences(of: "customerID", with: "\(customerID)"), dataType: Address.self, errorType: AddressErrorModel.self, params: parameter) { result, error in
+                if result != nil{
+                    self.BindingParsingclosuresucess()
+                }
+                else{
+                    self.BindingParsingclosureError()
+                }
             }
         }
+       
     }
     
     func editAddress() {
-        let customerID =  Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0
-        let url = Constants.editAddressUrl.replacingOccurrences(of: "customerID", with: "\(customerID)")
-        let fullUrl = url.replacingOccurrences(of: "addressID", with: "\(addressID)")
-        let parameter = ["address":
-                            ["address1":"\(adress ?? "")",
-                             "city":"\(selectedCity?.name ?? "")",
-                             "first_name":"Azooz",
-                             "country":"\(selectedCountry?.name ?? "")",
-                             "country_name":"\(selectedCountry?.name ?? "")"
-                            ]
-        ]
-        dataProvider.put(urlStr: fullUrl, dataType: Address.self, errorType: AddressErrorModel.self, params: parameter) { result, error in
-            if result != nil{
-                self.BindingParsingclosuresucess()
-            }
-            else{
-                self.BindingParsingclosureError()
+        let customerID = Helper.getCustomerID()
+        if customerID != 0
+        {
+            let url = Constants.editAddressUrl.replacingOccurrences(of: "customerID", with: "\(customerID)")
+            let fullUrl = url.replacingOccurrences(of: "addressID", with: "\(addressID)")
+            let parameter = ["address":
+                                ["address1":"\(adress ?? "")",
+                                 "city":"\(selectedCity?.name ?? "")",
+                                 "first_name":"Azooz",
+                                 "country":"\(selectedCountry?.name ?? "")",
+                                 "country_name":"\(selectedCountry?.name ?? "")"
+                                ]
+            ]
+            dataProvider.put(urlStr: fullUrl, dataType: Address.self, errorType: AddressErrorModel.self, params: parameter) { result, error in
+                if result != nil{
+                    self.BindingParsingclosuresucess()
+                }
+                else{
+                    self.BindingParsingclosureError()
+                }
             }
         }
     }
