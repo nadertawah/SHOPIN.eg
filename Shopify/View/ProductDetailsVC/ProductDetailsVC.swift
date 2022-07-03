@@ -81,7 +81,7 @@ class ProductDetailsVC: UIViewController
         else
         {
             let shopingCartVC = ShoppingCartVC()
-            shopingCartVC.VM = ShoppingCartVM(dataPersistant: VM.dataPersistant,product: VM.product.value ?? Product())
+            shopingCartVC.VM = ShoppingCartVM(dataPersistant: VM.dataPersistant,product: VM.product.value ?? Product(), sizeOption: sizeSegmentControl.titleForSegment(at: sizeSegmentControl.selectedSegmentIndex) ?? "")
             self.navigationController?.pushViewController(shopingCartVC, animated: true)
         }
     }

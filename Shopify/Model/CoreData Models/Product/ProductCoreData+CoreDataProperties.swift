@@ -21,5 +21,5 @@ extension ProductCoreData {
     @NSManaged public var image: String?
     @NSManaged public var title: String?
     @NSManaged public var price: String?
-
+    @NSManaged public var size: String?
 }

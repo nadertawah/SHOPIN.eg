@@ -25,6 +25,7 @@ class ProductDetailsVM
     private(set) var product = Observable<Product>(Product())
     private(set) var isAddedToWishlist = Observable<Bool>(false)
     
+    
     //MARK: - intent(s)
     func toggleWishlist()
     {
