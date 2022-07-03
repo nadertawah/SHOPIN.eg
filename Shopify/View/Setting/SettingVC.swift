@@ -9,14 +9,26 @@ import UIKit
 
 class SettingVC: UIViewController {
     
-    // OutLets
-    @IBOutlet weak var settingTableView: UITableView!
-    
-    var setting : [String] = []
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        settingTableView.reloadData()
+    }
+    
+    //MARK: - IBOutlet(s)
+    @IBOutlet weak var settingTableView: UITableView!
+    
+    
+    //MARK: - Variable(s)
+    var setting : [String] = []
+    
+    
+    //MARK: - Helper functions
+    func setUI()
+    {
         // Confirm DataSource & Delegate for TableView
         settingTableView.dataSource = self
         settingTableView.delegate = self
@@ -24,11 +36,8 @@ class SettingVC: UIViewController {
         // Registration of setting Cell
         settingTableView.register(UINib(nibName: "SettingCell", bundle: nil), forCellReuseIdentifier: "SettingCell")
         
+        // Setting Parameters
         setting = [ "Address" , "Currency" , "About us" , "Contact us" ]
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        settingTableView.reloadData()
     }
     
 }
@@ -37,10 +46,11 @@ class SettingVC: UIViewController {
 
 // MARK: - SettingVC DataSource & Delegate Methods
 extension SettingVC: UITableViewDelegate , UITableViewDataSource {
+    //Number of Rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return setting.count
     }
-    
+    //Cell for Row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = settingTableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as! SettingCell
         if indexPath.row == 1 {
@@ -53,11 +63,11 @@ extension SettingVC: UITableViewDelegate , UITableViewDataSource {
         
         return cell
     }
-    
+    //Row Height
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
-    
+    //Did select Row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         switch indexPath.row {

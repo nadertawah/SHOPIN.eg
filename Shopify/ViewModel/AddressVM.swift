@@ -9,25 +9,26 @@ import Foundation
 
 class AddressVM {
     
+    //MARK: - Var(s)
     var AddressList = [Address]()
     var country = [String]()
     var city = [String]()
     var addresss = [String]()
     
-    
     var BindingParsingclosure : () -> Void = {}
     var BindingParsingclosuresucess : () -> () = {}
     var BindingParsingclosureError : () ->() = {}
     
-
     var dataProvider : DataProviderProtocol!
     
+    //MARK: - Init
     init(dataProvider : DataProviderProtocol )
     {
         self.dataProvider = dataProvider
         getAddresses()
     }
     
+    //MARK: - Helper Funcs
     func getAddresses() {
         let customerID =  Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0
         dataProvider.get(urlStr: Constants.AddressUrl.replacingOccurrences(of: "customerID", with: "\(customerID)") , type: Addresses.self) { [weak self] result in

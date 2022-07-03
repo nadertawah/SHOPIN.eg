@@ -9,7 +9,7 @@ import UIKit
 
 class ShoppingCartCell: UITableViewCell {
 
-    //OutLets
+    //MARK: - IBOutlet(s)
     @IBOutlet weak var productImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!

@@ -9,7 +9,8 @@ import Foundation
 
 class AddAddressVM {
     
-    
+    //MARK: - Var(s)
+
     var countriesList : [Country] = []
     var selectedCountry : Country?
     var selectedCity : Provinces?
@@ -28,6 +29,8 @@ class AddAddressVM {
     
     var dataProvider : DataProviderProtocol!
     
+    
+    //MARK: - Init(s)
     init(dataProvider : DataProviderProtocol , editeAddress : Bool)
     {
         self.dataProvider = dataProvider
@@ -46,7 +49,8 @@ class AddAddressVM {
         self.addressID = addressID
     }
     
-    
+    //MARK: - Helper Funcs
+
     func getCountires() {
         dataProvider.get(urlStr: Constants.countryUrl, type: Countries.self) { [weak self] result in
             self?.countriesList = result?.countries ?? []
@@ -78,7 +82,6 @@ class AddAddressVM {
         let customerID =  Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0
         let url = Constants.editAddressUrl.replacingOccurrences(of: "customerID", with: "\(customerID)")
         let fullUrl = url.replacingOccurrences(of: "addressID", with: "\(addressID)")
-        print(fullUrl)
         let parameter = ["address":
                             ["address1":"\(adress ?? "")",
                              "city":"\(selectedCity?.name ?? "")",
@@ -87,7 +90,6 @@ class AddAddressVM {
                              "country_name":"\(selectedCountry?.name ?? "")"
                             ]
         ]
-        print(parameter)
         dataProvider.put(urlStr: fullUrl, dataType: Address.self, errorType: AddressErrorModel.self, params: parameter) { result, error in
             if result != nil{
                 self.BindingParsingclosuresucess()

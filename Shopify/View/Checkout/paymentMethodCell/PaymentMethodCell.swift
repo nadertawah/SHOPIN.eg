@@ -9,7 +9,7 @@ import UIKit
 
 class PaymentMethodCell: UITableViewCell {
 
-    // OutLets
+    //MARK: - IBOutlet(s)
     @IBOutlet weak var checkPaymentBtn: UIButton!
     @IBOutlet weak var PaymentImage: UIImageView!
     @IBOutlet weak var paymentLabel: UILabel!
