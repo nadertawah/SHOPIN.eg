@@ -21,7 +21,7 @@ class CheckOutVM {
     var dataProvider : DataProviderProtocol!
     
     //MARK: - Init
-    init(dataProvider : DataProviderProtocol , total : String)
+    init(dataProvider : DataProviderProtocol , total : String )
     {
         self.dataProvider = dataProvider
         getAddresses()

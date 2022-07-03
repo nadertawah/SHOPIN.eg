@@ -31,16 +31,22 @@ class ShoppingCartVC: UIViewController {
     // MARK: - IBActions
         @IBAction func proccedToChechoutBtnPressed(_ sender: Any)
         {
-            if VM.productList.value?.isEmpty == true
-            {
-                let alert = Alerts.instance.showAlert(title: "No Products", message: "Please Add Products To be able to check out")
+            let customerID = Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0
+            if customerID != 0 {
+                if VM.productList.value?.isEmpty == true
+                {
+                    let alert = Alerts.instance.showAlert(title: "No Products", message: "Please Add Products To be able to check out")
+                    self.present(alert, animated: true, completion: nil)
+                }
+                else
+                {
+                    let checkOutVC = CheckoutVC()
+                    checkOutVC.checkOutVM = CheckOutVM(dataProvider: API(), total: "\(VM.priceSum.value ?? 0)")
+                    self.navigationController?.pushViewController(checkOutVC, animated: true)
+                }
+            } else {
+                let alert = Alerts.instance.showAlert(title: "Not Registered", message: "You must login first!")
                 self.present(alert, animated: true, completion: nil)
-            }
-            else
-            {
-                let checkOutVC = CheckoutVC()
-                checkOutVC.checkOutVM = CheckOutVM(dataProvider: API(), total: "\(VM.priceSum.value ?? 0)")
-                self.navigationController?.pushViewController(checkOutVC, animated: true)
             }
         }
     

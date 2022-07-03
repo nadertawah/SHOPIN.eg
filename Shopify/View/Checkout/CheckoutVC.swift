@@ -37,6 +37,7 @@ class CheckoutVC: UIViewController {
     @IBOutlet weak var countryLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var addShippingAddress: UIButton!
     
     //MARK: - Variable(s)
     var checkOutVM : CheckOutVM!
@@ -75,6 +76,11 @@ class CheckoutVC: UIViewController {
     @IBAction func placeOrderBtnPressed(_ sender: Any) {
         
     }
+    @IBAction func addShippingAdress(_ sender: UIButton) {
+        let VC = AddAddressVC()
+        VC.VM = AddAddressVM(dataProvider: API(), editeAddress: false)
+        self.navigationController?.pushViewController(VC, animated: true)
+    }
     
     //MARK: - Helper functions
     func setUI () {
@@ -84,6 +90,9 @@ class CheckoutVC: UIViewController {
         
         //Title for Screen
         title = "Check Out"
+        
+        //Hide Btn
+        addShippingAddress.isHidden = true
         
         // Confirm DataSource & Delegate for TableView
         paymentMethodTabelView.dataSource = self
@@ -101,6 +110,7 @@ class CheckoutVC: UIViewController {
         // Configration Of Buttons
         placeOrderBtn.shopifyBtn(title: "PLACE ORDER")
         applyCouponBtn.shopifyBtn(title: "APPLY")
+        addShippingAddress.shopifyBtn(title: "Add Shipping Address")
         
         // Configration Of TextField
         couponTF.shopifyTF(placeholder: "Apply Coupon")
@@ -108,11 +118,18 @@ class CheckoutVC: UIViewController {
         // Address
         checkOutVM.BindingParsingclosure = { [weak self] in
             DispatchQueue.main.sync {
-                self?.countryLabel.text = self?.checkOutVM.country[0]
-                self?.cityLabel.text =  self?.checkOutVM.city[0]
-                self?.addressLabel.text = self?.checkOutVM.addresss[0]
-                
-                self?.counntry = self?.checkOutVM.country[0] ?? ""
+                if self?.checkOutVM.country.isEmpty ?? false {
+                    self?.countryLabel.isHidden = true
+                    self?.cityLabel.isHidden = true
+                    self?.addressLabel.isHidden = true
+                    self?.addShippingAddress.isHidden = false
+                } else {
+                    self?.countryLabel.text = self?.checkOutVM.country[0]
+                    self?.cityLabel.text =  self?.checkOutVM.city[0]
+                    self?.addressLabel.text = self?.checkOutVM.addresss[0]
+                    self?.counntry = self?.checkOutVM.country[0] ?? ""
+                    self?.addShippingAddress.isHidden = true
+                }
                 
                 if self?.counntry == "Egypt" {
                     self?.shippingFees = 0
@@ -121,9 +138,9 @@ class CheckoutVC: UIViewController {
                     self?.shippingFees = 100
                     self?.shippingFeesLabel.text = "\(self?.shippingFees ?? 0)"
                 }
-
+                
             }
-
+            
         }
         
     }
