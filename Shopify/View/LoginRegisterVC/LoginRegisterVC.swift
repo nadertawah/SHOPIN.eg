@@ -36,8 +36,12 @@ class LoginRegisterVC: UIViewController
     
     @IBOutlet weak var swipeLabel: UILabel!
     
-
+    
     //MARK: - IBAction(s)
+    @IBAction func emailTFChanged(_ sender: UITextField)
+    {
+        sender.text = sender.text?.lowercased()
+    }
     @IBAction func loginRegisterBtnPressed(_ sender: Any)
     {
         if !emailTextField.text!.isEmpty && !passwordTextField.text!.isEmpty
