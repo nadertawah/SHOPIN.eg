@@ -44,6 +44,9 @@ struct Constants
     static let countryUrl = "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/countries.json"
     static let addAddressUrl =
     "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/customers/customerID/addresses.json"
+    
+    //MARK: - MeVC Constants
+    static let ordersHistoryURL = "https://menofia-2022-q3.myshopify.com/admin/api/2022-01/orders.json?status=any"
 
     
     static let productCoreDataEntityName = "ProductCoreData"

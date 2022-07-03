@@ -69,16 +69,17 @@ class CheckOutVM {
             for product in (self?.productList.value ?? [])
             {
                 let item = ["variant_id": product.variantID, "quantity": product.qty]
+                lineItems.append(item)
             }
             let parameter = ["order":
                                 ["currency":currency,
-                                 "email":self?.customerEMail,
+                                 "email":self?.customerEMail ?? "",
                                  "fulfillment_status":"fulfilled",
                                  "line_items":lineItems
                                 ]
             ]
             
-            self?.dataProvider.post(urlStr: Constants.ordersURL, dataType: OrderModel.self, errorType: OrderErrorModel.self, params: parameter)
+            self?.dataProvider.post(urlStr: Constants.ordersURL, dataType: Order.self, errorType: OrderErrorModel.self, params: parameter)
             {
                 if $0 != nil
                 {

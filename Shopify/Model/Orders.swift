@@ -8,15 +8,19 @@
 import Foundation
 
 // MARK: - Order Model
-struct OrderModel: Codable
+struct Orders: Codable
 {
-    var order: Order?
+    var orders: [Order]?
 }
 
 // MARK: - Order
 struct Order: Codable
 {
+    var id: Int64?
+    var closed_at: String?
     var email: String?
+    var current_total_price: String?
+    var customer: Customer?
     var fulfillment_status: String?
     var line_items: [Item]?
 }
