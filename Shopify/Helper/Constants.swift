@@ -33,8 +33,10 @@ struct Constants
     static let collectsAPIUrl = "https://menofia-2022-q3.myshopify.com/admin/api/2022-01/collects.json"
     static let mainCategoryCellReuseIdentifier = "mainCategoryCell"
     static let subCategoryCellReuseIdentifier = "subCategoryCell"
+    
     //MARK: - CheckOutVC Constants
     static let discountCodesUrl = "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/price_rules.json"
+    static let ordersURL = "https://menofia-2022-q3.myshopify.com/admin/api/2022-01/orders.json"
 
     //MARK: - AddressVC Constants
     static let AddressUrl = "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/customers/customerID/addresses.json"
@@ -46,6 +48,9 @@ struct Constants
     static let countryUrl = "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/countries.json"
     static let addAddressUrl =
     "https://menofia-2022-q3.myshopify.com/admin/api/2022-04/customers/customerID/addresses.json"
+    
+    //MARK: - MeVC Constants
+    static let ordersHistoryURL = "https://menofia-2022-q3.myshopify.com/admin/api/2022-01/orders.json?status=any"
 
     
     static let productCoreDataEntityName = "ProductCoreData"

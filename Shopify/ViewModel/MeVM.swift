@@ -19,26 +19,28 @@ class MeViewModel
     var dataProvider : DataProviderProtocol
     var dataPersistant: DataPersistantProtocol
 
-    private(set) var isLoggedIn = Observable<Bool>(UserDefaults.standard.bool(forKey: "isLoggedIn"))
+    private(set) var isLoggedIn = Observable<Bool>(Helper.getCustomerID() != 0)
     private(set) var customer = Observable<Customer>(nil)
     private(set) var wishlistProducts = Observable<[ProductCoreData]>([])
+    private(set) var ordersList = Observable<[Order]>([])
+
 
     //MARK: - intent(s)
     func getLoginState()
     {
-        isLoggedIn.value = UserDefaults.standard.bool(forKey: "isLoggedIn")
-        if isLoggedIn.value == true
+        let customerID = Helper.getCustomerID()
+        if customerID != 0
         {
-            getCustomer(id: Helper.getCustomerID())
+            isLoggedIn.value = true
+            getCustomer(id: customerID)
         }
     }
     
     func logout()
     {
-        UserDefaults.standard.set(false, forKey: "isLoggedIn")
         isLoggedIn.value = false
         
-        UserDefaults.standard.removeObject(forKey: "customerID")
+        UserDefaults.standard.set("0", forKey: "customerID")
     }
     
     //MARK: - Helper Funcs
@@ -62,6 +64,18 @@ class MeViewModel
             {
                 [weak self] in
                 self?.wishlistProducts.value = $0
+            }
+        }
+    }
+    
+    func getOrdersHistory()
+    {
+        let customerID = Helper.getCustomerID()
+        dataProvider.get(urlStr: Constants.ordersHistoryURL, type: Orders.self) { result in
+            for order in (result?.orders ?? []) {
+                if order.customer?.id == customerID {
+                    self.ordersList.value?.append(order)
+                }
             }
         }
     }

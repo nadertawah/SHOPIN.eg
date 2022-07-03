@@ -43,7 +43,6 @@ class LoginRegisterVM
             if isLoggedIn
             {
                 UserDefaults.standard.set("\(customerID)", forKey: "customerID")
-                UserDefaults.standard.set(true, forKey: "isLoggedIn")
             }
             else
             {

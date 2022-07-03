@@ -49,33 +49,6 @@ class CheckoutVC: UIViewController {
     var PaymentMethodArrIcon = ["cash","online"]
     var selectedPaymentOptionIndex = -1
     
-    // MARK: - IBActions
-    @IBAction func applyCopounBtnPressed(_ sender: Any) {
-
-        var discountCodeindex = -1
-        for i in 0..<discountList.count {
-            if couponTF.text == discountList[i].title {
-                discountCodeindex = i
-                break
-            }
-        }
-        if discountCodeindex != -1 {
-            discount = (discountList[discountCodeindex].value! as NSString).integerValue
-            let subTotal = Float(checkOutVM?.subTotal ?? "0") ?? 0
-            discountLabel.text = "\(discountList[discountCodeindex].value!)"
-            totalLabel.text = adjustAmount(amount: ((Float(subTotal) + Float(shippingFees)) + Float(discount) ))
-        }
-        else
-        {
-            let alert = Alerts.instance.showAlert(title: "Invalid Code", message: "Please Enter Correct Discount Code to Get Your Discount")
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    @IBAction func placeOrderBtnPressed(_ sender: Any) {
-        
-    }
-    
     //MARK: - Helper functions
     func setUI () {
         
@@ -141,6 +114,50 @@ class CheckoutVC: UIViewController {
     {
         selectedPaymentOptionIndex = sender.tag
         paymentMethodTabelView.reloadData()
+    }
+    // MARK: - IBActions
+    @IBAction func applyCopounBtnPressed(_ sender: Any) {
+
+        var discountCodeindex = -1
+        for i in 0..<discountList.count {
+            if couponTF.text == discountList[i].title {
+                discountCodeindex = i
+                break
+            }
+        }
+        if discountCodeindex != -1 {
+            discount = (discountList[discountCodeindex].value! as NSString).integerValue
+            let subTotal = Int(checkOutVM?.subTotal ?? "0") ?? 0
+            discountLabel.text = "\(discountList[discountCodeindex].value!)"
+            totalLabel.text = "\((subTotal + shippingFees) + discount )"
+        }
+        else
+        {
+            let alert = Alerts.instance.showAlert(title: "Invalid Code", message: "Please Enter Correct Discount Code to Get Your Discount")
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func placeOrderBtnPressed(_ sender: Any) {
+
+        // Place a new order
+        checkOutVM.postOrder
+        { [weak self] resultMessage in
+            
+            DispatchQueue.main.async
+            {
+                [weak self] in
+                self?.alert(title: "", message: resultMessage)
+            }
+        }
+    }
+    
+    func alert(title: String, message: String)
+    {
+        var alert = UIAlertController()
+        alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default))
+        self.present(alert, animated: true)
     }
 }
 

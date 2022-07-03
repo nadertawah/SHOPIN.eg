@@ -17,12 +17,15 @@ class CheckOutVM {
     var country = [String]()
     var city = [String]()
     var addresss = [String]()
+    var customerEMail = ""
+    var productList = Observable<[CartProducts]>([])
     var BindingParsingclosure : () -> Void = {}
     var dataProvider : DataProviderProtocol!
     
     //MARK: - Init
-    init(dataProvider : DataProviderProtocol , total : String)
+    init(dataProvider : DataProviderProtocol , total : String, products: Observable<[CartProducts]>)
     {
+        productList.value = products.value
         self.dataProvider = dataProvider
         getAddresses()
         subTotal = total
@@ -59,8 +62,50 @@ class CheckOutVM {
             self?.BindingParsingclouser()
         }
     }
-
-
+    
+    func postOrder(completionHandler : @escaping (String)->())
+    {
+        let customerID = Helper.getCustomerID()
+        let currency = UserDefaults.standard.string(forKey: "Currency") ?? ""
+        var lineItems = [[String: Any]]()
+        dataProvider.get(urlStr: Constants.customersAPIUrl.replacingOccurrences(of: ".json", with: "/\(customerID).json"), type: CustomerModel.self) { [weak self] result in
+            self?.customerEMail = result?.customer?.email ?? ""
+            
+            for product in (self?.productList.value ?? [])
+            {
+                let item = ["variant_id": product.variantID, "quantity": product.qty]
+                lineItems.append(item)
+            }
+            let parameter = ["order":
+                                ["currency":currency,
+                                 "email":self?.customerEMail ?? "",
+                                 "fulfillment_status":"fulfilled",
+                                 "line_items":lineItems
+                                ]
+            ]
+            
+            self?.dataProvider.post(urlStr: Constants.ordersURL, dataType: Order.self, errorType: OrderErrorModel.self, params: parameter)
+            {
+                if $0 != nil
+                {
+                    completionHandler("Order Placed Successfully!")
+                }
+                else if let errors = $1?.errors
+                {
+                    var message = ""
+                    if let emailError = errors.email
+                    {
+                        message += "Email: \(emailError)\n"
+                    }
+                    else
+                    {
+                        message = "Error"
+                    }
+                    completionHandler(message)
+                }
+            }
+        }
+    }
     
 }
 
