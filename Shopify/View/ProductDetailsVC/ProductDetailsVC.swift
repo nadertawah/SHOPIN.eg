@@ -19,7 +19,8 @@ class ProductDetailsVC: UIViewController
         setUI()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool)
+    {
         setPrice()
     }
     

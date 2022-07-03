@@ -100,16 +100,20 @@ class MeVC: UIViewController
         //bind wishlist products
         VM.wishlistProducts.bind
         {
-            [weak self] in
-            if $0?.count ?? 0 > 4
+            [weak self] products in
+            DispatchQueue.main.async
             {
-                self?.moreWishlistBtn.isEnabled = true
+                if products?.count ?? 0 > 4
+                {
+                    self?.moreWishlistBtn.isEnabled = true
+                }
+                else
+                {
+                    self?.moreWishlistBtn.isEnabled = false
+                }
+                self?.wishlistTableView.reloadData()
             }
-            else
-            {
-                self?.moreWishlistBtn.isEnabled = false
-            }
-            self?.wishlistTableView.reloadData()
+            
         }
         
         //TODO: - get wishlist items (if > 4, enable more btn)

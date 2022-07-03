@@ -44,6 +44,8 @@
 		759B531528627E1B0061474E /* ReviewsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 759B531328627E1B0061474E /* ReviewsVC.xib */; };
 		759B531828627E790061474E /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759B531628627E790061474E /* ReviewsTableViewCell.swift */; };
 		759B531928627E790061474E /* ReviewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 759B531728627E790061474E /* ReviewsTableViewCell.xib */; };
+		759F7AFA287223020025DE4F /* ReviewsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759F7AF9287223020025DE4F /* ReviewsVM.swift */; };
+		759F7AFC287223A70025DE4F /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759F7AFB287223A70025DE4F /* Review.swift */; };
 		75B75F4A286B69B600E18277 /* ProductCoreData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B75F48286B69B600E18277 /* ProductCoreData+CoreDataProperties.swift */; };
 		75B75F4B286B69B600E18277 /* ProductCoreData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B75F49286B69B600E18277 /* ProductCoreData+CoreDataClass.swift */; };
 		75B75F4D286B6B7A00E18277 /* DataPersistantProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B75F4C286B6B7A00E18277 /* DataPersistantProtocol.swift */; };
@@ -207,6 +209,8 @@
 		759B531328627E1B0061474E /* ReviewsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewsVC.xib; sourceTree = "<group>"; };
 		759B531628627E790061474E /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsTableViewCell.swift; sourceTree = "<group>"; };
 		759B531728627E790061474E /* ReviewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewsTableViewCell.xib; sourceTree = "<group>"; };
+		759F7AF9287223020025DE4F /* ReviewsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsVM.swift; sourceTree = "<group>"; };
+		759F7AFB287223A70025DE4F /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		75B75F48286B69B600E18277 /* ProductCoreData+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProductCoreData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		75B75F49286B69B600E18277 /* ProductCoreData+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProductCoreData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		75B75F4C286B6B7A00E18277 /* DataPersistantProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataPersistantProtocol.swift; sourceTree = "<group>"; };
@@ -336,6 +340,7 @@
 				8D6CC595286B966700310313 /* AddAddressVM.swift */,
 				75B75F63286B78AF00E18277 /* WishlistVM.swift */,
 				75B75F65286B835E00E18277 /* ProductCellVM.swift */,
+				759F7AF9287223020025DE4F /* ReviewsVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -471,6 +476,7 @@
 				76A3EF662865EA1D00A1DED7 /* Categories.swift */,
 				76A3EF682867287A00A1DED7 /* Collects.swift */,
 				8D6CC593286B914500310313 /* Address.swift */,
+				759F7AFB287223A70025DE4F /* Review.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1075,6 +1081,7 @@
 				75378E56285E4F16004DAD3D /* BaseNavBar.swift in Sources */,
 				8D6CC594286B914500310313 /* Address.swift in Sources */,
 				8DAF4FB32864522F004DB212 /* CheckOutVM.swift in Sources */,
+				759F7AFA287223020025DE4F /* ReviewsVM.swift in Sources */,
 				757DA7782865D41800CEBE56 /* MeVM.swift in Sources */,
 				75165920285FE1C200132444 /* HomeVM.swift in Sources */,
 				8DFCF05D2862AF29007D30A0 /* UITextField.swift in Sources */,
@@ -1130,6 +1137,7 @@
 				755C468D285E39A4005C4208 /* CoreData.swift in Sources */,
 				759B531428627E1B0061474E /* ReviewsVC.swift in Sources */,
 				75B75F66286B835E00E18277 /* ProductCellVM.swift in Sources */,
+				759F7AFC287223A70025DE4F /* Review.swift in Sources */,
 				8D9854F42866E844004FF7F8 /* ShopifyCoreData.xcdatamodeld in Sources */,
 				8D6CC580286B52D100310313 /* SettingCell.swift in Sources */,
 				7524F769285FDE4B00BFBE51 /* Helper.swift in Sources */,
