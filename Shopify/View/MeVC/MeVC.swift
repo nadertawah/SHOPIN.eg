@@ -38,7 +38,9 @@ class MeVC: UIViewController
     
     @IBAction func moreOrdersBtnPressed(_ sender: Any)
     {
-        
+        let vc = OrdersHistoryVC()
+        vc.VM = MeViewModel(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func moreWishlistBtnPressed(_ sender: Any)
@@ -71,7 +73,7 @@ class MeVC: UIViewController
         wishlistTableView.dataSource = self
         
         //register cell
-        ordersTableView.register(UINib(nibName: labelCellIdentfier, bundle: nil), forCellReuseIdentifier: labelCellIdentfier)
+        ordersTableView.register(UINib(nibName: "OrderCell", bundle: nil), forCellReuseIdentifier: "orderCell")
         
         wishlistTableView.register(UINib(nibName: labelCellIdentfier, bundle: nil), forCellReuseIdentifier: labelCellIdentfier)
         
@@ -101,7 +103,7 @@ class MeVC: UIViewController
         VM.wishlistProducts.bind
         {
             [weak self] in
-            if $0?.count ?? 0 > 4
+            if ($0?.count ?? 0) > 4
             {
                 self?.moreWishlistBtn.isEnabled = true
             }
@@ -112,8 +114,22 @@ class MeVC: UIViewController
             self?.wishlistTableView.reloadData()
         }
         
-        //TODO: - get wishlist items (if > 4, enable more btn)
-        //TODO: - get order history (if > 2, enable more btn)
+        //bind orders history
+        VM.ordersList.bind
+        {
+            [weak self] resultOrders in
+            DispatchQueue.main.async {
+                if (resultOrders?.count ?? 0) > 2
+                {
+                    self?.moreOrdersBtn.isEnabled = true
+                }
+                else
+                {
+                    self?.moreOrdersBtn.isEnabled = false
+                }
+                self?.ordersTableView.reloadData()
+            }
+        }
     }
     
     @IBAction func loginRegisterBtnPressed(_ sender: Any)
@@ -135,7 +151,6 @@ class MeVC: UIViewController
                 self?.loginRegisterBtn.alpha = 0
                 
             }
-            
         }
         else
         {
@@ -176,6 +191,7 @@ class MeVC: UIViewController
     {
         VM.getLoginState()
         VM.getWishlistProducts()
+        VM.getOrdersHistory()
     }
 }
 
@@ -188,7 +204,8 @@ extension MeVC : UITableViewDelegate, UITableViewDataSource
         {
             if tableView == ordersTableView
             {
-                return 2
+                let count = VM.ordersList.value?.count ?? 0
+                return count < 2 ? count : 2
             }
             else if tableView == wishlistTableView
             {
@@ -205,22 +222,26 @@ extension MeVC : UITableViewDelegate, UITableViewDataSource
     {
         if tableView == ordersTableView
         {
-            guard let cell = ordersTableView.dequeueReusableCell(withIdentifier: labelCellIdentfier) as? LabelTableViewCell else {return UITableViewCell()}
+            guard let cell = ordersTableView.dequeueReusableCell(withIdentifier: "orderCell") as? OrderCell else {return UITableViewCell()}
             
+            var order = VM.ordersList.value?[0]
+
             switch indexPath.row
             {
-                case 0 :
-                    cell.label.text = "Price: 555\nCreated At: \(Date())"
-                    break
-                
-                    
-                case 1 :
-                    cell.label.text = "Price: 444\nCreated At: \(Date())"
-                    break
-                
-                default:
-                    break
+            case 0:
+                order = VM.ordersList.value?[0]
+                break
+            case 1:
+                order = VM.ordersList.value?[1]
+                break
+            default:
+                order = Order()
             }
+
+            cell.orderIDLabel.text = "\(order?.id ?? 0)"
+            cell.dateLabel.text = order?.closed_at
+            cell.totalAmountLabel.text = order?.current_total_price
+            
             return cell
         }
         else if tableView == wishlistTableView
