@@ -58,9 +58,9 @@ class CheckoutVC: UIViewController {
         }
         if discountCodeindex != -1 {
             discount = (discountList[discountCodeindex].value! as NSString).integerValue
-            let subTotal = Int(checkOutVM?.subTotal ?? "0") ?? 0
+            let subTotal = Float(checkOutVM?.subTotal ?? "0") ?? 0
             discountLabel.text = "\(discountList[discountCodeindex].value!)"
-            totalLabel.text = "\((subTotal + shippingFees) + discount )"
+            totalLabel.text = adjustAmount(amount: ((Float(subTotal) + Float(shippingFees)) + Float(discount) ))
         }
         else
         {

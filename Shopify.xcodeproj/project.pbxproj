@@ -676,10 +676,10 @@
 			children = (
 				8D6CC579286B51ED00310313 /* SettingVC.swift */,
 				8D6CC57A286B51ED00310313 /* SettingVC.xib */,
+				8D6CC57D286B52B200310313 /* SettingCell */,
 				8D6CC582286B7E6A00310313 /* Address */,
 				8D2A1D4E286FAB7200B0902A /* About Us */,
 				8D2A1D49286FA94300B0902A /* Contact Us */,
-				8D6CC57D286B52B200310313 /* SettingCell */,
 				76A3EF6A286C6B1000A1DED7 /* Currency */,
 			);
 			path = Setting;
