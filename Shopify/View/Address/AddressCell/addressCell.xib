@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,33 +18,43 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="T46-Im-41I">
-                        <rect key="frame" x="20" y="16.5" width="280" height="71"/>
+                        <rect key="frame" x="20" y="16.5" width="235" height="71"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7db-v2-914">
-                                <rect key="frame" x="0.0" y="0.0" width="280" height="24"/>
+                                <rect key="frame" x="0.0" y="0.0" width="235" height="24"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ch-bS-40h">
-                                <rect key="frame" x="0.0" y="27" width="280" height="20.5"/>
+                                <rect key="frame" x="0.0" y="27" width="235" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="la9-jj-2yA">
-                                <rect key="frame" x="0.0" y="50.5" width="280" height="20.5"/>
+                                <rect key="frame" x="0.0" y="50.5" width="235" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                     </stackView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f0l-cW-YIR">
+                        <rect key="frame" x="265" y="35" width="40" height="34"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="faZ-7o-qpp"/>
+                            <constraint firstAttribute="height" constant="40" id="zXS-ke-VYC"/>
+                        </constraints>
+                        <imageReference key="image" image="chevron.right" catalog="system" symbolScale="small" renderingMode="original"/>
+                    </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="f0l-cW-YIR" firstAttribute="leading" secondItem="T46-Im-41I" secondAttribute="trailing" constant="10" id="cjD-2Q-CB9"/>
+                    <constraint firstItem="f0l-cW-YIR" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="hNv-ui-LuT"/>
                     <constraint firstItem="T46-Im-41I" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="nKk-Ju-o3A"/>
-                    <constraint firstAttribute="trailing" secondItem="T46-Im-41I" secondAttribute="trailing" constant="20" id="r25-HC-mX8"/>
                     <constraint firstItem="T46-Im-41I" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="sAd-zd-y5d"/>
+                    <constraint firstAttribute="trailing" secondItem="f0l-cW-YIR" secondAttribute="trailing" constant="15" id="vKn-Gk-coS"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -55,4 +66,7 @@
             <point key="canvasLocation" x="137.68115942028987" y="77.678571428571431"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="chevron.right" catalog="system" width="96" height="128"/>
+    </resources>
 </document>

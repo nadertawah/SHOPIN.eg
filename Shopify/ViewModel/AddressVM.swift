@@ -14,17 +14,15 @@ class AddressVM {
     var city = [String]()
     var addresss = [String]()
     
+    
     var BindingParsingclosure : () -> Void = {}
     var BindingParsingclosuresucess : () -> () = {}
     var BindingParsingclosureError : () ->() = {}
     
-//    var selectedCountry : Country?
-//    var selectedCity : Provinces?
-//    var adress:String?
-    
+
     var dataProvider : DataProviderProtocol!
     
-    init(dataProvider : DataProviderProtocol)
+    init(dataProvider : DataProviderProtocol )
     {
         self.dataProvider = dataProvider
         getAddresses()

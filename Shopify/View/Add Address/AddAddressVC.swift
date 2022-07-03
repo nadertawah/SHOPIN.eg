@@ -14,15 +14,13 @@ class AddAddressVC: UIViewController {
     @IBOutlet weak var addressTF: UITextField!
     @IBOutlet weak var saveAddressBtn: UIButton!
     
-    let VM = AddAddressVM(dataProvider: API())
+    var VM : AddAddressVM!
   
     var countryPickerView = UIPickerView()
     var cityPickerView = UIPickerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        print(UserDefaults.standard.string(forKey: "customerID") ?? "")
         
         cityTF.isEnabled = false
         
@@ -47,8 +45,17 @@ class AddAddressVC: UIViewController {
         countryTF.shopifyTF(placeholder: "Chose Countrt")
         cityTF.shopifyTF(placeholder: "Chose City")
         addressTF.shopifyTF(placeholder: "Enter Address")
+        
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print(VM.checkEditeAddress)
+        if VM.checkEditeAddress == true {
+            // To set TextFeilds
+            
+        }
+    }
     
     @IBAction func addAddressBtnPressed(_ sender: UIButton) {
         VM.adress = self.addressTF.text ?? ""

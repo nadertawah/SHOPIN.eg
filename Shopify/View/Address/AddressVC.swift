@@ -55,6 +55,7 @@ class AddressVC: UIViewController {
     //MARK: - IBOutlet(s)
     @IBAction func addAddressBtnPressed(_ sender: UIButton) {
         let addAddressVC = AddAddressVC()
+        addAddressVC.VM = AddAddressVM(dataProvider: API(), editeAddress: false)
         self.navigationController?.pushViewController(addAddressVC, animated: true)
     }
 }
@@ -74,6 +75,13 @@ extension AddressVC : UITableViewDelegate , UITableViewDataSource {
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let addAddressVC = AddAddressVC()
+        addAddressVC.VM = AddAddressVM(dataProvider: API(), editeAddress: true)
+        self.navigationController?.pushViewController(addAddressVC, animated: true)
+    }
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150

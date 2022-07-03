@@ -15,6 +15,7 @@ class AddAddressVM {
     var selectedCity : Provinces?
     var adress:String?
     var ErorMessage:String?
+    var checkEditeAddress = false
     
     var BindingParsingclosure : () -> Void = {}
     var BindingParsingclosuresucess : () -> () = {}
@@ -22,10 +23,11 @@ class AddAddressVM {
     
     var dataProvider : DataProviderProtocol!
     
-    init(dataProvider : DataProviderProtocol)
+    init(dataProvider : DataProviderProtocol , editeAddress : Bool)
     {
         self.dataProvider = dataProvider
         getCountires()
+        checkEditeAddress = editeAddress
     }
     
     func getCountires() {
