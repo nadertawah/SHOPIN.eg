@@ -37,11 +37,11 @@ class CheckoutVC: UIViewController {
     @IBOutlet weak var countryLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var addShippingAddress: UIButton!
     
     //MARK: - Variable(s)
     var checkOutVM : CheckOutVM!
     var discountList = [PriceRule]()
-    
     var shippingFees = 0
     var discount = 0
     var counntry = ""
@@ -49,72 +49,6 @@ class CheckoutVC: UIViewController {
     var PaymentMethodArrIcon = ["cash","online"]
     var selectedPaymentOptionIndex = -1
     
-    //MARK: - Helper functions
-    func setUI () {
-        
-        //Load Discount Codes
-        getDiscountCodes()
-        
-        //Title for Screen
-        title = "Check Out"
-        
-        // Confirm DataSource & Delegate for TableView
-        paymentMethodTabelView.dataSource = self
-        paymentMethodTabelView.delegate = self
-        
-        // Registration of Payment Method Cell
-        paymentMethodTabelView.register(UINib(nibName: "PaymentMethodCell", bundle: nil), forCellReuseIdentifier: "PaymentMethodCell")
-        
-
-        // label configrations
-        subTotalLabel.text = checkOutVM.subTotal
-        discountLabel.text = "0"
-        
-
-        // Configration Of Buttons
-        placeOrderBtn.shopifyBtn(title: "PLACE ORDER")
-        applyCouponBtn.shopifyBtn(title: "APPLY")
-        
-        // Configration Of TextField
-        couponTF.shopifyTF(placeholder: "Apply Coupon")
-        
-        // Address
-        checkOutVM.BindingParsingclosure = { [weak self] in
-            DispatchQueue.main.sync {
-                self?.countryLabel.text = self?.checkOutVM.country[0]
-                self?.cityLabel.text =  self?.checkOutVM.city[0]
-                self?.addressLabel.text = self?.checkOutVM.addresss[0]
-                
-                self?.counntry = self?.checkOutVM.country[0] ?? ""
-                
-                if self?.counntry == "Egypt" {
-                    self?.shippingFees = 0
-                    self?.shippingFeesLabel.text = "\(self?.shippingFees ?? 0)"
-                } else {
-                    self?.shippingFees = 100
-                    self?.shippingFeesLabel.text = "\(self?.shippingFees ?? 0)"
-                }
-
-            }
-
-        }
-        
-    }
-    
-
-    func adjustAmount(amount: Float) -> String
-    {
-        let currency = UserDefaults.standard.string(forKey: "Currency") ?? ""
-        let rate = Constants.rates[currency]
-        let adjustedAmount =  amount * (rate ?? 0)
-        return String(format: "%.2f", adjustedAmount) + " " + currency
-    }
-    
-    @objc func paymentMethodButtonPressed(sender:UIButton)
-    {
-        selectedPaymentOptionIndex = sender.tag
-        paymentMethodTabelView.reloadData()
-    }
     // MARK: - IBActions
     @IBAction func applyCopounBtnPressed(_ sender: Any) {
 
@@ -127,9 +61,9 @@ class CheckoutVC: UIViewController {
         }
         if discountCodeindex != -1 {
             discount = (discountList[discountCodeindex].value! as NSString).integerValue
-            let subTotal = Int(checkOutVM?.subTotal ?? "0") ?? 0
+            let subTotal = Float(checkOutVM?.subTotal ?? "0") ?? 0
             discountLabel.text = "\(discountList[discountCodeindex].value!)"
-            totalLabel.text = "\((subTotal + shippingFees) + discount )"
+            totalLabel.text = adjustAmount(amount: ((Float(subTotal) + Float(shippingFees)) + Float(discount) ))
         }
         else
         {
@@ -150,6 +84,90 @@ class CheckoutVC: UIViewController {
                 self?.alert(title: "", message: resultMessage)
             }
         }
+    }
+    
+    @IBAction func addShippingAdress(_ sender: UIButton) {
+        let VC = AddAddressVC()
+        VC.VM = AddAddressVM(dataProvider: API(), editeAddress: false)
+        self.navigationController?.pushViewController(VC, animated: true)
+    }
+    
+    //MARK: - Helper functions
+    func setUI () {
+        
+        //Load Discount Codes
+        getDiscountCodes()
+        
+        //Title for Screen
+        title = "Check Out"
+        
+        //Hide Btn
+        addShippingAddress.isHidden = true
+        
+        // Confirm DataSource & Delegate for TableView
+        paymentMethodTabelView.dataSource = self
+        paymentMethodTabelView.delegate = self
+        
+        // Registration of Payment Method Cell
+        paymentMethodTabelView.register(UINib(nibName: "PaymentMethodCell", bundle: nil), forCellReuseIdentifier: "PaymentMethodCell")
+        
+
+        // label configrations
+        subTotalLabel.text = checkOutVM.subTotal
+        discountLabel.text = "0"
+        
+
+        // Configration Of Buttons
+        placeOrderBtn.shopifyBtn(title: "PLACE ORDER")
+        applyCouponBtn.shopifyBtn(title: "APPLY")
+        addShippingAddress.shopifyBtn(title: "Add Shipping Address")
+        
+        // Configration Of TextField
+        couponTF.shopifyTF(placeholder: "Apply Coupon")
+        
+        // Address
+        checkOutVM.BindingParsingclosure = { [weak self] in
+            DispatchQueue.main.sync {
+                if self?.checkOutVM.country.isEmpty ?? false {
+                    self?.countryLabel.isHidden = true
+                    self?.cityLabel.isHidden = true
+                    self?.addressLabel.isHidden = true
+                    self?.addShippingAddress.isHidden = false
+                } else {
+                    self?.countryLabel.text = self?.checkOutVM.country[0]
+                    self?.cityLabel.text =  self?.checkOutVM.city[0]
+                    self?.addressLabel.text = self?.checkOutVM.addresss[0]
+                    self?.counntry = self?.checkOutVM.country[0] ?? ""
+                    self?.addShippingAddress.isHidden = true
+                }
+                
+                if self?.counntry == "Egypt" {
+                    self?.shippingFees = 0
+                    self?.shippingFeesLabel.text = "\(self?.shippingFees ?? 0)"
+                } else {
+                    self?.shippingFees = 100
+                    self?.shippingFeesLabel.text = "\(self?.shippingFees ?? 0)"
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+
+    func adjustAmount(amount: Float) -> String
+    {
+        let currency = UserDefaults.standard.string(forKey: "Currency") ?? ""
+        let rate = Constants.rates[currency]
+        let adjustedAmount =  amount * (rate ?? 0)
+        return String(format: "%.2f", adjustedAmount) + " " + currency
+    }
+    
+    @objc func paymentMethodButtonPressed(sender:UIButton)
+    {
+        selectedPaymentOptionIndex = sender.tag
+        paymentMethodTabelView.reloadData()
     }
     
     func alert(title: String, message: String)
