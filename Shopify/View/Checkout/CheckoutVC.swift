@@ -137,6 +137,11 @@ class CheckoutVC: UIViewController {
         return String(format: "%.2f", adjustedAmount) + " " + currency
     }
     
+    @objc func paymentMethodButtonPressed(sender:UIButton)
+    {
+        selectedPaymentOptionIndex = sender.tag
+        paymentMethodTabelView.reloadData()
+    }
 }
 
 // MARK: - CheckoutVC DataSource & Delegate Methods
@@ -159,7 +164,8 @@ extension CheckoutVC : UITableViewDelegate , UITableViewDataSource {
         {
             cell.checkPaymentBtn.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
         }
-        
+        cell.checkPaymentBtn.tag = indexPath.row
+        cell.checkPaymentBtn.addTarget(self, action: #selector(paymentMethodButtonPressed(sender:)), for: .touchUpInside)
         return cell
         
     }
