@@ -74,7 +74,7 @@ class ShoppingCartVC: UIViewController
         else
         {
             let checkOutVC = CheckoutVC()
-            checkOutVC.checkOutVM = CheckOutVM(dataProvider: API(), total: "\(VM.priceSum.value ?? 0)")
+            checkOutVC.checkOutVM = CheckOutVM(dataProvider: API(), total: "\(VM.priceSum.value ?? 0)", products: VM.productList)
             self.navigationController?.pushViewController(checkOutVC, animated: true)
         }
     }

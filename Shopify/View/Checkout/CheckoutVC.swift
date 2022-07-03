@@ -135,7 +135,26 @@ class CheckoutVC: UIViewController {
     }
     
     @IBAction func placeOrderBtnPressed(_ sender: Any) {
-        
+//        debugPrint(checkOutVM.productList.value)
+//        debugPrint(UserDefaults.standard.string(forKey: "customerID"))
+        // Place a new order
+        checkOutVM.postOrder
+        { [weak self] resultMessage in
+            
+            DispatchQueue.main.async
+            {
+                [weak self] in
+                self?.alert(title: "", message: resultMessage)
+            }
+        }
+    }
+    
+    func alert(title: String, message: String)
+    {
+        var alert = UIAlertController()
+        alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default))
+        self.present(alert, animated: true)
     }
     
 }
