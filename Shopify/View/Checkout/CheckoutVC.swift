@@ -26,7 +26,7 @@ class CheckoutVC: UIViewController {
     var checkOutVM : CheckOutVM!
     var discountList = [PriceRule]()
     
-    var shippingFees = 50
+    var shippingFees = 0
     var discount = 0
     var counntry = ""
 
@@ -86,10 +86,7 @@ class CheckoutVC: UIViewController {
                     self?.shippingFees = 100
                     self?.shippingFeesLabel.text = "\(self?.shippingFees ?? 0)"
                 }
-                let subtotal = Float(self?.checkOutVM.subTotal ?? "0") ?? 0
-                let shippingFees = Float(self?.shippingFees ?? 0)
-                
-                self?.totalLabel.text = "\(subtotal + shippingFees)"
+
             }
 
         }
@@ -101,7 +98,8 @@ class CheckoutVC: UIViewController {
         subTotalLabel.text = adjustAmount(amount: subTotal)
         shippingFeesLabel.text = adjustAmount(amount: Float(shippingFees))
         discountLabel.text = adjustAmount(amount: Float(discount))
-        totalLabel.text = adjustAmount(amount: ((subTotal + Float(shippingFees)) - Float(discount) ))
+        let total = subTotal + Float(shippingFees) - Float(discount)
+        totalLabel.text = adjustAmount(amount: total)
     }
     
     func adjustAmount(amount: Float) -> String

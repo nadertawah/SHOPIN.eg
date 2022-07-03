@@ -208,7 +208,7 @@ extension HomeVC: UICollectionViewDelegateFlowLayout {
             
         } else {
             
-            return CGSize(width: adsCollectionView.frame.width, height: adsCollectionView.frame.height)
+            return CGSize(width: adsCollectionView.frame.width, height: UIScreen.main.bounds.height/4)
             
         }
     }

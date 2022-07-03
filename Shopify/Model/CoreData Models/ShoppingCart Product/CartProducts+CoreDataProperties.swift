@@ -18,5 +18,7 @@ extension CartProducts {
 
     @NSManaged public var isCheckedOut: Bool
     @NSManaged public var qty: Int64
+    @NSManaged public var variantID: Int64
+
 
 }
