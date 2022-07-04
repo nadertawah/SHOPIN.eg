@@ -265,5 +265,7 @@ extension MeVC : UITableViewDelegate, UITableViewDataSource
         return UITableViewCell()
     }
     
-    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+            return nil
+        }
 }

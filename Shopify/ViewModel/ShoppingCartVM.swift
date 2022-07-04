@@ -86,10 +86,9 @@ class ShoppingCartVM
         
         calculateSum()
     }
-     
     
     // MARK: - Delete Data form Data-Base
-        func deleteProduct (index : Int)
+    func deleteProduct (index : Int)
     {
         if let product = productList.value?[index]
         {
@@ -97,7 +96,7 @@ class ShoppingCartVM
             productList.value?.remove(at: index)
             calculateSum()
         }
-
+        
     }
     
     func calculateSum()

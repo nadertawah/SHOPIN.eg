@@ -88,6 +88,8 @@ class CheckoutVC: UIViewController {
                         [weak self] in
                         let alert = Alerts.instance.showAlert(title: "", message: resultMessage)
                         self?.present(alert, animated: true, completion: nil)
+                        
+                        self?.checkOutVM.emptyCart()
                     }
                 }
             }
