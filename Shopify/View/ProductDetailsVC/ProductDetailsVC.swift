@@ -163,10 +163,9 @@ class ProductDetailsVC: UIViewController
     
     func setPrice() {
         let product = self.VM.product.value
-        if let price = product?.variants?[0].price, let currency = UserDefaults.standard.string(forKey: "Currency") {
-            let rate = Constants.rates[currency]
-            let actualPrice = ( price as NSString).floatValue * (rate ?? 0.0)
-            priceLabel.text = String(format: "%.2f", actualPrice) + " " + currency
+        if let price = product?.variants?[0].price {
+            let priceFloat = (price as NSString).floatValue
+            priceLabel.text = Helper.adjustAmount(amount: priceFloat)
         }
     }
     

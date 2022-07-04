@@ -49,7 +49,8 @@ class OrdersHistoryVC: UITableViewController {
         // Configure the cell...
         cell.orderIDLabel.text = "\(order?.id ?? 0)"
         cell.dateLabel.text = order?.closed_at
-        cell.totalAmountLabel.text = order?.current_total_price
+        let totalFloat = ((order?.current_total_price ?? "") as NSString).floatValue
+        cell.totalAmountLabel.text = Helper.adjustAmount(amount: totalFloat)
         
         return cell
     }

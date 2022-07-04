@@ -79,10 +79,7 @@ class ShoppingCartVC: UIViewController {
         { [weak self] sum in
             DispatchQueue.main.async
             {
-                let currency = UserDefaults.standard.string(forKey: "Currency") ?? ""
-                let rate = Constants.rates[currency]
-                let actualSum =  (sum ?? 0) * (rate ?? 0)
-                self?.subTotalLabel.text = String(format: "%.2f", actualSum) + " " + currency
+                self?.subTotalLabel.text = Helper.adjustAmount(amount: sum ?? 0)
                 self?.cartTableView.reloadData()
             }
         }

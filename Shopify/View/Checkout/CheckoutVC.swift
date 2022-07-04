@@ -74,20 +74,26 @@ class CheckoutVC: UIViewController {
     
     @IBAction func placeOrderBtnPressed(_ sender: Any) {
         
-        if selectedPaymentOptionIndex == 1 {
-            let alert = Alerts.instance.showAlert(title: "Online Payment", message: "This Service is Not Available right now!")
-            self.present(alert, animated: true, completion: nil)
-        } else {
-            // Place a new order
-            checkOutVM.postOrder
-            { [weak self] resultMessage in
-                
-                DispatchQueue.main.async
-                {
-                    [weak self] in
-                    self?.alert(title: "", message: resultMessage)
+        if selectedPaymentOptionIndex != -1 {
+            if selectedPaymentOptionIndex == 1 {
+                let alert = Alerts.instance.showAlert(title: "Online Payment", message: "This Service is Not Available right now!")
+                self.present(alert, animated: true, completion: nil)
+            } else {
+                // Place a new order
+                checkOutVM.postOrder
+                { [weak self] resultMessage in
+                    
+                    DispatchQueue.main.async
+                    {
+                        [weak self] in
+                        let alert = Alerts.instance.showAlert(title: "", message: resultMessage)
+                        self?.present(alert, animated: true, completion: nil)
+                    }
                 }
             }
+        } else {
+            let alert = Alerts.instance.showAlert(title: "Payment Failed", message: "Please check yout payment method and try again!")
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
@@ -147,7 +153,7 @@ class CheckoutVC: UIViewController {
                 }
                 let subTotal = Float(self?.checkOutVM?.subTotal ?? "0") ?? 0
                 if self?.counntry == "Egypt" {
-                    self?.shippingFees = 30
+                    self?.shippingFees = 0
                     self?.shippingFeesLabel.text = Helper.adjustAmount(amount: Float(self?.shippingFees ?? 0))
                     self?.totalLabel.text = Helper.adjustAmount(amount: (subTotal + (self?.shippingFees ?? 0) + (self?.discount ?? 0)))
 
@@ -170,13 +176,6 @@ class CheckoutVC: UIViewController {
         paymentMethodTabelView.reloadData()
     }
     
-    func alert(title: String, message: String)
-    {
-        var alert = UIAlertController()
-        alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default))
-        self.present(alert, animated: true)
-    }
 }
 
 // MARK: - CheckoutVC DataSource & Delegate Methods

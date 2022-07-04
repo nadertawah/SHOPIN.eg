@@ -257,7 +257,8 @@ extension MeVC : UITableViewDelegate, UITableViewDataSource
         {
             guard let cell = wishlistTableView.dequeueReusableCell(withIdentifier: labelCellIdentfier) as? LabelTableViewCell else {return UITableViewCell()}
             let product = VM.wishlistProducts.value?[indexPath.row]
-            cell.label.text = "\(product?.title ?? "")\n\(product?.price ?? "")"
+            let priceFloat = ((product?.price ?? "") as NSString).floatValue
+            cell.label.text = "\(product?.title ?? "")\n" + Helper.adjustAmount(amount: priceFloat)
             return cell
         }
         
