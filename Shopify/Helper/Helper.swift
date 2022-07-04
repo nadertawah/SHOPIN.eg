@@ -14,4 +14,13 @@ struct Helper
     {
         return Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0
     }
+    
+    //adjust amount based on chosen currency
+    static func adjustAmount(amount: Float) -> String
+    {
+        let currency = UserDefaults.standard.string(forKey: "Currency") ?? ""
+        let rate = Constants.rates[currency]
+        let adjustedAmount =  amount * (rate ?? 0)
+        return String(format: "%.2f", adjustedAmount) + " " + currency
+    }
 }
