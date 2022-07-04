@@ -21,7 +21,7 @@ class MeVC: UIViewController
     //MARK: - IBOutlet(s)
     @IBOutlet weak var welcomeLabel: UILabel!
     
-    @IBOutlet weak var loginRegisterBtn: UIButton! {didSet{loginRegisterBtn.shopifyBtn(title: "LOGIN/REGISTER")}}
+    @IBOutlet weak var loginRegisterLogoutBtn: UIButton! {didSet{loginRegisterLogoutBtn.shopifyBtn(title: "LOGIN/REGISTER")}}
     
     @IBOutlet weak var moreOrdersBtn: UIButton!
     
@@ -30,10 +30,7 @@ class MeVC: UIViewController
     @IBOutlet weak var ordersTableView: UITableView!
     
     @IBOutlet weak var wishlistTableView: UITableView!
-    
-    @IBOutlet weak var logoutBtn: UIButton!{didSet{logoutBtn.shopifyBtn(title: "LOGOUT")}}
-    
-    
+        
     //MARK: - IBAction(s)
     
     @IBAction func moreOrdersBtnPressed(_ sender: Any)
@@ -54,6 +51,21 @@ class MeVC: UIViewController
     {
         VM.logout()
     }
+    
+    @IBAction func loginRegisterBtnPressed(_ sender: Any)
+    {
+        if loginRegisterLogoutBtn.titleLabel?.text == "LOGOUT"
+        {
+            VM.logout()
+        }
+        else if loginRegisterLogoutBtn.titleLabel?.text == "LOGIN/REGISTER"
+        {
+            let vc = LoginRegisterVC()
+            vc.VM = LoginRegisterVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
     
     //MARK: - Var(s)
     var VM : MeViewModel!
@@ -136,14 +148,7 @@ class MeVC: UIViewController
         }
     }
     
-    @IBAction func loginRegisterBtnPressed(_ sender: Any)
-    {
-        let vc = LoginRegisterVC()
-        vc.VM = LoginRegisterVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant)
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    
+   
     func updateUILoginRegisterState(isLoggedIn:Bool)
     {
         if isLoggedIn
@@ -151,8 +156,7 @@ class MeVC: UIViewController
             UIView.animate(withDuration: 0.5)
             { [weak self] in
                 self?.welcomeLabel.alpha = 1
-                self?.logoutBtn.alpha = 1
-                self?.loginRegisterBtn.alpha = 0
+                self?.loginRegisterLogoutBtn.shopifyBtn(title: "LOGOUT")
             }
         }
         else
@@ -161,8 +165,7 @@ class MeVC: UIViewController
             {
                 [weak self] in
                 self?.welcomeLabel.alpha = 0
-                self?.logoutBtn.alpha = 0
-                self?.loginRegisterBtn.alpha = 1
+                self?.loginRegisterLogoutBtn.shopifyBtn(title: "LOGIN/REGISTER")
                 self?.moreOrdersBtn.isEnabled = false
                 self?.moreWishlistBtn.isEnabled = false
 
