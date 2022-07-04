@@ -17,11 +17,11 @@ class CheckoutVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         let subTotal = Float(checkOutVM?.subTotal ?? "0") ?? 0
-        subTotalLabel.text = adjustAmount(amount: subTotal)
-        shippingFeesLabel.text = adjustAmount(amount: Float(shippingFees))
-        discountLabel.text = adjustAmount(amount: Float(discount))
-        let total = subTotal + Float(shippingFees) - Float(discount)
-        totalLabel.text = adjustAmount(amount: total)
+        subTotalLabel.text = Helper.adjustAmount(amount: subTotal)
+        shippingFeesLabel.text = Helper.adjustAmount(amount: Float(shippingFees))
+        discountLabel.text = Helper.adjustAmount(amount: Float(discount))
+        let total = subTotal + Float(shippingFees) + Float(discount)
+        totalLabel.text = Helper.adjustAmount(amount: total)
     }
     
     
@@ -42,8 +42,8 @@ class CheckoutVC: UIViewController {
     //MARK: - Variable(s)
     var checkOutVM : CheckOutVM!
     var discountList = [PriceRule]()
-    var shippingFees = 0
-    var discount = 0
+    var shippingFees: Float = 0
+    var discount: Float = 0
     var counntry = ""
     var PaymentMethodArrText = ["Cash On Delivery" , "Credit/Debit Cart"]
     var PaymentMethodArrIcon = ["cash","online"]
@@ -60,10 +60,10 @@ class CheckoutVC: UIViewController {
             }
         }
         if discountCodeindex != -1 {
-            discount = (discountList[discountCodeindex].value! as NSString).integerValue
+            discount = (discountList[discountCodeindex].value! as NSString).floatValue
             let subTotal = Float(checkOutVM?.subTotal ?? "0") ?? 0
-            discountLabel.text = "\(discountList[discountCodeindex].value!)"
-            totalLabel.text = adjustAmount(amount: ((Float(subTotal) + Float(shippingFees)) + Float(discount) ))
+            discountLabel.text = Helper.adjustAmount(amount: discount)
+            totalLabel.text = Helper.adjustAmount(amount: (subTotal + shippingFees + discount))
         }
         else
         {
@@ -74,20 +74,28 @@ class CheckoutVC: UIViewController {
     
     @IBAction func placeOrderBtnPressed(_ sender: Any) {
         
-        if selectedPaymentOptionIndex == 1 {
-            let alert = Alerts.instance.showAlert(title: "Online Payment", message: "This Service is Not Available right now!")
-            self.present(alert, animated: true, completion: nil)
-        } else {
-            // Place a new order
-            checkOutVM.postOrder
-            { [weak self] resultMessage in
-                
-                DispatchQueue.main.async
-                {
-                    [weak self] in
-                    self?.alert(title: "", message: resultMessage)
+        if selectedPaymentOptionIndex != -1 {
+            if selectedPaymentOptionIndex == 1 {
+                let alert = Alerts.instance.showAlert(title: "Online Payment", message: "This Service is Not Available right now!")
+                self.present(alert, animated: true, completion: nil)
+            } else {
+                // Place a new order
+                checkOutVM.postOrder
+                { [weak self] resultMessage in
+                    
+                    DispatchQueue.main.async
+                    {
+                        [weak self] in
+                        let alert = Alerts.instance.showAlert(title: "", message: resultMessage)
+                        self?.present(alert, animated: true, completion: nil)
+                        
+                        self?.checkOutVM.emptyCart()
+                    }
                 }
             }
+        } else {
+            let alert = Alerts.instance.showAlert(title: "Payment Failed", message: "Please check yout payment method and try again!")
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
@@ -145,13 +153,17 @@ class CheckoutVC: UIViewController {
                     self?.counntry = self?.checkOutVM.country[0] ?? ""
                     self?.addShippingAddress.isHidden = true
                 }
-                
+                let subTotal = Float(self?.checkOutVM?.subTotal ?? "0") ?? 0
                 if self?.counntry == "Egypt" {
                     self?.shippingFees = 0
-                    self?.shippingFeesLabel.text = "\(self?.shippingFees ?? 0)"
+                    self?.shippingFeesLabel.text = Helper.adjustAmount(amount: Float(self?.shippingFees ?? 0))
+                    self?.totalLabel.text = Helper.adjustAmount(amount: (subTotal + (self?.shippingFees ?? 0) + (self?.discount ?? 0)))
+
                 } else {
                     self?.shippingFees = 100
-                    self?.shippingFeesLabel.text = "\(self?.shippingFees ?? 0)"
+                    self?.shippingFeesLabel.text = Helper.adjustAmount(amount: Float(self?.shippingFees ?? 0))
+                    self?.totalLabel.text = Helper.adjustAmount(amount: (subTotal + (self?.shippingFees ?? 0) + (self?.discount ?? 0)))
+
                 }
                 
             }
@@ -159,29 +171,13 @@ class CheckoutVC: UIViewController {
         }
         
     }
-    
-
-    func adjustAmount(amount: Float) -> String
-    {
-        let currency = UserDefaults.standard.string(forKey: "Currency") ?? ""
-        let rate = Constants.rates[currency]
-        let adjustedAmount =  amount * (rate ?? 0)
-        return String(format: "%.2f", adjustedAmount) + " " + currency
-    }
-    
+        
     @objc func paymentMethodButtonPressed(sender:UIButton)
     {
         selectedPaymentOptionIndex = sender.tag
         paymentMethodTabelView.reloadData()
     }
     
-    func alert(title: String, message: String)
-    {
-        var alert = UIAlertController()
-        alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default))
-        self.present(alert, animated: true)
-    }
 }
 
 // MARK: - CheckoutVC DataSource & Delegate Methods

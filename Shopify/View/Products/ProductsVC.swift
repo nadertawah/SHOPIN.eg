@@ -12,11 +12,11 @@ class ProductsVC: UIViewController
 {
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setUI()
         
     }
-
+    
     //MARK: - IBOutlet(s)
     @IBOutlet weak var productsSearch: UISearchBar!
     
@@ -52,7 +52,7 @@ class ProductsVC: UIViewController
         // Setting Products CollectionView Delegate and Datasource
         productsCollectionView.delegate = self
         productsCollectionView.dataSource = self
-
+        
         //search bar delegate
         productsSearch.delegate = self
         
@@ -97,17 +97,16 @@ extension ProductsVC: UICollectionViewDelegate, UICollectionViewDataSource {
         guard let cell = productsCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.productCellReuseIdentifier, for: indexPath) as? ProductCell else { return UICollectionViewCell() }
         
         let product = VM.filteredProductList.value?[indexPath.item]
-        if let price = product?.variants?[0].price, let currency = UserDefaults.standard.string(forKey: "Currency") {
-            let rate = Constants.rates[currency]
-            let actualPrice = ( price as NSString).floatValue * (rate ?? 0.0)
-        
-        // Configure cell
-        cell.VM = ProductCellVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant, product: product ?? Product())
-        cell.configureCellVM()
-        
-        cell.priceLabel.text = String(format: "%.2f", actualPrice) + " " + currency
-        cell.productNameLabel.text = product?.title
-        cell.productImgView.sd_setImage(with: URL(string: product?.images?[0].src ?? ""), placeholderImage: UIImage(named: "placeHolder"))
+        if let price = product?.variants?[0].price {
+            let priceFloat = (price as NSString).floatValue
+            
+            // Configure cell
+            cell.VM = ProductCellVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant, product: product ?? Product())
+            cell.configureCellVM()
+            
+            cell.priceLabel.text = Helper.adjustAmount(amount: priceFloat)
+            cell.productNameLabel.text = product?.title
+            cell.productImgView.sd_setImage(with: URL(string: product?.images?[0].src ?? ""), placeholderImage: UIImage(named: "placeHolder"))
         }
         
         return cell
@@ -120,7 +119,7 @@ extension ProductsVC: UICollectionViewDelegate, UICollectionViewDataSource {
         vc.VM = ProductDetailsVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant, productID: "\(product?.id ?? 0)")
         
         self.navigationController?.pushViewController(vc, animated: true)
-
+        
     }
 }
 

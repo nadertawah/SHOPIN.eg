@@ -20,13 +20,16 @@ class CheckOutVM {
     var customerEMail = ""
     var productList = Observable<[CartProducts]>([])
     var BindingParsingclosure : () -> Void = {}
-    var dataProvider : DataProviderProtocol!
+    var dataProvider : DataProviderProtocol
+    var dataPersistant : DataPersistantProtocol
+
     
     //MARK: - Init
-    init(dataProvider : DataProviderProtocol , total : String, products: Observable<[CartProducts]>)
+    init(dataProvider: DataProviderProtocol, dataPersistant: DataPersistantProtocol, total: String, products: Observable<[CartProducts]>)
     {
         productList.value = products.value
         self.dataProvider = dataProvider
+        self.dataPersistant = dataPersistant
         getAddresses()
         subTotal = total
     }
@@ -52,6 +55,20 @@ class CheckOutVM {
             city.append(address.city ?? "")
             addresss.append(address.address1 ?? "")
             print(country[0])
+        }
+    }
+    
+    // empty cart
+    func emptyCart()
+    {
+        for i in (0..<(productList.value?.count ?? 0)).reversed()
+        {
+            if let product = productList.value?[i]
+            {
+                debugPrint(product)
+                dataPersistant.deleteObj(obj: product)
+                productList.value?.remove(at: i)
+            }
         }
     }
     

@@ -139,15 +139,14 @@ extension CategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
             guard let cell = productsCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.productCellReuseIdentifier, for: indexPath) as? ProductCell else { return UICollectionViewCell() }
             
             let product = VM.filteredProducts.value?[indexPath.item]
-            if let price = product?.variants?[0].price, let currency = UserDefaults.standard.string(forKey: "Currency") {
-                let rate = Constants.rates[currency]
-                let actualPrice = ( price as NSString).floatValue * (rate ?? 0.0)
+            if let price = product?.variants?[0].price {
+                let priceFloat = (price as NSString).floatValue
                 
                 // Configure product cell
                 cell.VM = ProductCellVM(dataProvider: VM.dataProvider, dataPersistant: VM.dataPersistant, product: product ?? Product())
                 cell.configureCellVM()
                 
-                cell.priceLabel.text = String(format: "%.2f", actualPrice) + " " + currency
+                cell.priceLabel.text = Helper.adjustAmount(amount: priceFloat)
                 cell.productNameLabel.text = product?.title
                 cell.productImgView.sd_setImage(with: URL(string: product?.images?[0].src ?? ""), placeholderImage: UIImage(named: "placeHolder"))
             }

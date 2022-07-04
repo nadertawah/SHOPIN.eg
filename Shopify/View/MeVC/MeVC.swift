@@ -249,7 +249,8 @@ extension MeVC : UITableViewDelegate, UITableViewDataSource
 
             cell.orderIDLabel.text = "\(order?.id ?? 0)"
             cell.dateLabel.text = order?.closed_at
-            cell.totalAmountLabel.text = order?.current_total_price
+            let totalFloat = ((order?.current_total_price ?? "") as NSString).floatValue
+            cell.totalAmountLabel.text = Helper.adjustAmount(amount: totalFloat)
             
             return cell
         }
@@ -257,12 +258,15 @@ extension MeVC : UITableViewDelegate, UITableViewDataSource
         {
             guard let cell = wishlistTableView.dequeueReusableCell(withIdentifier: labelCellIdentfier) as? LabelTableViewCell else {return UITableViewCell()}
             let product = VM.wishlistProducts.value?[indexPath.row]
-            cell.label.text = "\(product?.title ?? "")\n\(product?.price ?? "")"
+            let priceFloat = ((product?.price ?? "") as NSString).floatValue
+            cell.label.text = "\(product?.title ?? "")\n" + Helper.adjustAmount(amount: priceFloat)
             return cell
         }
         
         return UITableViewCell()
     }
     
-    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+            return nil
+        }
 }
