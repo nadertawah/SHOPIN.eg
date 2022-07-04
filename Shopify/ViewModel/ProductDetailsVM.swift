@@ -17,14 +17,12 @@ class ProductDetailsVM
     }
     
     //MARK: - Var(s)
-    //data provider data persitance services
-    private(set) var dataProvider : DataProviderProtocol
-    private(set) var dataPersistant: DataPersistantProtocol
-    
-    //VM model
     private(set) var product = Observable<Product>(Product())
     private(set) var isAddedToWishlist = Observable<Bool>(false)
     
+    //data provider data persitance services
+    private(set) var dataProvider : DataProviderProtocol
+    private(set) var dataPersistant: DataPersistantProtocol
     
     //MARK: - intent(s)
     func toggleWishlist()

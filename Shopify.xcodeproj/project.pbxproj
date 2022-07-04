@@ -12,8 +12,6 @@
 		75165920285FE1C200132444 /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7516591F285FE1C200132444 /* HomeVM.swift */; };
 		75165924285FEBA000132444 /* DataProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75165923285FEBA000132444 /* DataProviderProtocol.swift */; };
 		7524F769285FDE4B00BFBE51 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7524F768285FDE4B00BFBE51 /* Helper.swift */; };
-		7524F76C285FDE6600BFBE51 /* SplashScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7524F76A285FDE6600BFBE51 /* SplashScreenVC.swift */; };
-		7524F76D285FDE6600BFBE51 /* SplashScreenVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7524F76B285FDE6600BFBE51 /* SplashScreenVC.xib */; };
 		752796292860E68600381C89 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752796272860E68600381C89 /* HomeVC.swift */; };
 		7527962E2861106C00381C89 /* ProductDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7527962C2861106C00381C89 /* ProductDetailsVC.swift */; };
 		7527962F2861106D00381C89 /* ProductDetailsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7527962D2861106C00381C89 /* ProductDetailsVC.xib */; };
@@ -176,8 +174,6 @@
 		7516591F285FE1C200132444 /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
 		75165923285FEBA000132444 /* DataProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderProtocol.swift; sourceTree = "<group>"; };
 		7524F768285FDE4B00BFBE51 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
-		7524F76A285FDE6600BFBE51 /* SplashScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenVC.swift; sourceTree = "<group>"; };
-		7524F76B285FDE6600BFBE51 /* SplashScreenVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashScreenVC.xib; sourceTree = "<group>"; };
 		752796272860E68600381C89 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		7527962C2861106C00381C89 /* ProductDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsVC.swift; sourceTree = "<group>"; };
 		7527962D2861106C00381C89 /* ProductDetailsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductDetailsVC.xib; sourceTree = "<group>"; };
@@ -465,7 +461,6 @@
 				7576E2212862B61200022E69 /* LoginRegisterVC */,
 				8DE87154286147C300D239CF /* ShoppingCart */,
 				8DFCF0522862AECD007D30A0 /* Checkout */,
-				755C4692285E472D005C4208 /* SplashScreen */,
 				7527963028612AD200381C89 /* Common */,
 			);
 			path = View;
@@ -518,15 +513,6 @@
 				75378E55285E4F16004DAD3D /* BaseNavBar.swift */,
 			);
 			path = Base;
-			sourceTree = "<group>";
-		};
-		755C4692285E472D005C4208 /* SplashScreen */ = {
-			isa = PBXGroup;
-			children = (
-				7524F76A285FDE6600BFBE51 /* SplashScreenVC.swift */,
-				7524F76B285FDE6600BFBE51 /* SplashScreenVC.xib */,
-			);
-			path = SplashScreen;
 			sourceTree = "<group>";
 		};
 		7576E2212862B61200022E69 /* LoginRegisterVC */ = {
@@ -953,7 +939,6 @@
 				7527963428612B1600381C89 /* ImageCollectionViewCell.xib in Resources */,
 				75B75F62286B784200E18277 /* WishlistVC.xib in Resources */,
 				76A3EF3E2863549200A1DED7 /* HomeVC.xib in Resources */,
-				7524F76D285FDE6600BFBE51 /* SplashScreenVC.xib in Resources */,
 				8DE87158286147FD00D239CF /* ShoppingCartVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1121,7 +1106,6 @@
 				76A3EF632863ED6600A1DED7 /* ProductsVM.swift in Sources */,
 				759B531828627E790061474E /* ReviewsTableViewCell.swift in Sources */,
 				75FE229A2861F6650071039C /* ProductDetails.swift in Sources */,
-				7524F76C285FDE6600BFBE51 /* SplashScreenVC.swift in Sources */,
 				76A3EF6D286C6B6200A1DED7 /* CurrenciesTableView.swift in Sources */,
 				8D6CC57B286B51ED00310313 /* SettingVC.swift in Sources */,
 				76A3EF692867287A00A1DED7 /* Collects.swift in Sources */,

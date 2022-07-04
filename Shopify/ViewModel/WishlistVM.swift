@@ -18,11 +18,12 @@ class WishlistVM
     }
     
     //MARK: - Var(s)
-    var dataProvider: DataProviderProtocol
-    var dataPersistant: DataPersistantProtocol
-    var wishlistProducts = Observable<[ProductCoreData]>([])
+    private(set) var wishlistProducts = Observable<[ProductCoreData]>([])
     private(set) var productID : Int!
-
+    
+    //data provider data persitance services
+    private(set) var dataProvider: DataProviderProtocol
+    private(set) var dataPersistant: DataPersistantProtocol
     
     //MARK: - Helper Funcs
     func getWishlistProducts()

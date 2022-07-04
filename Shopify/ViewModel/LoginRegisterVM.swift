@@ -16,9 +16,9 @@ class LoginRegisterVM
     }
     
     //MARK: - Var(s)
-    //data provider service
-    var dataProvider : DataProviderProtocol
-    var dataPersistant: DataPersistantProtocol
+    //data provider data persitance services
+    private(set) var dataProvider : DataProviderProtocol
+    private(set) var dataPersistant: DataPersistantProtocol
     
     //MARK: - intent(s)
     func login(email:String, password:String,completionHandler : @escaping (String,Bool)->())

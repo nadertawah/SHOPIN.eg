@@ -15,16 +15,17 @@ class MeViewModel
         self.dataPersistant = dataPersistant
     }
     
+    
     //MARK: - Var(s)
-    var dataProvider : DataProviderProtocol
-    var dataPersistant: DataPersistantProtocol
-
     private(set) var isLoggedIn = Observable<Bool>(Helper.getCustomerID() != 0)
     private(set) var customer = Observable<Customer>(nil)
     private(set) var wishlistProducts = Observable<[ProductCoreData]>([])
     private(set) var ordersList = Observable<[Order]>([])
 
-
+    //data provider data persitance services
+    private(set) var dataProvider : DataProviderProtocol
+    private(set) var dataPersistant: DataPersistantProtocol
+    
     //MARK: - intent(s)
     func getLoginState()
     {

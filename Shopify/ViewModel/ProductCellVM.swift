@@ -19,10 +19,10 @@ class ProductCellVM
     }
     
     //MARK: - Var(s)
-    var dataProvider: DataProviderProtocol
-    var dataPersistant: DataPersistantProtocol
-    var isAddedToWishlist =  Observable<Bool>(false)
-    var product : Product!
+    private(set) var dataProvider: DataProviderProtocol
+    private(set) var dataPersistant: DataPersistantProtocol
+    private(set) var isAddedToWishlist =  Observable<Bool>(false)
+    private(set) var product : Product!
     
     //MARK: - intent(s)
     func toggleWishlist()
