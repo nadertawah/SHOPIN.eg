@@ -34,7 +34,7 @@ Discount code, Shopping Cart, Payment, Ads, Settings
 
 ### Nader Said Abd-almageed
 Set 3:
-Product info, Search, Favorites, Auth
+Product info, Search, Favorites, Auth, Reviews
 
 
 
