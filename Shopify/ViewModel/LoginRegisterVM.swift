@@ -23,7 +23,7 @@ class LoginRegisterVM
     //MARK: - intent(s)
     func login(email:String, password:String,completionHandler : @escaping (String,Bool)->())
     {
-        dataProvider.get(urlStr: Constants.customersAPIUrl, type: CustomersModel.self)
+        dataProvider.get(urlStr: Constants.customersAPIUrl.replacingOccurrences(of: ".json", with: "/search.json?query=\(email)"), type: CustomersModel.self)
         { 
             customersModel in
             guard let customers = customersModel?.customers else { return }

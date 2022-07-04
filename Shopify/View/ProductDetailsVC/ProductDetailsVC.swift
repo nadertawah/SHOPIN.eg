@@ -110,10 +110,9 @@ class ProductDetailsVC: UIViewController
         //set coll view delegates
         productImgCollectionView.dataSource = self
         productImgCollectionView.delegate = self
-        //TODO: - bind to VM
-            //TODO: - set page control count, size segment control, rating, wishlist
         
         
+        //bind to VM
         VM.product.bind
         {
             [weak self] product in

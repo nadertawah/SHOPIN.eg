@@ -9,6 +9,7 @@ import Foundation
 
 struct Helper
 {
+    //get customer id if logged in else return 0
     static func getCustomerID() -> Int64
     {
         return Int64(UserDefaults.standard.string(forKey: "customerID") ?? "0") ?? 0

@@ -16,6 +16,7 @@ extension UIButton
         self.backgroundColor = .black
         self.tintColor = .white
         
+        //set smaller font size for small devices
         var fontSize : CGFloat = 18
         if UIScreen.main.nativeBounds.height < 1700
         {fontSize = 15}

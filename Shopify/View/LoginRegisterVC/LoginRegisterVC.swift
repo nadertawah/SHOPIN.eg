@@ -124,25 +124,25 @@ class LoginRegisterVC: UIViewController
     {
         if swipeLabel.text == "Swipe to Login"
         {
-            UIView.transition(with: self.loginRegisterBtn, duration: 0.5, options: [.transitionCrossDissolve], animations:
-            {   [weak self] in
+            UIView.animate(withDuration: 0.5)
+            {[weak self] in
                 self?.nameTextField.alpha = 0
                 self?.phoneNumberTextField.alpha = 0
                 self?.loginRegisterBtn.shopifyBtn(title:"SIGN IN")
                 self?.swipeLabel.text = "Swipe to Register"
                 self?.title = "Login"
-            })
+            }
         }
         else
         {
-            UIView.transition(with: self.loginRegisterBtn, duration: 0.5, options: [.transitionCrossDissolve], animations:
-            { [weak self] in
+            UIView.animate(withDuration: 0.5)
+            {[weak self] in
                 self?.loginRegisterBtn.shopifyBtn(title:"SIGN UP")
                 self?.nameTextField.alpha = 1
                 self?.phoneNumberTextField.alpha = 1
                 self?.swipeLabel.text = "Swipe to Login"
                 self?.title = "Register"
-            })
+            }
         }
     }
 }
