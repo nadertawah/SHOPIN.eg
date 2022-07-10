@@ -38,6 +38,8 @@ class SettingVC: UIViewController {
         
         // Setting Parameters
         setting = [ "Address" , "Currency" , "About us" , "Contact us" ]
+        
+        
     }
     
 }
@@ -72,8 +74,16 @@ extension SettingVC: UITableViewDelegate , UITableViewDataSource {
 
         switch indexPath.row {
         case 0:
-            let vc = AddressVC()
-            self.navigationController?.pushViewController(vc, animated: true)
+            if Helper.getCustomerID() != 0
+            {
+                let vc = AddressVC()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            else
+            {
+                let alert = Alerts.instance.showAlert(title: "", message: "You must login first!")
+                self.present(alert, animated: true)
+            }
         case 1:
             let vc = CurrenciesTableView()
             self.navigationController?.pushViewController(vc, animated: true)

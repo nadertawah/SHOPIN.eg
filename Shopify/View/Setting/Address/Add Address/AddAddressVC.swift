@@ -66,6 +66,10 @@ class AddAddressVC: UIViewController {
         countryTF.shopifyTF(placeholder: "Chose Countrt")
         cityTF.shopifyTF(placeholder: "Chose City")
         addressTF.shopifyTF(placeholder: "Enter Address")
+        
+        
+        //dismiss keyboard when tapped anywhere
+        self.hideKeyboardWhenTappedAround()
     }
     
     

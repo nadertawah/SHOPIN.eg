@@ -24,7 +24,8 @@ class AddressVC: UIViewController {
     let VM = AddressVM(dataProvider: API())
     
     //MARK: - IBOutlet(s)
-    @IBAction func addAddressBtnPressed(_ sender: UIButton) {
+    @IBAction func addAddressBtnPressed(_ sender: UIButton)
+    {
         let addAddressVC = AddAddressVC()
         addAddressVC.VM = AddAddressVM(dataProvider: API(), editeAddress: false)
         self.navigationController?.pushViewController(addAddressVC, animated: true)
@@ -38,6 +39,7 @@ class AddressVC: UIViewController {
             DispatchQueue.main.async {
                 self?.addressTableView.reloadData()
             }
+            
         }
         
         //set title
@@ -54,6 +56,7 @@ class AddressVC: UIViewController {
         addAddressBtn.shopifyBtn(title: "Add New Address")
         
         addressTableView.reloadData()
+        
     }
 }
   
