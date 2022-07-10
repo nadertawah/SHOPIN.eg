@@ -71,6 +71,9 @@ class BaseTabBar:  UITabBarController
         
         //set delegate
         self.delegate = self
+        
+        //override dark mode
+        self.overrideUserInterfaceStyle = .light
     }
     
 }
