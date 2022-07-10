@@ -56,6 +56,7 @@ class ProductsVC: UIViewController
         //search bar delegate
         productsSearch.delegate = self
         
+        
         // Fetching data from API and Updating Collection View
         VM.filteredProductList.bind({ [weak self] products in
             DispatchQueue.main.async {
@@ -147,5 +148,10 @@ extension ProductsVC : UISearchBarDelegate
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
     {
         VM.filterProducts(price: priceSlider.value, searchStr: searchBar.text ?? "")
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
+    {
+        self.productsSearch.endEditing(true)
     }
 }

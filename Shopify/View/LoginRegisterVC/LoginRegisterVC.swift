@@ -112,12 +112,14 @@ class LoginRegisterVC: UIViewController
         let rightSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.swipe))
         rightSwipeGesture.direction = .right
         
-        let lefttSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.swipe))
-        lefttSwipeGesture.direction = .left
+        let leftSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.swipe))
+        leftSwipeGesture.direction = .left
 
-        
+        //Add Gestures
         self.view.addGestureRecognizer(rightSwipeGesture)
-        self.view.addGestureRecognizer(lefttSwipeGesture)
+        self.view.addGestureRecognizer(leftSwipeGesture)
+        self.hideKeyboardWhenTappedAround()
+        
     }
     
     @objc func swipe()

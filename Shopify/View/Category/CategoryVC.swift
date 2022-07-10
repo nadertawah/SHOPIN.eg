@@ -285,4 +285,9 @@ extension CategoryVC : UISearchBarDelegate
     {
         VM.searchProducts(searchStr: searchBar.text ?? "")
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
+    {
+        self.productSearch.endEditing(true)
+    }
 }

@@ -117,6 +117,9 @@ class CheckoutVC: UIViewController {
         //Hide Btn
         addShippingAddress.isHidden = true
         
+        //Hide keyboard after typing when tapped around
+        self.hideKeyboardWhenTappedAround()
+        
         // Confirm DataSource & Delegate for TableView
         paymentMethodTabelView.dataSource = self
         paymentMethodTabelView.delegate = self

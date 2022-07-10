@@ -72,6 +72,7 @@ class MeViewModel
     func getOrdersHistory()
     {
         let customerID = Helper.getCustomerID()
+        ordersList.value = []
         dataProvider.get(urlStr: Constants.ordersHistoryURL, type: Orders.self) { result in
             for order in (result?.orders ?? []) {
                 if order.customer?.id == customerID {

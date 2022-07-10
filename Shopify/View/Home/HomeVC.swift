@@ -230,5 +230,10 @@ extension HomeVC : UISearchBarDelegate
     {
         VM.searchBrands(searchStr: searchBar.text ?? "" )
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
+    {
+        self.brandsSearchBar.endEditing(true)
+    }
 }
 

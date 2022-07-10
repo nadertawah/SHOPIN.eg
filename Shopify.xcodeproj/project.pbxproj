@@ -55,6 +55,7 @@
 		75B75F6A286BF6EE00E18277 /* DataPersistantProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B75F4C286B6B7A00E18277 /* DataPersistantProtocol.swift */; };
 		75DB0D35286EEC3400660513 /* CartProducts+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DB0D33286EEC3400660513 /* CartProducts+CoreDataClass.swift */; };
 		75DB0D36286EEC3400660513 /* CartProducts+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DB0D34286EEC3400660513 /* CartProducts+CoreDataProperties.swift */; };
+		75E90D00287A5CD4005A9150 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E90CFF287A5CD4005A9150 /* UIViewController.swift */; };
 		75FE22982861F0270071039C /* ProductDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE22972861F0270071039C /* ProductDetailsVM.swift */; };
 		75FE229A2861F6650071039C /* ProductDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE22992861F6650071039C /* ProductDetails.swift */; };
 		75FE229C2861FD160071039C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE229B2861FD160071039C /* Constants.swift */; };
@@ -219,6 +220,7 @@
 		75B75F67286BF59700E18277 /* MockApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockApi.swift; sourceTree = "<group>"; };
 		75DB0D33286EEC3400660513 /* CartProducts+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CartProducts+CoreDataClass.swift"; sourceTree = "<group>"; };
 		75DB0D34286EEC3400660513 /* CartProducts+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CartProducts+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		75E90CFF287A5CD4005A9150 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIViewController.swift; path = ../../../../../Documents/UIViewController.swift; sourceTree = "<group>"; };
 		75FE22972861F0270071039C /* ProductDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsVM.swift; sourceTree = "<group>"; };
 		75FE22992861F6650071039C /* ProductDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetails.swift; sourceTree = "<group>"; };
 		75FE229B2861FD160071039C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -765,6 +767,7 @@
 			children = (
 				8DE8716128614F4D00D239CF /* UIButton.swift */,
 				8DFCF05C2862AF29007D30A0 /* UITextField.swift */,
+				75E90CFF287A5CD4005A9150 /* UIViewController.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -1121,6 +1124,7 @@
 				7527962E2861106C00381C89 /* ProductDetailsVC.swift in Sources */,
 				8D2A1D51286FAB8B00B0902A /* AboutUsVC.swift in Sources */,
 				7593F00328623A8C000BF315 /* MeVC.swift in Sources */,
+				75E90D00287A5CD4005A9150 /* UIViewController.swift in Sources */,
 				75B75F61286B784200E18277 /* WishlistVC.swift in Sources */,
 				755C4655285E38F0005C4208 /* SceneDelegate.swift in Sources */,
 				8D75C25D28648EA600ADC31A /* Alerts.swift in Sources */,
