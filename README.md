@@ -36,5 +36,8 @@ Discount code, Shopping Cart, Payment, Ads, Settings
 Set 3:
 Product info, Search, Favorites, Auth, Reviews
 
+## Jira Link
+https://iosshopify.atlassian.net/jira/software/projects/SHOP/boards/1
 
-
+## GitHub Link
+https://github.com/nadertawah/Shopify
