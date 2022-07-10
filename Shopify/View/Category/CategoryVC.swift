@@ -199,15 +199,11 @@ extension CategoryVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if collectionView == mainCategoriesCollectionView {
-            
-            if indexPath.item == 0 {
-                return CGSize(width: mainCategoriesCollectionView.frame.width/3.05, height: mainCategoriesCollectionView.frame.height)
-            } else if indexPath.item == 4 {
-                return CGSize(width: mainCategoriesCollectionView.frame.width/3.5, height: mainCategoriesCollectionView.frame.height)
-            } else {
-                return CGSize(width: mainCategoriesCollectionView.frame.width/5.5, height: mainCategoriesCollectionView.frame.height)
-            }
+        if collectionView == mainCategoriesCollectionView
+        {
+            let title = VM.mainCategoriesList.value?.custom_collections[indexPath.row].title ?? ""
+            let titleWidth = title.size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 20)]).width + 25
+            return CGSize(width: titleWidth, height: mainCategoriesCollectionView.frame.height)
             
         } else {
             
